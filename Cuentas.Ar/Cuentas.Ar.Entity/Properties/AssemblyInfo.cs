@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("Cuentas.Ar.Entity")]
+[assembly: AssemblyTitle("Cuentas.Ar.Entities")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Toshiba")]
-[assembly: AssemblyProduct("Cuentas.Ar.Entity")]
+[assembly: AssemblyProduct("Cuentas.Ar.Entities")]
 [assembly: AssemblyCopyright("Copyright © Toshiba 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

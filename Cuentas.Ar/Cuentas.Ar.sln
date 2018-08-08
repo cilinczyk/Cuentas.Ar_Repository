@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ceuntas.Ar.Business", "Ceuntas.Ar.Business\Ceuntas.Ar.Business.csproj", "{6B3FD811-6E11-44E8-9E22-F20F37B11724}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuentas.Ar.Business", "Ceuntas.Ar.Business\Cuentas.Ar.Business.csproj", "{6B3FD811-6E11-44E8-9E22-F20F37B11724}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuentas.Ar.Entity", "Cuentas.Ar.Entity\Cuentas.Ar.Entity.csproj", "{5E15EF12-0FDD-4FE7-9F50-3964D4938D06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuentas.Ar.Entities", "Cuentas.Ar.Entity\Cuentas.Ar.Entities.csproj", "{5E15EF12-0FDD-4FE7-9F50-3964D4938D06}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cuentas.Ar.Repository", "Cuentas.Ar.Repository\Cuentas.Ar.Repository.csproj", "{CEEC802C-8103-4E83-9E5C-700058898C32}"
 EndProject

@@ -16,7 +16,7 @@ namespace Cuentas.Ar.Site
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Menu", action = "Inicio", id = UrlParameter.Optional }
+                defaults: new { controller = "Cuenta", action = "Login", id = UrlParameter.Optional }
             );
         }
     }
