@@ -13,5 +13,13 @@ namespace Cuentas.Ar.Repository
         {
             return null;
         }
+
+        public Usuario IniciarSesion(string email, string password)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Usuario.Include("GEN_Idioma").FirstOrDefault(p => p.Email == email && p.Password == password && p.Estado == true);
+            }
+        }
     }
 }

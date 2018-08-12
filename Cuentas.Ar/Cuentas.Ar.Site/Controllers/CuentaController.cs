@@ -14,7 +14,7 @@ namespace Cuentas.Ar.Site.Controllers
 {
     public class CuentaController : Controller
     {
-        #region MyRegion
+        #region [Región: Login]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -48,8 +48,6 @@ namespace Cuentas.Ar.Site.Controllers
                         Usuario usuario = usuarioBusiness.IniciarSesion(model.Mail, Crypto.SHA1(model.Password));
                         if (usuario != null)
                         {
-                            Guid userToken = Guid.NewGuid();
-
                             #region [Región: Usuario existente]
 
                             #region [Región: Seteo las claims]
@@ -60,7 +58,7 @@ namespace Cuentas.Ar.Site.Controllers
                                 new Claim(ClaimTypes.GivenName, usuario.Nombre),
                                 new Claim(ClaimTypes.Email, usuario.Email),
                                 new Claim(ClaimTypes.Sid, usuario.idUsuario.ToString()),
-                                new Claim("http://example.org/claims/UserToken", userToken.ToString())
+                                new Claim(ClaimTypes.Role, usuario.Administrador ? "ADMIN" : "STANDARD"),
                             };
 
                             #endregion
@@ -69,9 +67,7 @@ namespace Cuentas.Ar.Site.Controllers
 
                             var identidad = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = model.Recordarme }, identidad);
-
-                            Session.Add("UserToken", userToken);
-
+                            
                             #endregion
 
                             #endregion

@@ -9,14 +9,15 @@
 
 namespace Cuentas.Ar.Repository
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using Cuentas.Ar.Entities;
 
-    public partial class Entities : DbContext
+    public partial class CuentasArEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public CuentasArEntities()
+            : base("name=CuentasArEntities")
         {
         }
     
