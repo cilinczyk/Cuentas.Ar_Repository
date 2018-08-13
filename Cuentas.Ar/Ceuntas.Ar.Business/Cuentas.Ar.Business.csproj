@@ -44,8 +44,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cuentas.Ar.Entity\Cuentas.Ar.Entities.csproj">
-      <Project>{5E15EF12-0FDD-4FE7-9F50-3964D4938D06}</Project>
+    <ProjectReference Include="..\Cuentas.Ar.Entities\Cuentas.Ar.Entities.csproj">
+      <Project>{5bac2c8c-9fbe-4162-863f-c27ad2968583}</Project>
       <Name>Cuentas.Ar.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Cuentas.Ar.Repository\Cuentas.Ar.Repository.csproj">

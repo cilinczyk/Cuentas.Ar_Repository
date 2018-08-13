@@ -7,13 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cuentas.Ar.Repository
-{
+	namespace Cuentas.Ar.Repository
+{ 
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     using Cuentas.Ar.Entities;
-
+    
     public partial class CuentasArEntities : DbContext
     {
         public CuentasArEntities()

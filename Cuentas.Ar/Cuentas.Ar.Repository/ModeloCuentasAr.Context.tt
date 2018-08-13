@@ -28,21 +28,15 @@ if (container == null)
 //------------------------------------------------------------------------------
 
 <#
-
 var codeNamespace = code.VsNamespaceSuggestion();
-if (!String.IsNullOrEmpty(codeNamespace))
-{
-#>
-namespace <#=code.EscapeNamespace(codeNamespace)#>
-{
-<#
-    PushIndent("    ");
-}
+if (!String.IsNullOrEmpty(codeNamespace)) { #>
+	namespace <#=code.EscapeNamespace(codeNamespace)#>
+{ <# PushIndent("    "); } #>
 
-#>
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using Cuentas.Ar.Entities;
 <#
 if (container.FunctionImports.Any())
 {

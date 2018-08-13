@@ -1,8 +1,7 @@
 ﻿<#@ template language="C#" debug="false" hostspecific="true"#>
-<#@ include file="EF6.Utility.CS.ttinclude"#> 
-<#@ output extension=".cs"#>
+<#@ include file="EF6.Utility.CS.ttinclude"#><#@ 
+ output extension=".cs"#><#
 
-<#
 const string inputFile = @"..\Cuentas.Ar.Repository\ModeloCuentasAr.edmx";
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);

@@ -421,8 +421,8 @@
       <Project>{6B3FD811-6E11-44E8-9E22-F20F37B11724}</Project>
       <Name>Cuentas.Ar.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cuentas.Ar.Entity\Cuentas.Ar.Entities.csproj">
-      <Project>{5E15EF12-0FDD-4FE7-9F50-3964D4938D06}</Project>
+    <ProjectReference Include="..\Cuentas.Ar.Entities\Cuentas.Ar.Entities.csproj">
+      <Project>{5BAC2C8C-9FBE-4162-863F-C27AD2968583}</Project>
       <Name>Cuentas.Ar.Entities</Name>
     </ProjectReference>
   </ItemGroup>
