@@ -52,7 +52,7 @@ namespace Cuentas.Ar.Site.Controllers
 
                             #region [Región: Seteo las claims]
 
-                            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                            HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                             var claims = new List<Claim>
                             {
                                 new Claim(ClaimTypes.GivenName, usuario.Nombre),
@@ -66,7 +66,7 @@ namespace Cuentas.Ar.Site.Controllers
                             #region [Región: Guardo el usuario en session]
 
                             var identidad = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-                            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = model.Recordarme }, identidad);
+                            HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties() { IsPersistent = model.Recordarme }, identidad);
                             
                             #endregion
 
@@ -97,6 +97,65 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
+        #region [Region: LogOff / LogOut]
+
+        public ActionResult LogOff()
+        {
+            try
+            {
+                //Borro las cookies del usuario logueado.
+                HttpContext.GetOwinContext().Authentication.SignOut();
+
+                //Borro la sesión.
+                Session.Clear();
+                Session.Abandon();
+
+                //Redirecciono al login.
+                return RedirectToAction("Login", "Cuenta");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [AllowAnonymous]
+        public ActionResult TimeOut()
+        {
+            try
+            {
+                //Borro las cookies del usuario logueado.
+                HttpContext.GetOwinContext().Authentication.SignOut();
+
+                //Borro la sesión.
+                Session.Clear();
+                Session.Abandon();
+
+                //Redirecciono a la vista de TimeOut.
+                return View("TimeOut");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [AllowAnonymous]
+        public ActionResult UsuarioLogout()
+        {
+            //Borro las cookies del usuario logueado.
+            HttpContext.GetOwinContext().Authentication.SignOut();
+
+            //Borro la sesión.
+            Session.Clear();
+            Session.Abandon();
+
+            //Redirecciono a la vista de UsuarioLogout.
+            return View("UsuarioLogout");
+        }
+        
+        #endregion
+
         #region [Region: Funciones Auxiliares]
         private ActionResult RedirectToLocal(string returnUrl)
         {
@@ -107,14 +166,6 @@ namespace Cuentas.Ar.Site.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
-            }
-        }
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
             }
         }
         #endregion

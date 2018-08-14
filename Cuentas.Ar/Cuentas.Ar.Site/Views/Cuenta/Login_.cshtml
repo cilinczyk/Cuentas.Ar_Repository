@@ -1,0 +1,100 @@
+﻿@model Cuentas.Ar.Entities.M_Usuario
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+<link href="~/Content/CSS/Login/StyleLogin.css" rel="stylesheet" />
+<!------ Include the above in your HEAD tag ---------->
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="login-panel panel panel-default">
+
+                <div class="navbar navbar-default navbar-static-top">
+                    <div class="navbar-brand" style="padding-left:0px;"><img src="../Content/images/logo-absanet.png" alt="AgregarUnLogo" title="AgregarUnLogo" border="0" class="img_top"></div>
+                </div>
+
+                <div class="panel-body">
+                    @using (Html.BeginForm("Login", "Cuenta", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "loginForm", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="password" autocomplete="off" value="" style="display:none;">
+
+                        <h3>Iniciar Sesión - <a href="#">Registrarse</a></h3>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <a href="#" class="btn btn-lg btn-info btn-block">Google</a>
+                            </div>
+                        </div>
+                        <div class="login-or">
+                            <hr class="hr-or">
+                            <span class="span-or">o</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputUsernameEmail">Usuario</label>
+                            <input type="text" class="form-control" id="inputUsernameEmail">
+                        </div>
+                        <div class="form-group">
+                            @*<a class="pull-right" href="#">Forgot password?</a>*@
+                            <label for="inputPassword">Contraseña</label>
+                            <input type="password" class="form-control" id="inputPassword">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+                                @Html.TextBoxFor(model => model.Mail, new { @class = "form-control", @placeholder = "EMail", @maxlength = "200" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Mail)
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa  fa-lock"></i>
+                                </span>
+                                @Html.PasswordFor(model => model.Password, new { @id = "Password", @class = "form-control", @placeholder = "Password", @maxlength = "40", @autocomplete = "off", @value = "" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Password)
+                        </div>
+                        <button type="submit" class="btn btn btn-primary">
+                            Aceptar
+                        </button>
+                        <div class="checkbox pull-right">
+                            <label>
+                                <input type="checkbox">
+                                Recordarme
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(window).bind("capsOn", function (event) {
+            if ($("#Password:focus").length > 0) {
+                $("#capsWarning").show();
+            }
+        });
+        $(window).bind("capsOff capsUnknown", function (event) {
+            $("#capsWarning").hide();
+        });
+        $("#Password").bind("focusout", function (event) {
+            $("#capsWarning").hide();
+        });
+        $("#Password").bind("focusin", function (event) {
+            if ($(window).capslockstate("state") === true) {
+                $("#capsWarning").show();
+            }
+        });
+        $(window).capslockstate();
+    });
+</script>
