@@ -21,7 +21,7 @@ namespace Cuentas.Ar.Site.Controllers
             //Si el usuario ya se encuentra logueado, redirecciono al home.
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                //return RedirectToAction("Index", "Home");
             }
 
             //Si no se encuentra logueado, muestro el formulario de login.

@@ -465,6 +465,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Menu\Inicio.cshtml" />
     <Content Include="Views\Shared\_LayoutEmpty.cshtml" />
+    <Content Include="Views\Cuenta\LoginOK.cshtml" />
     <Content Include="Views\Cuenta\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
