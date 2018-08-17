@@ -188,7 +188,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\CSS\Login\StyleLogin.css" />
     <Content Include="Content\data\flot-data.js" />
     <Content Include="Content\data\morris-data.js" />
     <Content Include="Content\dist\css\sb-admin-2.css" />
@@ -201,43 +200,11 @@
     <Content Include="Content\login\fonts\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\login\fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="Content\login\fonts\iconic\css\material-design-iconic-font.css" />
     <Content Include="Content\login\fonts\iconic\css\material-design-iconic-font.min.css" />
     <Content Include="Content\login\fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
-    <Content Include="Content\login\images\icons\favicon.ico" />
-    <Content Include="Content\login\images\icons\icon-google.png" />
+    <Content Include="Content\login\images\fondoLogin.jpg" />
     <Content Include="Content\login\js\main.js" />
-    <Content Include="Content\login\vendor\animate\animate.css" />
-    <Content Include="Content\login\vendor\animsition\css\animsition.css" />
-    <Content Include="Content\login\vendor\animsition\css\animsition.min.css" />
-    <Content Include="Content\login\vendor\animsition\js\animsition.js" />
-    <Content Include="Content\login\vendor\animsition\js\animsition.min.js" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap-grid.css" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap-grid.min.css" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap-reboot.css" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap-reboot.min.css" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap.css" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap.min.css" />
-    <Content Include="Content\login\vendor\bootstrap\js\bootstrap.js" />
-    <Content Include="Content\login\vendor\bootstrap\js\bootstrap.min.js" />
-    <Content Include="Content\login\vendor\bootstrap\js\popper.js" />
-    <Content Include="Content\login\vendor\bootstrap\js\popper.min.js" />
-    <Content Include="Content\login\vendor\bootstrap\js\tooltip.js" />
-    <Content Include="Content\login\vendor\countdowntime\countdowntime.js" />
-    <Content Include="Content\login\vendor\css-hamburgers\hamburgers.css" />
-    <Content Include="Content\login\vendor\css-hamburgers\hamburgers.min.css" />
-    <Content Include="Content\login\vendor\daterangepicker\daterangepicker.css" />
-    <Content Include="Content\login\vendor\daterangepicker\daterangepicker.js" />
-    <Content Include="Content\login\vendor\daterangepicker\moment.js" />
-    <Content Include="Content\login\vendor\daterangepicker\moment.min.js" />
-    <Content Include="Content\login\vendor\jquery\jquery-3.2.1.min.js" />
-    <Content Include="Content\login\vendor\perfect-scrollbar\perfect-scrollbar.css" />
-    <Content Include="Content\login\vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
-    <Content Include="Content\login\vendor\select2\select2.css" />
-    <Content Include="Content\login\vendor\select2\select2.js" />
-    <Content Include="Content\login\vendor\select2\select2.min.css" />
-    <Content Include="Content\login\vendor\select2\select2.min.js" />
     <Content Include="Content\vendor\bootstrap-social\bootstrap-social.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css" />
@@ -344,10 +311,6 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Content\less\mixins.less" />
     <Content Include="Content\less\sb-admin-2.less" />
     <Content Include="Content\less\variables.less" />
@@ -397,6 +360,12 @@
     <Content Include="Content\vendor\font-awesome\scss\_spinning.scss" />
     <Content Include="Content\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\vendor\font-awesome\scss\_variables.scss" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css.map" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
@@ -452,12 +421,6 @@
     <Content Include="Content\login\fonts\poppins\Poppins-SemiBoldItalic.ttf" />
     <Content Include="Content\login\fonts\poppins\Poppins-Thin.ttf" />
     <Content Include="Content\login\fonts\poppins\Poppins-ThinItalic.ttf" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap-grid.css.map" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap-reboot.css.map" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap.css.map" />
-    <Content Include="Content\login\vendor\bootstrap\css\bootstrap.min.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -501,7 +464,6 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Menu\Inicio.cshtml" />
-    <Content Include="Views\Cuenta\Login_.cshtml" />
     <Content Include="Views\Shared\_LayoutEmpty.cshtml" />
     <Content Include="Views\Cuenta\Login.cshtml" />
   </ItemGroup>

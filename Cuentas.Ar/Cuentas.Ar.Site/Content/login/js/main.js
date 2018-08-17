@@ -72,12 +72,14 @@
     $('.btn-show-pass').on('click', function(){
         if(showPass == 0) {
             $(this).next('input').attr('type','text');
-            $(this).addClass('active');
+            $(this).find('i').removeClass('zmdi-eye');
+            $(this).find('i').addClass('zmdi-eye-off');
             showPass = 1;
         }
         else {
             $(this).next('input').attr('type','password');
-            $(this).removeClass('active');
+            $(this).find('i').addClass('zmdi-eye');
+            $(this).find('i').removeClass('zmdi-eye-off');
             showPass = 0;
         }
         
