@@ -1,5 +1,4 @@
-﻿@model Cuentas.Ar.Entities.M_Usuario
-@{
+﻿@{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
 }
@@ -29,60 +28,48 @@
                 <div class="wrap-login100">
                     <form class="login100-form validate-form">
                         <span class="login100-form-title p-b-26">
-                            Bienvenido
+                            Crear Cuenta
                         </span>
                         <span class="login100-form-title p-b-30">
                             <i class="zmdi zmdi-font"></i>
                         </span>
 
-                        <div class="wrap-input100 validate-input" data-validate="Ingresa un mail correcto">
+                        <div class="wrap-input100 validate-input" data-validate="Ingrese un nombre.">
+                            <input class="input100" type="text" name="nombre">
+                            <span class="focus-input100" data-placeholder="Nombre Completo"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Ingrese un correo electronico.">
                             <input class="input100" type="text" name="email">
                             <span class="focus-input100" data-placeholder="Email"></span>
                         </div>
 
-                        <div class="wrap-input100 validate-input" data-validate="Ingresa una contraseña">
+                        <div class="wrap-input100 validate-input" data-validate="Ingrese una contraseña.">
                             <span class="btn-show-pass">
                                 <i class="zmdi zmdi-eye"></i>
                             </span>
-                            <input class="input100" type="password" name="pass">
-                            <span class="focus-input100" data-placeholder="Password"></span>
+                            <input class="input100" type="password" name="passCrete">
+                            <span class="focus-input100" data-placeholder="Contraseña"></span>
                         </div>
+
+                        @*<div class="wrap-input50">
+                            <span class="input100Fecha">Fecha</span>
+                            <input class="input100" type="date" name="fecha">
+                        </div>*@
 
                         <div class="container-login100-form-btn">
                             <div class="wrap-login100-form-btn">
                                 <div class="login100-form-bgbtn"></div>
                                 <button class="login100-form-btn">
-                                    Ingresar
+                                    Crear
                                 </button>
                             </div>
                         </div>
 
-                        <div class="text-center p-t-20">
+                        <div class="text-center p-t-5">
                             <span class="txt1">
-                                ¿No tenes una cuenta?
+                                Volver al <a href="@Url.Action("Login", "Cuenta")" class="txt2">Login</a>
                             </span>
-
-                            <a href="@Url.Action("AltaLogin", "Usuario")" class="txt2">Registrate</a>
-                        </div>
-
-                        <div class="txt1 text-center p-t-5 p-b-5">
-                            <span>
-                                O ingresá usando...
-                            </span>
-                        </div>
-
-                        <div class="flex-c-m">
-                            <a href="#" class="login100-social-item bg1">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-
-                            <a href="#" class="login100-social-item bg2">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-
-                            <a href="#" class="login100-social-item bg3">
-                                <i class="fa fa-google"></i>
-                            </a>
                         </div>
                     </form>
                 </div>

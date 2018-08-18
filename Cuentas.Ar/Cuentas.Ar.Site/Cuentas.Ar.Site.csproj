@@ -179,6 +179,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -467,6 +468,7 @@
     <Content Include="Views\Shared\_LayoutEmpty.cshtml" />
     <Content Include="Views\Cuenta\LoginOK.cshtml" />
     <Content Include="Views\Cuenta\Login.cshtml" />
+    <Content Include="Views\Usuario\AltaLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
