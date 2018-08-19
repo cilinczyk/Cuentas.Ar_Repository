@@ -24,7 +24,7 @@ namespace Cuentas.Ar.Business
 
         public bool ValidarEmail(string email)
         {
-            return true;
+            return repositorio.ValidarEmail(email);
         }
 
         public Usuario IniciarSesion(string email, string password)

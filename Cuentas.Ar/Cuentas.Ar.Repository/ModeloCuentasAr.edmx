@@ -12,6 +12,7 @@
           <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FechaNacimiento" Type="date" />
+          <Property Name="Sexo" Type="bit" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Administrador" Type="bit" Nullable="false" />
@@ -35,6 +36,7 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Administrador" Type="Boolean" Nullable="false" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Sexo" Type="Boolean" />
         </EntityType>
         <EntityContainer Name="CuentasArEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
@@ -48,6 +50,7 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="ModeloCuentasAr.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />

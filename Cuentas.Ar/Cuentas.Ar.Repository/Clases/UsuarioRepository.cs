@@ -26,6 +26,22 @@ namespace Cuentas.Ar.Repository
             }
         }
 
+        public bool ValidarEmail(string email)
+        {
+            try
+            {
+                using (var context = new CuentasArEntities())
+                {
+                    return context.Usuario.Where(p => p.Email == email).Any();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("No se puede guardar el registro.", ex);
+            }
+            
+        }
+
         public int Guardar(Usuario model)
         {
             try

@@ -21,5 +21,6 @@ namespace Cuentas.Ar.Entities
         public string Password { get; set; }
         public bool Administrador { get; set; }
         public bool Estado { get; set; }
+        public Nullable<bool> Sexo { get; set; }
     }
 }
