@@ -1,0 +1,57 @@
+﻿@model Cuentas.Ar.Entities.Usuario
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+    <!--===============================================================================================-->
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Content/login/fonts/iconic/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+    <link href="~/Content/login/css/main.css" rel="stylesheet" />
+    <link href="~/Content/login/css/util.css" rel="stylesheet" />
+    <!--===============================================================================================-->
+</head>
+<body style="background-image: url('../../Content/login/images/fondoLogin.jpg');">
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                @Html.AntiForgeryToken()
+
+                <div class="login100-form">
+                    <span class="login100-form-title p-b-26">
+                        Cuenta Creada
+                    </span>
+                    <span class="login100-form-title p-b-30">
+                        <i class="zmdi zmdi-font"></i>
+                    </span>
+
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading text-center">¡Felicitaciones!</h4>
+                        <p><b>@Model.Nombre</b>, la cuenta ha sido creada satisfactoriamente.</p>
+                    </div>
+                </div>
+                <div class="text-center p-t-5">
+                    <span class="txt1">
+                        Volver al <a href="@Url.Action("Login", "Cuenta")" class="txt2">Login</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript -->
+    <!--===============================================================================================-->
+    <script src="~/Content/login/js/main.js"></script>
+</body>
+</html>

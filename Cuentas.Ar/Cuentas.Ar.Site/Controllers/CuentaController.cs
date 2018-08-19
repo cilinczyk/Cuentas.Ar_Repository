@@ -27,10 +27,6 @@ namespace Cuentas.Ar.Site.Controllers
             //Si no se encuentra logueado, muestro el formulario de login.
             ViewBag.ReturnUrl = returnUrl;
 
-            if (!string.IsNullOrEmpty(mensaje))
-            {
-                ViewBag.Mensaje = mensaje;
-            }
             return View();
         }
 
@@ -41,7 +37,7 @@ namespace Cuentas.Ar.Site.Controllers
         {
             try
             {
-                if (ModelState.IsValid) //Verificar que el modelo de datos sea válido en cuanto a la definición de las propiedades
+                if (ModelState.IsValid)
                 {
                     //Valido si el usuario existe.
                     UsuarioBusiness usuarioBusiness = new UsuarioBusiness();

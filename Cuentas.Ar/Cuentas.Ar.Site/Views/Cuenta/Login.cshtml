@@ -22,10 +22,13 @@
     <!--===============================================================================================-->
 </head>
 <body style="background-image: url('../../Content/login/images/fondoLogin.jpg');">
-
+    <div hidden id="mostrarModal">
+        ok
+    </div>
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
+
                 @using (Html.BeginForm("Login", "Cuenta", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "loginForm", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
@@ -60,42 +63,33 @@
                             </div>
                         </div>
 
-                        @if (string.IsNullOrEmpty(ViewBag.Mensaje))
-                        {
-                            <div class="text-center p-t-20">
-                                <span class="txt1">
-                                    ¿No tenes una cuenta?
-                                </span>
+                        <div class="text-center p-t-20">
+                            <span class="txt1">
+                                ¿No tenes una cuenta?
+                            </span>
 
-                                <a href="@Url.Action("AltaLogin", "Usuario")" class="txt2">Registrate</a>
-                            </div>
+                            <a href="@Url.Action("AltaLogin", "Usuario")" class="txt2">Registrate</a>
+                        </div>
 
-                            <div class="txt1 text-center p-t-5 p-b-5">
-                                <span>
-                                    O ingresá usando...
-                                </span>
-                            </div>
+                        <div class="txt1 text-center p-t-5 p-b-5">
+                            <span>
+                                O ingresá usando...
+                            </span>
+                        </div>
 
-                            <div class="flex-c-m">
-                                <a href="#" class="login100-social-item bg1">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
+                        <div class="flex-c-m">
+                            <a href="#" class="login100-social-item bg1">
+                                <i class="fa fa-facebook"></i>
+                            </a>
 
-                                <a href="#" class="login100-social-item bg2">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
+                            <a href="#" class="login100-social-item bg2">
+                                <i class="fa fa-twitter"></i>
+                            </a>
 
-                                <a href="#" class="login100-social-item bg3">
-                                    <i class="fa fa-google"></i>
-                                </a>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="text-center p-t-20">
-                                <div class="alert-success p-t-5 p-b-5 text-center">¡Cuenta creada satisfactoriamente!</div>
-                            </div>
-                        }
+                            <a href="#" class="login100-social-item bg3">
+                                <i class="fa fa-google"></i>
+                            </a>
+                        </div>
                     </div>
                 }
             </div>

@@ -26,7 +26,7 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                @using (Html.BeginForm("Alta", "Usuario", FormMethod.Post, new { id = "loginForm", role = "form" }))
+                @using (Html.BeginForm("Alta", "Usuario", new { login = true }, FormMethod.Post, new { id = "loginForm", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
 
@@ -57,9 +57,9 @@
                         </div>
 
                         @*<div class="wrap-input50">
-                    <span class="input100Fecha">Fecha</span>
-                    <input class="input100" type="date" name="fecha">
-                </div>*@
+                            <span class="input100Fecha">Fecha</span>
+                            <input class="input100" type="date" name="fecha">
+                        </div>*@
 
                         <div class="container-login100-form-btn">
                             <div class="wrap-login100-form-btn">

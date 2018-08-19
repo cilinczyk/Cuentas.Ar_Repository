@@ -23,6 +23,12 @@ namespace Cuentas.Ar.Site.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult AltaLoginResult(Usuario user)
+        {
+            return View("AltaLoginResult", user);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -49,7 +55,7 @@ namespace Cuentas.Ar.Site.Controllers
 
                     if (login)
                     {
-                        return RedirectToAction("Login", "Cuenta", new { mensaje = "¡Cuenta creada satisfactoriamente!" });
+                        return RedirectToAction("AltaLoginResult", "Usuario", model);
                     }
                     else
                     {
