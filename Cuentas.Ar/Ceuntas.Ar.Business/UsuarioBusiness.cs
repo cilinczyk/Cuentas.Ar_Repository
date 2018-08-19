@@ -31,5 +31,10 @@ namespace Cuentas.Ar.Business
         {
             return null;
         }
+
+        public int Guardar (Usuario usuario)
+        {
+            return repositorio.Guardar(usuario);
+        }
     }
 }

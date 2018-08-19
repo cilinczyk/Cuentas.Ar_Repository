@@ -16,7 +16,7 @@ namespace Cuentas.Ar.Site.Controllers
     {
         #region [Región: Login]
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl, string mensaje)
         {
             //Si el usuario ya se encuentra logueado, redirecciono al home.
             if (HttpContext.User.Identity.IsAuthenticated)
@@ -26,6 +26,11 @@ namespace Cuentas.Ar.Site.Controllers
 
             //Si no se encuentra logueado, muestro el formulario de login.
             ViewBag.ReturnUrl = returnUrl;
+
+            if (!string.IsNullOrEmpty(mensaje))
+            {
+                ViewBag.Mensaje = mensaje;
+            }
             return View();
         }
 
