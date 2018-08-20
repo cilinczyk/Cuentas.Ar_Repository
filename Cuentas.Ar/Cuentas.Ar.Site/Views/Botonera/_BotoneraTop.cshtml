@@ -1,0 +1,23 @@
+﻿@model Cuentas.Ar.Entities.BotoneraTop
+<script src="/signalr/hubs"></script>
+<ul class="nav navbar-top-links navbar-right">
+
+    <!--Botón Mis Mensajes-->
+
+    <!--Botón Mi Cuenta-->
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-user fa-fw"></i>
+            <span id="userNameLogin" class="labelTopUser hidden-xs">@User.Identity.Name</span> <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a href="@Url.Action("MisDatos", "Usuario")" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-user fa-fw"></i> Mis Datos</a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("LogOff", "Cuenta")" data-toggle="tooltip" data-placement="bottom"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
+            </li>
+        </ul>
+    </li>
+</ul>

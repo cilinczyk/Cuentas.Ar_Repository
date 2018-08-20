@@ -68,9 +68,10 @@ namespace Cuentas.Ar.Site.Controllers
 
                             var identidad = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                             HttpContext.GetOwinContext().Authentication.SignIn(new AuthenticationProperties() { IsPersistent = model.Recordarme }, identidad);
-                            
+
                             #endregion
 
+                            return RedirectToLocal(returnUrl);
                             #endregion
                         }
                         else

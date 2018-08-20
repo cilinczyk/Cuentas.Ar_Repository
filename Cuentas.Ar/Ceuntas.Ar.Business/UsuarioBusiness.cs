@@ -29,7 +29,7 @@ namespace Cuentas.Ar.Business
 
         public Usuario IniciarSesion(string email, string password)
         {
-            return null;
+            return repositorio.IniciarSesion(email, password);
         }
 
         public int Guardar (Usuario usuario)

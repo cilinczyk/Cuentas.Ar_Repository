@@ -37,7 +37,7 @@ namespace Cuentas.Ar.Repository
             }
             catch (Exception ex)
             {
-                throw new Exception("No se puede guardar el registro.", ex);
+                throw new Exception("No se pudo validar el mail.", ex);
             }
             
         }
