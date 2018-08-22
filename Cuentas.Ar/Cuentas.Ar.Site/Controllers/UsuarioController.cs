@@ -63,7 +63,7 @@ namespace Cuentas.Ar.Site.Controllers
                     }
                 }
 
-                return View("Alta/Alta", model);
+                return View("AltaLogin", model);
             }
             catch (Exception ex)
             {

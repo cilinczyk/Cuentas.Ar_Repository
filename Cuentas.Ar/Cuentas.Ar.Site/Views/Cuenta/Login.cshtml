@@ -10,9 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
-    <!--===============================================================================================-->
-    @*<link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />*@
-    <!--===============================================================================================-->
     <link href="~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <!--===============================================================================================-->
     <link href="~/Content/login/fonts/iconic/css/material-design-iconic-font.min.css" rel="stylesheet" />
@@ -70,9 +67,7 @@
 
                         @if (!ViewData.ModelState.IsValid)
                         {
-                            @*<div class="row mgTop10">*@
                             <div class="alert alert-danger mgBottom0 mgTop5">@Html.ValidationMessage("EstadoLogin")</div>
-                            @*</div>*@
                         }
 
                         <div class="text-center p-t-20">
