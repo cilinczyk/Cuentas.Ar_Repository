@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
     <!--===============================================================================================-->
-    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />*@
     <!--===============================================================================================-->
     <link href="~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <!--===============================================================================================-->
@@ -40,18 +40,23 @@
                         <span class="login100-form-title p-b-30">
                             <i class="zmdi zmdi-font"></i>
                         </span>
-
-                        <div class="wrap-input100 validate-input" data-validate="Ingresa un mail correcto">
-                            @Html.TextBoxFor(model => model.Mail, new { @class = "input100", @maxlength = "200" })
-                            <span class="focus-input100" data-placeholder="Email"></span>
+                        <div>
+                            <div class="wrap-input100" style="margin-bottom: 5px">
+                                @Html.TextBoxFor(model => model.Mail, new { @class = "input100", @maxlength = "200", Value = "" })
+                                <span class="focus-input100" data-placeholder="Email"></span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Mail)
                         </div>
 
-                        <div class="wrap-input100 validate-input" data-validate="Ingresa una contraseña">
-                            <span class="btn-show-pass">
-                                <i class="zmdi zmdi-eye"></i>
-                            </span>
-                            @Html.PasswordFor(model => model.Password, new { @class = "input100", @maxlength = "40", @autocomplete = "off" })
-                            <span class="focus-input100" data-placeholder="Password"></span>
+                        <div class="mgTop10">
+                            <div class="wrap-input100" style="margin-bottom: 5px">
+                                <span class="btn-show-pass">
+                                    <i class="zmdi zmdi-eye"></i>
+                                </span>
+                                @Html.PasswordFor(model => model.Password, new { @class = "input100", @maxlength = "40", @autocomplete = "off", Value = "" })
+                                <span class="focus-input100" data-placeholder="Password"></span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Password)
                         </div>
 
                         <div class="container-login100-form-btn">
@@ -62,6 +67,13 @@
                                 </button>
                             </div>
                         </div>
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            @*<div class="row mgTop10">*@
+                            <div class="alert alert-danger mgBottom0 mgTop5">@Html.ValidationMessage("EstadoLogin")</div>
+                            @*</div>*@
+                        }
 
                         <div class="text-center p-t-20">
                             <span class="txt1">

@@ -18,7 +18,7 @@ namespace Cuentas.Ar.Site
                 LoginPath = new PathString("/Cuenta/Login"),
                 LogoutPath = new PathString("/Cuenta/LogOff"),
                 SlidingExpiration = true,
-                ExpireTimeSpan = TimeSpan.FromMinutes(1.0)
+                ExpireTimeSpan = TimeSpan.FromMinutes(10)
             });
 
             //Use a cookie to temporarily store information about a user logging in with a third party login provider
