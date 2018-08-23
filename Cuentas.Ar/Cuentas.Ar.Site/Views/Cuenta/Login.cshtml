@@ -39,7 +39,7 @@
                         </span>
                         <div>
                             <div class="wrap-input100" style="margin-bottom: 5px">
-                                @Html.TextBoxFor(model => model.Mail, new { @class = "input100", @maxlength = "200", Value = "" })
+                                @Html.TextBoxFor(model => model.Mail, new { @class = "input100", @maxlength = "200", id = "email" })
                                 <span class="focus-input100" data-placeholder="Email"></span>
                             </div>
                             @Html.ValidationMessageFor(model => model.Mail)
@@ -77,8 +77,8 @@
 
                             <a href="@Url.Action("AltaLogin", "Usuario")" class="txt2">Registrate</a>
                         </div>
-
-                        <div class="txt1 text-center p-t-5 p-b-5">
+                        
+                        @*<div class="txt1 text-center p-t-5 p-b-5">
                             <span>
                                 O ingresá usando...
                             </span>
@@ -96,7 +96,7 @@
                             <a href="#" class="login100-social-item bg3">
                                 <i class="fa fa-google"></i>
                             </a>
-                        </div>
+                        </div>*@
                     </div>
                 }
             </div>
@@ -108,3 +108,12 @@
     <script src="~/Content/login/js/main.js"></script>
 </body>
 </html>
+<script>
+    if ($("#email").val() != null && $("#email") != "") {
+        console.log($("#email").val());
+        $("#email").blur();
+    }
+    else {
+        $("#email").focusout();
+    }
+</script>
