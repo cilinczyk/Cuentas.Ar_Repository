@@ -16,6 +16,8 @@ namespace Cuentas.Ar.Site
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
                 "~/Scripts/jquery-3.3.1.min.js",
                 "~/Content/dist/js/sb-admin-2.js",
+                "~/Content/vendor/bootstrap/js/bootstrap.min.js",
+                "~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js",
                 "~/Content/vendor/metisMenu/metisMenu.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

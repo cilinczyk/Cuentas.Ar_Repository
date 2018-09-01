@@ -6,6 +6,7 @@ namespace Cuentas.Ar.Entities
     [MetadataType(typeof(UsuarioMetadata))]
     public partial class Usuario
     {
+        public int idTipoCuenta { get; set; }
     }
 
     public class UsuarioMetadata

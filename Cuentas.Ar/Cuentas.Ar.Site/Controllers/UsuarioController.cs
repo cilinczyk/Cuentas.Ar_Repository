@@ -23,16 +23,42 @@ namespace Cuentas.Ar.Site.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult AltaLoginResult(Usuario user)
+        public ActionResult Alta(Usuario model)
         {
-            return View("AltaLoginResult", user);
+            try
+            {
+                UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
+                if (usuarioBusiness.ValidarEmail(model.Email))
+                {
+                    ModelState.AddModelError("UsuarioRegistrado", "El mail ingresado ya se encuentra registrado.");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    return RedirectToAction("AltaLoginTipoCuenta", "Usuario", model);
+                }
+
+                return View("AltaLogin", model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [AllowAnonymous]
+        public ActionResult AltaLoginTipoCuenta(Usuario model)
+        {
+            return View("AltaLoginTipoCuenta", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Alta(Usuario model, bool login = false)
+        public ActionResult AltaLoginTipoCuenta(Usuario model, int idTipoCuenta)
         {
             try
             {
@@ -49,26 +75,32 @@ namespace Cuentas.Ar.Site.Controllers
                     #region Alta de Usuario
                     model.Password = Crypto.SHA1(model.Password);
                     model.Estado = true;
-                    
+
                     id_user = usuarioBusiness.Guardar(model);
                     #endregion
 
-                    if (login)
-                    {
+                    //if (login)
+                    //{
                         return RedirectToAction("AltaLoginResult", "Usuario", model);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Detalle", "Usuario", new { @id = id_user });
-                    }
+                    //}
+                    //else
+                    //{
+                        //return RedirectToAction("Detalle", "Usuario", new { @id = id_user });
+                    //}
                 }
 
-                return View("AltaLogin", model);
+                return RedirectToAction("AltaLogin", "Usuario");
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        [AllowAnonymous]
+        public ActionResult AltaLoginResult(Usuario user)
+        {
+            return View("AltaLoginResult", user);
         }
     }
 }
