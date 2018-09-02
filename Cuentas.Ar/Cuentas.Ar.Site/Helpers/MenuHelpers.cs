@@ -62,6 +62,47 @@ namespace Cuentas.Ar.Site.Helpers
             return MvcHtmlString.Create(li.ToString());
         }
 
+        public static MvcHtmlString MenuActionLinkMenu(this HtmlHelper helper, string label, string actionName, string controllerName, string icon, bool marcame = false)
+        {
+            TagBuilder tagBuilder;
+            UrlHelper urlHelper;
+
+            var htmlAttributes = new RouteValueDictionary();
+            var routeData = helper.ViewContext.RouteData;
+            var currentAction = routeData.GetRequiredString("action");
+            var currentController = routeData.GetRequiredString("controller");
+
+            var li = new TagBuilder("li");
+            li.AddCssClass("nav-item");
+
+            var tagP = new TagBuilder("p");
+            tagP.InnerHtml = label;
+
+            var ico = new TagBuilder("i");
+            if (!string.IsNullOrEmpty(icon))
+            {
+                ico.AddCssClass("material-icons");
+                ico.InnerHtml = icon;
+            }
+
+            if ((string.Equals(currentAction, actionName, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(currentController, controllerName, StringComparison.OrdinalIgnoreCase)) || marcame)
+            {
+                li.AddCssClass("active");
+            }
+
+            urlHelper = new UrlHelper(helper.ViewContext.RequestContext);
+            tagBuilder = new TagBuilder("a");
+            tagBuilder.AddCssClass("nav-link");
+            tagBuilder.InnerHtml = ico.ToString() + " " + tagP.ToString();
+            tagBuilder.Attributes["href"] = urlHelper.Action(actionName, controllerName);
+            tagBuilder.MergeAttributes(htmlAttributes);
+
+            li.InnerHtml = tagBuilder.ToString();
+
+            return MvcHtmlString.Create(li.ToString());
+        }
+
         public static MvcHtmlString NoEncodeActionLink(this HtmlHelper htmlHelper, string text, string title, string action, string controller, object routeValues = null, object htmlAttributes = null)
         {
             UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);

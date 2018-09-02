@@ -199,15 +199,7 @@
   <ItemGroup>
     <Content Include="Content\assets\css\material-dashboard.css" />
     <Content Include="Content\assets\css\material-dashboard.min.css" />
-    <Content Include="Content\assets\img\apple-icon.png" />
     <Content Include="Content\assets\img\cover.jpg" />
-    <Content Include="Content\assets\img\faces\avatar.jpg" />
-    <Content Include="Content\assets\img\faces\card-profile1-square.jpg" />
-    <Content Include="Content\assets\img\faces\card-profile2-square.jpg" />
-    <Content Include="Content\assets\img\faces\marc.jpg" />
-    <Content Include="Content\assets\img\favicon.png" />
-    <Content Include="Content\assets\img\mask.png" />
-    <Content Include="Content\assets\img\new_logo.png" />
     <Content Include="Content\assets\img\sidebar-1.jpg" />
     <Content Include="Content\assets\img\sidebar-2.jpg" />
     <Content Include="Content\assets\img\sidebar-3.jpg" />
