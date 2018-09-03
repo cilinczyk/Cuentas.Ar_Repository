@@ -230,6 +230,8 @@
     <Content Include="Content\login\fonts\iconic\fonts\Material-Design-Iconic-Font.svg" />
     <Content Include="Content\login\images\fondoLogin.jpg" />
     <Content Include="Content\login\js\main.js" />
+    <Content Include="Content\logo\misCuentas_blanco.png" />
+    <Content Include="Content\logo\misCuentas_negro.png" />
     <Content Include="Content\vendor\bootstrap-social\bootstrap-social.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
