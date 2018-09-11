@@ -11,52 +11,20 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
 
-            @Html.MenuActionLinkMenu("Mis Cuentas", "Index", "Home", "dashboard")
+            @Html.MenuActionLinkMenu("Mis Cuentas", "Index", "Home", "home")
 
-            <li class="nav-item ">
-                <a class="nav-link" href="./user.html">
-                    <i class="material-icons">person</i>
-                    <p>Mis Datos</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="./tables.html">
-                    <i class="material-icons">content_paste</i>
-                    <p>Mis Registros</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link" href="./typography.html">
-                    <i class="material-icons">library_books</i>
-                    <p>Mis Estadisticas</p>
-                </a>
-            </li>
-            <li class="nav-item ">
-                @*<a class="nav-link" href="./icons.html">
-            <i class="material-icons">settings</i>
-            <p>Configuración</p>
-        </a>*@
-                <a class="nav-link" href="./icons.html">
-                    <i class="fas fa-archive"></i>
-                        <p>Configuración</p>
-                </a>
-            </li>
+            @Html.MenuActionLinkMenu("Mis Datos", "Index", "Home2", "user")
 
-            @Html.MenuActionLinkMenu("Cerrar Sesión", "LogOff", "Cuenta", "power_settings_new")
+            @Html.MenuActionLinkMenu("Mis Registros", "Index", "Home3", "file-text-o")
 
-            <li class="nav-item ">
-                <a class="nav-link" href="./icons.html">
-                    <i class="material-icons"></i>
-                    <p></p>
-                </a>
-            </li>
+            @Html.MenuActionLinkMenu("Mis Estadisticas", "Index", "Home4", "bar-chart")
 
-            <li class="nav-item active-pro ">
-                <a class="nav-link" href="./upgrade.html">
-                    <i class="material-icons">unarchive</i>
-                    <p>Upgrade to PRO</p>
-                </a>
-            </li> 
+            @Html.MenuActionLinkMenu("Configuración", "Index", "Home5", "cog")
+
+            @Html.MenuActionLinkMenu("Cerrar Sesión", "LogOff", "Cuenta", "sign-out")
+
+            @Html.MenuActionLinkMenu("Upgrade to PRO", "LogOff", "Cuenta6", "arrow-circle-up")
+            
         </ul>
     </div>
 </div>

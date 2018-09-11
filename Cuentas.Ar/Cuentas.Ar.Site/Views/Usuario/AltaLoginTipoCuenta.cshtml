@@ -24,8 +24,7 @@
 <body style="background-image: url('../../Content/login/images/fondoLogin.jpg');">
     <div class="limiter">
         <div class="container-login">
-            <div class="">
-                <section class="pricing py-5">
+                <section class="pricing">
                     <div class="container">
                         <div class="row">
                             <!-- Free Tier -->
@@ -61,6 +60,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Plus Tier -->
                             <div class="col-lg-4">
                                 <div class="card mb-5 mb-lg-0">
@@ -70,7 +70,7 @@
                                             @Html.AntiForgeryToken()
 
                                             <h5 class="card-title text-muted text-uppercase text-center">Plus</h5>
-                                            <h6 class="card-price text-center">$9<span class="period">/month</span></h6>
+                                            <h6 class="card-price text-center">$1<span class="period">/month</span></h6>
                                             <hr>
                                             <ul class="fa-ul">
                                                 <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>5 Users</strong></li>
@@ -104,7 +104,7 @@
                                             @Html.AntiForgeryToken()
 
                                             <h5 class="card-title text-muted text-uppercase text-center">Pro</h5>
-                                            <h6 class="card-price text-center">$49<span class="period">/month</span></h6>
+                                            <h6 class="card-price text-center">$10<span class="period">/month</span></h6>
                                             <hr>
                                             <ul class="fa-ul">
                                                 <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Unlimited Users</strong></li>
@@ -131,13 +131,12 @@
                         </div>
                     </div>
                 </section>
-            </div>
 
-            <div class="text-center p-t-5">
+            @*<div class="text-center p-t-5">
                 <span class="txt1">
                     Volver al <a href="@Url.Action("Login", "Cuenta")" class="txt2">Login</a>
                 </span>
-            </div>
+            </div>*@
         </div>
     </div>
     <!-- Javascript -->

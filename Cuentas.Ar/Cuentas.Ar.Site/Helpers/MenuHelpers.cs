@@ -81,8 +81,7 @@ namespace Cuentas.Ar.Site.Helpers
             var ico = new TagBuilder("i");
             if (!string.IsNullOrEmpty(icon))
             {
-                ico.AddCssClass("material-icons");
-                ico.InnerHtml = icon;
+                ico.AddCssClass("fa fa-" + icon);
             }
 
             if ((string.Equals(currentAction, actionName, StringComparison.OrdinalIgnoreCase) &&

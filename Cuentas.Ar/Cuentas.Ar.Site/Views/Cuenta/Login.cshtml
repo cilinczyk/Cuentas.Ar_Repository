@@ -28,7 +28,7 @@
                     @Html.AntiForgeryToken()
 
                     <div class="login100-form validate-form">
-                        <span class="login100-form-title p-b-10">
+                        <span class="login100-form-title">
                             Bienvenido
                         </span>
                         <span class="login100-form-title p-b-10">
@@ -107,7 +107,6 @@
 </html>
 <script>
     if ($("#email").val() != null && $("#email") != "") {
-        console.log($("#email").val());
         $("#email").blur();
     }
     else {
