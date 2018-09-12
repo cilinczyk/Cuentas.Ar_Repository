@@ -27,5 +27,7 @@
         }
     
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<TipoCuenta> TipoCuenta { get; set; }
+        public virtual DbSet<TipoTarjeta> TipoTarjeta { get; set; }
     }
 }

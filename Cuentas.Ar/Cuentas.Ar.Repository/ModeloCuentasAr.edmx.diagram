@@ -6,6 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="4c88000d60b9447ca3ce51f79bbf29d1" Name="Diagram1">
         <EntityTypeShape EntityType="ModeloCuentasAr.Usuario" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModeloCuentasAr.TipoCuenta" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ModeloCuentasAr.TipoTarjeta" Width="1.5" PointX="3.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

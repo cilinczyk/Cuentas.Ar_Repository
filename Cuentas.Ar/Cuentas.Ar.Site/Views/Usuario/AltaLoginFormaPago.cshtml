@@ -26,22 +26,21 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                @using (Html.BeginForm("Alta", "Usuario", FormMethod.Post, new { id = "loginForm", role = "form" }))
+                @using (Html.BeginForm("AltaLoginTipoCuenta", "Usuario", FormMethod.Get, new { id = "loginForm", role = "form" }))
                 {
-                    @Html.HiddenFor(model => model.idTipoCuenta)
                     @Html.AntiForgeryToken()
 
                 <div class="login100-form validate-form">
                     <span class="login100-form-title p-b-26">
                         Nueva Cuenta
                     </span>
-                    <span class="login100-form-title p-b-10">
-                        <img src="../../Content/logo/misCuentas_blanco.png" style="max-width: 300px; max-height: 300px" />
+                    <span class="login100-form-title p-b-30">
+                        <i class="zmdi zmdi-font"></i>
                     </span>
 
                     <div>
                         <div class="wrap-input100" style="margin-bottom: 5px">
-                            @Html.TextBoxFor(model => model.Nombre, new { @class = "input100", @maxlength = "50", id = "nombre" })
+                            @Html.TextBoxFor(model => model.Nombre, new { @class = "input100", @maxlength = "50", id="nombre" })
                             <span class="focus-input100" data-placeholder="Nombre Completo"></span>
                         </div>
                         @Html.ValidationMessageFor(model => model.Nombre)
@@ -81,7 +80,7 @@
                     </div>
                 </div>
                 }
-
+                
                 @if (!ViewData.ModelState.IsValid)
                 {
                     <div class="alert alert-danger mgBottom0 mgTop5">@Html.ValidationMessage("UsuarioRegistrado")</div>

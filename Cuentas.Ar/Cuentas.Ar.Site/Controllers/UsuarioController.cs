@@ -14,11 +14,40 @@ namespace Cuentas.Ar.Site.Controllers
 {
     public class UsuarioController : Controller
     {
+        #region [Región: Alta de usuario]
+        #region [Región: Paso 1 (Seleccionar Tipo de Cuenta)]
         [AllowAnonymous]
-        public ActionResult AltaLogin()
+        public ActionResult AltaLoginTipoCuenta()
         {
-            var usuario = new Usuario();
-            usuario.Administrador = false;
+            return View("AltaLoginTipoCuenta");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public ActionResult AltaLoginTipoCuenta(int idTipoCuenta)
+        {
+            try
+            {
+                return RedirectToAction("AltaLogin", "Usuario", new { idTipoCuenta } );
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region [Región: Paso 2 (Datos de la cuenta)]
+        [AllowAnonymous]
+        public ActionResult AltaLogin(int idTipoCuenta)
+        {
+            Usuario model = new Usuario
+            {
+                Administrador = false,
+                idTipoCuenta = idTipoCuenta
+            };
 
             return View();
         }
@@ -38,7 +67,17 @@ namespace Cuentas.Ar.Site.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    return RedirectToAction("AltaLoginTipoCuenta", "Usuario", model);
+                    int id_user = 0;
+
+                    #region Alta de Usuario
+                    model.Password = Crypto.SHA1(model.Password);
+                    model.Estado = true;
+                    model.FechaAlta = DateTime.Now;
+
+                    id_user = usuarioBusiness.Guardar(model);
+                    #endregion
+
+                    return RedirectToAction("AltaLoginResult", "Usuario", model);
                 }
 
                 return View("AltaLogin", model);
@@ -48,59 +87,13 @@ namespace Cuentas.Ar.Site.Controllers
                 throw ex;
             }
         }
-
-        [AllowAnonymous]
-        public ActionResult AltaLoginTipoCuenta(Usuario model)
-        {
-            return View("AltaLoginTipoCuenta", model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [AllowAnonymous]
-        public ActionResult AltaLoginTipoCuenta(Usuario model, int idTipoCuenta)
-        {
-            try
-            {
-                UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
-                if (usuarioBusiness.ValidarEmail(model.Email))
-                {
-                    ModelState.AddModelError("UsuarioRegistrado", "El mail ingresado ya se encuentra registrado.");
-                }
-
-                if (ModelState.IsValid)
-                {
-                    int id_user = 0;
-
-                    #region Alta de Usuario
-                    model.Password = Crypto.SHA1(model.Password);
-                    model.Estado = true;
-
-                    id_user = usuarioBusiness.Guardar(model);
-                    #endregion
-
-                    //if (login)
-                    //{
-                        return RedirectToAction("AltaLoginResult", "Usuario", model);
-                    //}
-                    //else
-                    //{
-                        //return RedirectToAction("Detalle", "Usuario", new { @id = id_user });
-                    //}
-                }
-
-                return RedirectToAction("AltaLogin", "Usuario");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        #endregion
 
         [AllowAnonymous]
         public ActionResult AltaLoginResult(Usuario user)
         {
             return View("AltaLoginResult", user);
         }
+        #endregion
     }
 }

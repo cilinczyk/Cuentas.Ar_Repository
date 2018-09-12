@@ -22,5 +22,12 @@ namespace Cuentas.Ar.Entities
         public bool Administrador { get; set; }
         public bool Estado { get; set; }
         public Nullable<bool> Sexo { get; set; }
+        public int idTipoCuenta { get; set; }
+        public Nullable<int> idTipoTarjeta { get; set; }
+        public string MesVencimiento { get; set; }
+        public string AnioVencimiento { get; set; }
+        public byte[] CodSeguridad { get; set; }
+        public Nullable<System.DateTime> FechaCobro { get; set; }
+        public System.DateTime FechaAlta { get; set; }
     }
 }

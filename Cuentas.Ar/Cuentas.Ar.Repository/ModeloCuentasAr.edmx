@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ModeloCuentasAr.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TipoCuenta">
+          <Key>
+            <PropertyRef Name="idTipoCuenta" />
+          </Key>
+          <Property Name="idTipoCuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoCuenta" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoTarjeta">
+          <Key>
+            <PropertyRef Name="idTipoTarjeta" />
+          </Key>
+          <Property Name="idTipoTarjeta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoTarjeta" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="idUsuario" />
@@ -16,9 +30,18 @@
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Administrador" Type="bit" Nullable="false" />
+          <Property Name="idTipoCuenta" Type="int" Nullable="false" />
+          <Property Name="idTipoTarjeta" Type="int" />
+          <Property Name="MesVencimiento" Type="varchar" MaxLength="2" />
+          <Property Name="AnioVencimiento" Type="varchar" MaxLength="2" />
+          <Property Name="CodSeguridad" Type="varbinary" MaxLength="5" />
+          <Property Name="FechaCobro" Type="datetime" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ModeloCuentasArStoreContainer">
+          <EntitySet Name="TipoCuenta" EntityType="Self.TipoCuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoTarjeta" EntityType="Self.TipoTarjeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -37,10 +60,33 @@
           <Property Name="Administrador" Type="Boolean" Nullable="false" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <Property Name="Sexo" Type="Boolean" />
+          <Property Name="idTipoCuenta" Type="Int32" Nullable="false" />
+          <Property Name="idTipoTarjeta" Type="Int32" />
+          <Property Name="MesVencimiento" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="AnioVencimiento" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="CodSeguridad" Type="Binary" MaxLength="5" FixedLength="false" />
+          <Property Name="FechaCobro" Type="DateTime" Precision="3" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityContainer Name="CuentasArEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="TipoCuenta" EntityType="ModeloCuentasAr.TipoCuenta" />
+          <EntitySet Name="TipoTarjeta" EntityType="ModeloCuentasAr.TipoTarjeta" />
         </EntityContainer>
+        <EntityType Name="TipoCuenta">
+          <Key>
+            <PropertyRef Name="idTipoCuenta" />
+          </Key>
+          <Property Name="idTipoCuenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoCuenta1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TipoTarjeta">
+          <Key>
+            <PropertyRef Name="idTipoTarjeta" />
+          </Key>
+          <Property Name="idTipoTarjeta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoTarjeta1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -50,6 +96,13 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="ModeloCuentasAr.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="FechaCobro" ColumnName="FechaCobro" />
+                <ScalarProperty Name="CodSeguridad" ColumnName="CodSeguridad" />
+                <ScalarProperty Name="AnioVencimiento" ColumnName="AnioVencimiento" />
+                <ScalarProperty Name="MesVencimiento" ColumnName="MesVencimiento" />
+                <ScalarProperty Name="idTipoTarjeta" ColumnName="idTipoTarjeta" />
+                <ScalarProperty Name="idTipoCuenta" ColumnName="idTipoCuenta" />
                 <ScalarProperty Name="Sexo" ColumnName="Sexo" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
@@ -58,6 +111,22 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Administrador" ColumnName="Administrador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoCuenta">
+            <EntityTypeMapping TypeName="ModeloCuentasAr.TipoCuenta">
+              <MappingFragment StoreEntitySet="TipoCuenta">
+                <ScalarProperty Name="TipoCuenta1" ColumnName="TipoCuenta" />
+                <ScalarProperty Name="idTipoCuenta" ColumnName="idTipoCuenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoTarjeta">
+            <EntityTypeMapping TypeName="ModeloCuentasAr.TipoTarjeta">
+              <MappingFragment StoreEntitySet="TipoTarjeta">
+                <ScalarProperty Name="TipoTarjeta1" ColumnName="TipoTarjeta" />
+                <ScalarProperty Name="idTipoTarjeta" ColumnName="idTipoTarjeta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
