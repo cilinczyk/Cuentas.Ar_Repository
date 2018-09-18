@@ -1,7 +1,7 @@
-﻿@model Cuentas.Ar.Entities.Usuario
+﻿@model Cuentas.Ar.Entities.M_UsuarioLogin
 @{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -9,17 +9,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSS -->
-    <!--===============================================================================================-->
-    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    <link href="~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    <link href="~/Content/login/fonts/iconic/css/material-design-iconic-font.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    <link href="~/Content/login/css/main.css" rel="stylesheet" />
-    <link href="~/Content/login/css/util.css" rel="stylesheet" />
-    <!--===============================================================================================-->
 </head>
 <body style="background-image: url('../../Content/login/images/fondoLogin.jpg');">
 
@@ -31,58 +20,58 @@
                     @Html.HiddenFor(model => model.idTipoCuenta)
                     @Html.AntiForgeryToken()
 
-                <div class="login100-form validate-form">
-                    <span class="login100-form-title p-b-26">
-                        Nueva Cuenta
-                    </span>
-                    <span class="login100-form-title p-b-10">
-                        <img src="../../Content/logo/misCuentas_blanco.png" style="max-width: 300px; max-height: 300px" />
-                    </span>
+                    <div class="login100-form validate-form">
+                        <span class="login100-form-title">
+                            Nueva Cuenta
+                        </span>
+                        <span class="login100-form-title p-b-10">
+                            <img src="../../Content/logo/misCuentas_blanco.png" style="max-width: 200px; max-height: 300px" />
+                        </span>
 
-                    <div>
-                        <div class="wrap-input100" style="margin-bottom: 5px">
-                            @Html.TextBoxFor(model => model.Nombre, new { @class = "input100", @maxlength = "50", id = "nombre" })
-                            <span class="focus-input100" data-placeholder="Nombre Completo"></span>
+                        <div>
+                            <div class="wrap-input100" style="margin-bottom: 5px">
+                                @Html.TextBoxFor(model => model.DatosBasicos.Nombre, new { @class = "input100", @maxlength = "50", @id = "nombre" })
+                                <span class="focus-input100" data-placeholder="Nombre Completo"></span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.DatosBasicos.Nombre)
                         </div>
-                        @Html.ValidationMessageFor(model => model.Nombre)
-                    </div>
 
-                    <div class="mgTop10">
-                        <div class="wrap-input100" style="margin-bottom: 5px">
-                            @Html.TextBoxFor(model => model.Email, new { @class = "input100", @maxlength = "40", id = "email" })
-                            <span class="focus-input100" data-placeholder="Email"></span>
+                        <div class="mgTop10">
+                            <div class="wrap-input100" style="margin-bottom: 5px">
+                                @Html.TextBoxFor(model => model.DatosBasicos.Email, new { @class = "input100", @maxlength = "40", id = "email" })
+                                <span class="focus-input100" data-placeholder="Email"></span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.DatosBasicos.Email)
                         </div>
-                        @Html.ValidationMessageFor(model => model.Email)
-                    </div>
 
-                    <div class="mgTop10">
-                        <div class="wrap-input100" style="margin-bottom: 5px">
-                            <span class="btn-show-pass">
-                                <i class="zmdi zmdi-eye"></i>
-                            </span>
-                            @Html.PasswordFor(model => model.Password, new { @class = "input100", @maxlength = "40", @autocomplete = "off", id = "pass", Value = "" })
-                            <span class="focus-input100" data-placeholder="Password"></span>
+                        <div class="mgTop10">
+                            <div class="wrap-input100" style="margin-bottom: 5px">
+                                <span class="btn-show-pass">
+                                    <i class="zmdi zmdi-eye"></i>
+                                </span>
+                                @Html.PasswordFor(model => model.DatosBasicos.Password, new { @class = "input100", @maxlength = "40", @autocomplete = "off", id = "pass", Value = "" })
+                                <span class="focus-input100" data-placeholder="Password"></span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.DatosBasicos.Password)
                         </div>
-                        @Html.ValidationMessageFor(model => model.Password)
-                    </div>
 
-                    @*<div class="wrap-input50">
-            <span class="input100Fecha">Fecha</span>
-            <input class="input100" type="date" name="fecha">
-        </div>*@
+                        @*<div class="wrap-input50">
+                                <span class="input100Fecha">Fecha</span>
+                                <input class="input100" type="date" name="fecha">
+                            </div>*@
 
-                    <div class="container-login100-form-btn">
-                        <div class="wrap-login100-form-btn">
-                            <div class="login100-form-bgbtn"></div>
-                            <button class="login100-form-btn">
-                                Continuar
-                            </button>
+                        <div class="container-login100-form-btn">
+                            <div class="wrap-login100-form-btn">
+                                <div class="login100-form-bgbtn"></div>
+                                <button class="login100-form-btn">
+                                    Continuar
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 }
 
-                @if (!ViewData.ModelState.IsValid)
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ContainsKey("UsuarioRegistrado"))
                 {
                     <div class="alert alert-danger mgBottom0 mgTop5">@Html.ValidationMessage("UsuarioRegistrado")</div>
                 }
@@ -95,12 +84,9 @@
             </div>
         </div>
     </div>
-
-    <!-- Javascript -->
-    <!--===============================================================================================-->
-    <script src="~/Content/login/js/main.js"></script>
 </body>
 </html>
+<script src="~/Content/login/js/main.js"></script>
 <script>
     if ($("#nombre").val() != null && $("#nombre") != "") {
         $("#nombre").blur();

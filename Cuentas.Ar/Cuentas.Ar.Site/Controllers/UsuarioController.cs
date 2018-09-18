@@ -15,6 +15,7 @@ namespace Cuentas.Ar.Site.Controllers
     public class UsuarioController : Controller
     {
         #region [Región: Alta de usuario]
+
         #region [Región: Paso 1 (Seleccionar Tipo de Cuenta)]
         [AllowAnonymous]
         public ActionResult AltaLoginTipoCuenta()
@@ -43,9 +44,8 @@ namespace Cuentas.Ar.Site.Controllers
         [AllowAnonymous]
         public ActionResult AltaLogin(int idTipoCuenta)
         {
-            Usuario model = new Usuario
+            M_UsuarioLogin model = new M_UsuarioLogin
             {
-                Administrador = false,
                 idTipoCuenta = idTipoCuenta
             };
 
@@ -55,29 +55,29 @@ namespace Cuentas.Ar.Site.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Alta(Usuario model)
+        public ActionResult Alta(M_UsuarioLogin model)
         {
             try
             {
                 UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
-                if (usuarioBusiness.ValidarEmail(model.Email))
+
+                if (usuarioBusiness.ValidarEmail(model.DatosBasicos.Email))
                 {
                     ModelState.AddModelError("UsuarioRegistrado", "El mail ingresado ya se encuentra registrado.");
                 }
 
-                if (ModelState.IsValid)
+                if (!ModelState.ContainsKey("UsuarioRegistrado"))
                 {
-                    int id_user = 0;
-
-                    #region Alta de Usuario
-                    model.Password = Crypto.SHA1(model.Password);
-                    model.Estado = true;
-                    model.FechaAlta = DateTime.Now;
-
-                    id_user = usuarioBusiness.Guardar(model);
-                    #endregion
-
-                    return RedirectToAction("AltaLoginResult", "Usuario", model);
+                    if (model.idTipoCuenta == eTipoCuenta.Free)
+                    {
+                        AltaUsuario(model);
+                        return View("AltaLoginResult", model);
+                    }
+                    else
+                    {
+                        ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
+                        return View("AltaLoginFormaPago", model);
+                    }
                 }
 
                 return View("AltaLogin", model);
@@ -89,10 +89,69 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
+        #region [Región: Paso 3 (Forma de Pago)]
         [AllowAnonymous]
-        public ActionResult AltaLoginResult(Usuario user)
+        public ActionResult AltaLoginFormaPago(M_UsuarioLogin model)
         {
-            return View("AltaLoginResult", user);
+            ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
+            return View("AltaLoginFormaPago", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public ActionResult AltaLoginFormaPagoConfirm(M_UsuarioLogin model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    AltaUsuario(model, fechaCobro: DateTime.Now.AddMonths(1));
+                    return View("AltaLoginResult", model);
+                }
+
+                ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
+                return View("AltaLoginFormaPago", model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region [Región: Paso 4 (Resultado)]
+        [AllowAnonymous]
+        public ActionResult AltaLoginResult(M_UsuarioLogin usuario)
+        {
+            return View("AltaLoginResult", usuario);
+        }
+        #endregion
+
+        private static void AltaUsuario(M_UsuarioLogin model, DateTime? fechaCobro = null)
+        {
+            UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
+
+            #region Alta de Usuario
+            Usuario usuario = new Usuario
+            {
+                Administrador = false,
+                Estado = true,
+                FechaAlta = DateTime.Now,
+                idTipoCuenta = model.idTipoCuenta,
+                Nombre = model.DatosBasicos.Nombre,
+                Email = model.DatosBasicos.Email,
+                Password = Crypto.SHA1(model.DatosBasicos.Password),
+
+                idTipoTarjeta = model.FormaPago.idTipoTarjeta,
+                NroTarjeta = model.FormaPago.NroTarjeta,
+                CodSeguridad = model.FormaPago.CodSeguridad,
+                VencTarjeta = model.FormaPago.VencTarjeta,
+                FechaCobro = fechaCobro
+            };
+
+            usuarioBusiness.Guardar(usuario);
+            #endregion
         }
         #endregion
     }

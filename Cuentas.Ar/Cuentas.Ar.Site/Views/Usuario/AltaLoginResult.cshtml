@@ -1,7 +1,7 @@
-﻿@model Cuentas.Ar.Entities.Usuario
+﻿@model Cuentas.Ar.Entities.M_UsuarioLogin
 @{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -9,17 +9,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSS -->
-    <!--===============================================================================================-->
-    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    <link href="~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    <link href="~/Content/login/fonts/iconic/css/material-design-iconic-font.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    <link href="~/Content/login/css/main.css" rel="stylesheet" />
-    <link href="~/Content/login/css/util.css" rel="stylesheet" />
-    <!--===============================================================================================-->
 </head>
 <body style="background-image: url('../../Content/login/images/fondoLogin.jpg');">
 
@@ -38,7 +27,7 @@
 
                     <div class="alert alert-success" role="alert">
                         <h4 class="alert-heading text-center">¡Felicitaciones!</h4>
-                        <p><b>@Model.Nombre</b>, la cuenta ha sido creada satisfactoriamente.</p>
+                        <p><b>@Model.DatosBasicos.Nombre</b>, la cuenta ha sido creada satisfactoriamente.</p>
                     </div>
                 </div>
                 <div class="text-center p-t-5">

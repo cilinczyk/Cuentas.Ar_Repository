@@ -9,20 +9,16 @@
     <title>Cuentas.Ar - @ViewBag.Title</title>
 
     <!-- Bootstrap Core CSS -->
-    @*@Styles.Render("~/bundles/css")*@
-    <!--     Fonts and icons     -->
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
-    <!-- CSS Files -->
-    <link href="~/Content/assets/css/material-dashboard.css" rel="stylesheet" />
+    @Styles.Render("~/bundles/css")
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 <body>
     <div id="wrapper">
         <!-- Menu -->
-            @*@Html.Partial("_BotoneraTop")*@
-            @Html.Partial("_Menu")
-            @*@{ Html.RenderAction("Top", "Botonera"); }*@
+        @*@Html.Partial("_BotoneraTop")*@
+        @Html.Partial("_Menu")
+        @*@{ Html.RenderAction("Top", "Botonera"); }*@
         <!-- End Menu -->
-
         <!-- Page Content -->
         <div class="content">
             <div class="main-panel">
@@ -31,14 +27,15 @@
             </div>
         </div>
         <!-- End Page Content -->
-        
-    @*@Html.Partial("_Footer")*@
+        @*@Html.Partial("_Footer")*@
     </div>
 
     @*<script src="~/Content/assets/js/core/jquery.min.js" type="text/javascript"></script>*@
     @*@Scripts.Render("~/bundles/js")
-    @Scripts.Render("~/bundles/jqueryval")*@
-
+        @Scripts.Render("~/bundles/jqueryval")*@
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <!--   Core JS Files   -->
     <script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="~/Content/assets/js/core/popper.min.js" type="text/javascript"></script>

@@ -15,19 +15,22 @@ namespace Cuentas.Ar.Entities
     public partial class Usuario
     {
         public int idUsuario { get; set; }
+        public int idTipoCuenta { get; set; }
+        public Nullable<int> idTipoTarjeta { get; set; }
         public string Nombre { get; set; }
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
+        public Nullable<bool> Sexo { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public bool Administrador { get; set; }
-        public bool Estado { get; set; }
-        public Nullable<bool> Sexo { get; set; }
-        public int idTipoCuenta { get; set; }
-        public Nullable<int> idTipoTarjeta { get; set; }
-        public string MesVencimiento { get; set; }
-        public string AnioVencimiento { get; set; }
-        public byte[] CodSeguridad { get; set; }
+        public string NroTarjeta { get; set; }
+        public string VencTarjeta { get; set; }
+        public string CodSeguridad { get; set; }
         public Nullable<System.DateTime> FechaCobro { get; set; }
         public System.DateTime FechaAlta { get; set; }
+        public bool Estado { get; set; }
+    
+        public virtual TipoCuenta TipoCuenta { get; set; }
+        public virtual TipoTarjeta TipoTarjeta { get; set; }
     }
 }

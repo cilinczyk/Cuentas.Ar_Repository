@@ -1,7 +1,7 @@
 ﻿@model Cuentas.Ar.Entities.M_Usuario
 @{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -9,14 +9,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSS -->
-    <link href="~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    <link href="~/Content/login/fonts/iconic/css/material-design-iconic-font.min.css" rel="stylesheet" />
-    <!--===============================================================================================-->
-    <link href="~/Content/login/css/main.css" rel="stylesheet" />
-    <link href="~/Content/login/css/util.css" rel="stylesheet" />
-    <!--===============================================================================================-->
 </head>
 <body style="background-image: url('../../Content/login/images/fondoLogin.jpg');">
     <div class="limiter">
@@ -31,8 +23,8 @@
                         <span class="login100-form-title">
                             Bienvenido
                         </span>
-                        <span class="login100-form-title p-b-10">
-                            <img src="../../Content/logo/misCuentas_blanco.png" style="max-width: 300px; max-height: 300px" />
+                        <span class="login100-form-title">
+                            <img src="../../Content/logo/misCuentas_blanco.png" style="max-width: 200px; max-height: 300px" />
                         </span>
                         <div>
                             <div class="wrap-input100" style="margin-bottom: 5px">
@@ -74,37 +66,14 @@
 
                             <a href="@Url.Action("AltaLoginTipoCuenta", "Usuario")" class="txt2">Registrate</a>
                         </div>
-                        
-                        @*<div class="txt1 text-center p-t-5 p-b-5">
-                            <span>
-                                O ingresá usando...
-                            </span>
-                        </div>
-
-                        <div class="flex-c-m">
-                            <a href="#" class="login100-social-item bg1">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-
-                            <a href="#" class="login100-social-item bg2">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-
-                            <a href="#" class="login100-social-item bg3">
-                                <i class="fa fa-google"></i>
-                            </a>
-                        </div>*@
                     </div>
                 }
             </div>
         </div>
     </div>
-
-    <!-- Javascript -->
-    <!--===============================================================================================-->
-    <script src="~/Content/login/js/main.js"></script>
 </body>
 </html>
+<script src="~/Content/login/js/main.js"></script>
 <script>
     if ($("#email").val() != null && $("#email") != "") {
         $("#email").blur();

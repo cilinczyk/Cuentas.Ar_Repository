@@ -14,7 +14,16 @@ namespace Cuentas.Ar.Entities
     
     public partial class TipoTarjeta
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TipoTarjeta()
+        {
+            this.Usuario = new HashSet<Usuario>();
+        }
+    
         public int idTipoTarjeta { get; set; }
-        public string TipoTarjeta1 { get; set; }
+        public string Descripcion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }
