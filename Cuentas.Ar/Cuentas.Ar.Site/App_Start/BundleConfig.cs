@@ -8,7 +8,6 @@ namespace Cuentas.Ar.Site
         {
             #region [Región: Login]
             bundles.Add(new StyleBundle("~/bundles/cssLogin").Include(
-                "~/Content/assets/css/material-dashboard.css",
                 "~/Content/vendor/bootstrap/css/bootstrap.min.css",
                 "~/Content/cuentaLogin/cuentaLogin.css",
                 "~/Content/select2.min.css",
@@ -19,8 +18,7 @@ namespace Cuentas.Ar.Site
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/jsLogin").Include(
-                "~/Content/login/js/main.js",
-                "~/Scripts/jquery-3.3.1.min.js"));
+                "~/Scripts/jquery-3.3.1.js"));
             #endregion
 
             #region [Región: Sistema]
@@ -36,6 +34,7 @@ namespace Cuentas.Ar.Site
                 ));
 
                 bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                                    "~/Content/login/js/main.js",
                     "~/Scripts/jquery-3.3.1.min.js",
                     "~/Content/vendor/bootstrap/js/bootstrap.min.js",
                     "~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js",
