@@ -72,7 +72,7 @@
 }
 
 /*VALIDACIONES*/
-/*.field-validation-error {
+.field-validation-error {
     color: #b94a48;
     display: inline-block;
     *display: inline;
@@ -103,4 +103,14 @@
 
 .validation-summary-valid {
     display: none;
-}*/
+}
+
+/*VARIOS*/
+.page-headerFix {
+    border-bottom: 1px solid #949AAB;
+    margin: 20px 0 20px;
+    padding-bottom: 6px;
+    color: #666d75;
+    font-size: 18pt;
+    text-transform: uppercase;
+}

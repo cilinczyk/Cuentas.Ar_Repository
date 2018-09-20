@@ -732,7 +732,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Menu\Inicio.cshtml" />
     <Content Include="Views\Shared\_LayoutEmpty.cshtml" />
     <Content Include="Views\Cuenta\Login.cshtml" />
     <Content Include="Views\Usuario\AltaLogin.cshtml" />

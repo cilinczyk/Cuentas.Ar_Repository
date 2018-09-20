@@ -58,6 +58,7 @@ namespace Cuentas.Ar.Entities
 
         [Required(ErrorMessage = "Ingrese un vencimiento de tarjeta.")]
         [RegularExpression(@"^\d{1,2}\/\d{1,2}$", ErrorMessage = "Ingrese un vencimiento valido.")]
+        [CheckVigenciaTC]
         public string VencTarjeta { get; set; }
     }
 }

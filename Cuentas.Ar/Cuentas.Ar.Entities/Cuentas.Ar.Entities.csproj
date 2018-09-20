@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entidades\M_Home.cs" />
     <Compile Include="Entidades\M_UsuarioLogin.cs" />
     <Compile Include="Enums\eTipoTarjeta.cs" />
     <Compile Include="Enums\eTipoCuenta.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Usuario.cs">
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>
+    <Compile Include="Validaciones\CheckVigenciaTCAttribute.cs" />
     <Compile Include="Validaciones\CheckCreditCardAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

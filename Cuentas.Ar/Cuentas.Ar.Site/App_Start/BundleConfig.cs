@@ -13,16 +13,19 @@ namespace Cuentas.Ar.Site
                 "~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css",
                 "~/Content/login/fonts/iconic/css/material-design-iconic-font.min.css",
                 "~/Content/login/css/main.css",
-                "~/Content/login/css/util.css"
+                "~/Content/login/css/util.css",
+                "~/Content/assets/css/material-dashboard.css"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                 "~/Content/CuentasArStyleSheet.css",
                 "~/Content/assets/css/material-dashboard.css",
-                "~/Content/vendor/bootstrap/css/bootstrap.min.css",
+                //"~/Content/vendor/bootstrap/css/bootstrap.min.css",
                 "~/Content/font-awesome.min.css",
                 "~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css",
-                "~/Content/login/fonts/iconic/css/material-design-iconic-font.min.css"
+                "~/Content/login/fonts/iconic/css/material-design-iconic-font.min.css",
+                "~/Content/login/css/main.css",
+                "~/Content/login/css/util.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(

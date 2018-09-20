@@ -1,203 +1,69 @@
-﻿@{
+﻿@model Cuentas.Ar.Entities.M_Home
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-header card-header-primary">
-            <h3 class="card-title">Notifications</h3>
-            <p class="card-category">
-                Handcrafted by our friend
-                <a target="_blank" href="https://github.com/mouse0270">Robert McIntosh</a>. Please checkout the
-                <a href="http://bootstrap-notify.remabledesigns.com/" target="_blank">full documentation.</a>
-            </p>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <h4 class="card-title">Notifications Style</h4>
-                    <div class="alert alert-info">
-                        <span>This is a plain notification</span>
-                    </div>
-                    <div class="alert alert-info">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="material-icons">close</i>
-                        </button>
-                        <span>This is a notification with close button.</span>
-                    </div>
-                    <div class="alert alert-info alert-with-icon" data-notify="container">
-                        <i class="material-icons" data-notify="icon">add_alert</i>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="material-icons">close</i>
-                        </button>
-                        <span data-notify="message">This is a notification with close button and icon.</span>
-                    </div>
-                    <div class="alert alert-info alert-with-icon" data-notify="container">
-                        <i class="material-icons" data-notify="icon">add_alert</i>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="material-icons">close</i>
-                        </button>
-                        <span data-notify="message">This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style.</span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h4 class="card-title">Notification states</h4>
-                    <div class="alert alert-info">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="material-icons">close</i>
-                        </button>
-                        <span>
-                            <b> Info - </b> This is a regular notification made with ".alert-info"
-                        </span>
-                    </div>
-                    <div class="alert alert-success">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="material-icons">close</i>
-                        </button>
-                        <span>
-                            <b> Success - </b> This is a regular notification made with ".alert-success"
-                        </span>
-                    </div>
-                    <div class="alert alert-warning">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="material-icons">close</i>
-                        </button>
-                        <span>
-                            <b> Warning - </b> This is a regular notification made with ".alert-warning"
-                        </span>
-                    </div>
-                    <div class="alert alert-danger">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="material-icons">close</i>
-                        </button>
-                        <span>
-                            <b> Danger - </b> This is a regular notification made with ".alert-danger"
-                        </span>
-                    </div>
-                    <div class="alert alert-primary">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <i class="material-icons">close</i>
-                        </button>
-                        <span>
-                            <b> Primary - </b> This is a regular notification made with ".alert-primary"
-                        </span>
-                    </div>
+<div class="col-md-12">
+    <div>
+        <div class="">
+            <div class="col-lg-12">
+                <h1 class="page-headerFix"><i class="fa fa-home"></i> Resuen de Cuentas </h1>
+            </div>
+            @using (Ajax.BeginForm("Buscar", "Poliza", new AjaxOptions
+            {
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "lista",
+                OnBegin = "onBegin",
+                OnComplete = "onComplete",
+                OnSuccess = "onSuccess"
+            }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+            <div class="card">
+                <div class="card-header deep-orange lighten-1 white-text">Featured</div>
+                <div class="card-body">
+                    <h4 class="card-title">Special title treatment</h4>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a class="btn btn-deep-orange">Go somewhere</a>
                 </div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="places-buttons">
-                <div class="row">
-                    <div class="col-md-6 ml-auto mr-auto text-center">
-                        <h4 class="card-title">
-                            Notifications Places
-                            <p class="category">Click to view notifications</p>
-                        </h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8 col-md-10 ml-auto mr-auto">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <button class="btn btn-primary btn-block" onclick="demo.showNotification('top','left')">Top Left</button>
+
+                <nav class="navbar navbar-default" role="search">
+                    <div class="container-fluid mgTop1">
+                        <div class="row col-md-12">
+                            <div class="col-md-6">
+                                <span>Saldo Actual: $57.000</span>
+                                <br />
+                                <br />
+                                <span>Ingresos: $32.000</span>
+                                <br />
+                                <br />
+                                <span>Egresos: $10.000</span>
                             </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-primary btn-block" onclick="demo.showNotification('top','center')">Top Center</button>
-                            </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-primary btn-block" onclick="demo.showNotification('top','right')">Top Right</button>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.Label("", "FechaDesde", new { @class = "form-control-label col-md-5" })
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.Label("", "FechaHasta", new { @class = "form-control-label col-md-5" })
+                                    <div class="col-md-7">
+                                        @Html.TextBoxFor(model => model.FechaHasta, new { @id = "fechaDesde", @class = "form-control" })
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8 col-md-10 ml-auto mr-auto">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <button class="btn btn-primary btn-block" onclick="demo.showNotification('bottom','left')">Bottom Left</button>
-                            </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-primary btn-block" onclick="demo.showNotification('bottom','center')">Bottom Center</button>
-                            </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-primary btn-block" onclick="demo.showNotification('bottom','right')">Bottom Right</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </nav>
+            }
         </div>
     </div>
+    <div>
+        Hola 2
+    </div>
 </div>
-
-@*<script language="javascript">
-    $(function () {
-        $('#demo').daterangepicker({
-            "ranges": {
-                "Today": [
-                    "2018-09-17T01:46:40.563Z",
-                    "2018-09-17T01:46:40.563Z"
-                ],
-                "Yesterday": [
-                    "2018-09-16T01:46:40.563Z",
-                    "2018-09-16T01:46:40.563Z"
-                ],
-                "Last 7 Days": [
-                    "2018-09-11T01:46:40.563Z",
-                    "2018-09-17T01:46:40.563Z"
-                ],
-                "Last 30 Days": [
-                    "2018-08-19T01:46:40.563Z",
-                    "2018-09-17T01:46:40.563Z"
-                ],
-                "This Month": [
-                    "2018-09-01T03:00:00.000Z",
-                    "2018-10-01T02:59:59.999Z"
-                ],
-                "Last Month": [
-                    "2018-08-01T03:00:00.000Z",
-                    "2018-09-01T02:59:59.999Z"
-                ]
-            },
-            "locale": {
-                "direction": "ltr",
-                "format": "MM/DD/YYYY HH:mm",
-                "separator": " - ",
-                "applyLabel": "Apply",
-                "cancelLabel": "Cancel",
-                "fromLabel": "From",
-                "toLabel": "To",
-                "customRangeLabel": "Custom",
-                "daysOfWeek": [
-                    "Su",
-                    "Mo",
-                    "Tu",
-                    "We",
-                    "Th",
-                    "Fr",
-                    "Sa"
-                ],
-                "monthNames": [
-                    "January",
-                    "February",
-                    "March",
-                    "April",
-                    "May",
-                    "June",
-                    "July",
-                    "August",
-                    "September",
-                    "October",
-                    "November",
-                    "December"
-                ],
-                "firstDay": 1
-            },
-            "alwaysShowCalendars": true,
-            "startDate": "09/10/2018",
-            "endDate": "09/16/2018"
-        }, function (start, end, label) {
-            console.log("New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')");
-        });
-    });
-</script>*@
