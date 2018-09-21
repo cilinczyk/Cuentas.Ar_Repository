@@ -25,7 +25,6 @@ namespace Cuentas.Ar.Entities.Validaciones
             }
             catch (Exception ex)
             {
-
                 return new ValidationResult(ex.Message);
             }
 
@@ -74,7 +73,7 @@ namespace Cuentas.Ar.Entities.Validaciones
             }
             else
             {
-                int primerosCuatroDigitos = Convert.ToInt32(nroTarjeta.Substring(0, 3));
+                int primerosCuatroDigitos = Convert.ToInt32(nroTarjeta.Substring(0, 4));
 
                 if (primerosCuatroDigitos >= 4000 && primerosCuatroDigitos <= 4999)
                 {
@@ -82,7 +81,7 @@ namespace Cuentas.Ar.Entities.Validaciones
                 }
                 else if (primerosCuatroDigitos >= 3400 && primerosCuatroDigitos <= 3799)
                 {
-                    return eTipoTarjeta.Mastercard;
+                    return eTipoTarjeta.AmericanExpress;
                 }
                 else
                 {

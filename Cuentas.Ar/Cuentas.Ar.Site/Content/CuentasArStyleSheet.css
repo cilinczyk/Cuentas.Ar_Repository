@@ -24,11 +24,11 @@
 }
 
 .mgTop6 {
-    margin-top: 5%;
+    margin-top: 6%;
 }
 
-.mgTop8 {
-    margin-top: 5%;
+.mgTop7 {
+    margin-top: 7%;
 }
 
 .mgTop10 {
@@ -113,4 +113,10 @@
     color: #666d75;
     font-size: 18pt;
     text-transform: uppercase;
+}
+
+.maskDate {
+}
+
+.maskDateMin {
 }

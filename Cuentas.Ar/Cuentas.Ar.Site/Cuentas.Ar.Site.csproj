@@ -199,6 +199,8 @@
   <ItemGroup>
     <Content Include="Content\assets\css\material-dashboard.css" />
     <Content Include="Content\assets\css\material-dashboard.min.css" />
+    <Content Include="Content\assets\css\mdb.css" />
+    <Content Include="Content\assets\css\mdb.min.css" />
     <Content Include="Content\assets\img\cover.jpg" />
     <Content Include="Content\assets\img\sidebar-1.jpg" />
     <Content Include="Content\assets\img\sidebar-10.jpg" />
@@ -218,6 +220,8 @@
     <Content Include="Content\assets\js\plugins\bootstrap-notify.js" />
     <Content Include="Content\assets\js\plugins\chartist.min.js" />
     <Content Include="Content\assets\js\plugins\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\cuentaLogin\cuentaLogin.css" />
     <Content Include="Content\CuentasArStyleSheet.css" />
     <Content Include="Content\dist\css\sb-admin-2.css" />
@@ -323,8 +327,6 @@
     <Content Include="Content\vendor\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\vendor\font-awesome\HELP-US-OUT.txt" />
-    <Content Include="Content\vendor\jquery\jquery.js" />
-    <Content Include="Content\vendor\jquery\jquery.min.js" />
     <Content Include="Content\vendor\metisMenu\metisMenu.css" />
     <Content Include="Content\vendor\metisMenu\metisMenu.js" />
     <Content Include="Content\vendor\metisMenu\metisMenu.min.css" />
@@ -335,7 +337,6 @@
     <Content Include="Content\vendor\raphael\raphael.js" />
     <Content Include="Content\vendor\raphael\raphael.min.js" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -584,11 +585,6 @@
     <Content Include="Content\assets\scss\material-dashboard\_tooltip.scss" />
     <Content Include="Content\assets\scss\material-dashboard\_type.scss" />
     <Content Include="Content\assets\scss\material-dashboard\_variables.scss" />
-    <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />

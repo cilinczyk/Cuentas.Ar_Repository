@@ -2,68 +2,133 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
-<div class="col-md-12">
-    <div>
-        <div class="">
-            <div class="col-lg-12">
-                <h1 class="page-headerFix"><i class="fa fa-home"></i> Resuen de Cuentas </h1>
-            </div>
-            @using (Ajax.BeginForm("Buscar", "Poliza", new AjaxOptions
-            {
-                InsertionMode = InsertionMode.Replace,
-                UpdateTargetId = "lista",
-                OnBegin = "onBegin",
-                OnComplete = "onComplete",
-                OnSuccess = "onSuccess"
-            }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
-
-            <div class="card">
-                <div class="card-header deep-orange lighten-1 white-text">Featured</div>
-                <div class="card-body">
-                    <h4 class="card-title">Special title treatment</h4>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a class="btn btn-deep-orange">Go somewhere</a>
+<div class="container-fluid mgTop7">
+    <div class="card col-md-12">
+        <div class="row">
+            <div class="col-md-2 mgTop2">
+                <div class="form-group">
+                    <label class="bmd-label-floating">Fecha Desde</label>
+                    @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control maskDate" })
                 </div>
             </div>
 
-                <nav class="navbar navbar-default" role="search">
-                    <div class="container-fluid mgTop1">
-                        <div class="row col-md-12">
+            <div class="col-md-2 mgTop2">
+                <div class="form-group">
+                    <label class="bmd-label-floating">Fecha Hasta</label>
+                    @Html.TextBoxFor(model => model.FechaHasta, new { @id = "fechaHasta", @class = "form-control" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Edit Profile</h4>
+                    <p class="card-category">Complete your profile</p>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Company (disabled)</label>
+                                    <input type="text" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Username</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Email address</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
-                                <span>Saldo Actual: $57.000</span>
-                                <br />
-                                <br />
-                                <span>Ingresos: $32.000</span>
-                                <br />
-                                <br />
-                                <span>Egresos: $10.000</span>
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Fist Name</label>
+                                    <input type="text" class="form-control">
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    @Html.Label("", "FechaDesde", new { @class = "form-control-label col-md-5" })
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control" })
-                                    </div>
+                                    <label class="bmd-label-floating">Last Name</label>
+                                    <input type="text" class="form-control">
                                 </div>
-
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    @Html.Label("", "FechaHasta", new { @class = "form-control-label col-md-5" })
-                                    <div class="col-md-7">
-                                        @Html.TextBoxFor(model => model.FechaHasta, new { @id = "fechaDesde", @class = "form-control" })
+                                    <label class="bmd-label-floating">Adress</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">City</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Country</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Postal Code</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>About Me</label>
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                        <textarea class="form-control" rows="5"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </nav>
-            }
+                        <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-profile">
+                <div class="card-avatar">
+                    <a href="#pablo">
+                        <img class="img" src="../assets/img/faces/marc.jpg" />
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                    <h4 class="card-title">Alec Thompson</h4>
+                    <p class="card-description">
+                        Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                    </p>
+                    <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
+                </div>
+            </div>
         </div>
     </div>
-    <div>
-        Hola 2
-    </div>
 </div>
+<script src="~/Scripts/select2.min.js"></script>
+<script>
+    $(".maskDate").inputmask({ inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100' });
+    $("#fechaDesde").blur();
+</script>
