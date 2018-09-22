@@ -9,6 +9,11 @@ namespace Cuentas.Ar.Site.Helpers
 {
     public static class MenuHelper
     {
+        private static List<string> controllersByGroups = new List<string>
+        {
+            "Configuracion"
+        };
+
         public static MvcHtmlString MenuActionLink(this HtmlHelper helper, string label, string actionName, string controllerName, string icon, string title, object routeValues = null, bool marcame = false)
         {
             TagBuilder tagBuilder;
@@ -102,6 +107,47 @@ namespace Cuentas.Ar.Site.Helpers
             return MvcHtmlString.Create(li.ToString());
         }
 
+        public static MvcHtmlString MenuActionSubLinkMenu(this HtmlHelper helper, string label, string actionName, string controllerName, string icon, bool marcame = false)
+        {
+            TagBuilder tagBuilder;
+            UrlHelper urlHelper;
+
+            var htmlAttributes = new RouteValueDictionary();
+            var routeData = helper.ViewContext.RouteData;
+            var currentAction = routeData.GetRequiredString("action");
+            var currentController = routeData.GetRequiredString("controller");
+
+            var li = new TagBuilder("li");
+            li.AddCssClass("nav-item");
+
+            var tagSpan = new TagBuilder("span");
+            tagSpan.InnerHtml = label;
+
+            var ico = new TagBuilder("i");
+            if (!string.IsNullOrEmpty(icon))
+            {
+                ico.AddCssClass("fa fa-" + icon);
+                ico.Attributes["style"] = "margin-left: 10%";
+            }
+
+            if ((string.Equals(currentAction, actionName, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(currentController, controllerName, StringComparison.OrdinalIgnoreCase)) || marcame)
+            {
+                li.AddCssClass("active");
+            }
+
+            urlHelper = new UrlHelper(helper.ViewContext.RequestContext);
+            tagBuilder = new TagBuilder("a");
+            tagBuilder.AddCssClass("nav-link");
+            tagBuilder.InnerHtml = ico.ToString() + " " + tagSpan.ToString();
+            tagBuilder.Attributes["href"] = urlHelper.Action(actionName, controllerName);
+            tagBuilder.MergeAttributes(htmlAttributes);
+
+            li.InnerHtml = tagBuilder.ToString();
+
+            return MvcHtmlString.Create(li.ToString());
+        }
+
         public static MvcHtmlString NoEncodeActionLink(this HtmlHelper htmlHelper, string text, string title, string action, string controller, object routeValues = null, object htmlAttributes = null)
         {
             UrlHelper urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext);
@@ -115,6 +161,11 @@ namespace Cuentas.Ar.Site.Helpers
             builder.MergeAttributes(new RouteValueDictionary(HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes)));
 
             return MvcHtmlString.Create(builder.ToString() + Environment.NewLine);
+        }
+
+        public static string EstadoMenu(string controlador)
+        {
+            return controllersByGroups.Select(x => x).Contains(controlador) ? "active" : string.Empty;
         }
 
         public static string[] ObtenerSaludo()

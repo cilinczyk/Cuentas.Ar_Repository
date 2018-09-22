@@ -2,6 +2,7 @@
     var Controlador = ViewContext.RouteData.Values["controller"].ToString();
     var Accion = ViewContext.RouteData.Values["action"].ToString();
 }
+
 <div class="sidebar" data-color="purple" data-background-color="black" data-image="../../Content/assets/img/sidebar-1.jpg">
     <div class="logo">
         <a class="simple-text logo-normal">
@@ -13,18 +14,40 @@
 
             @Html.MenuActionLinkMenu("Mis Cuentas", "Index", "Home", "home")
 
+            @Html.MenuActionLinkMenu("Nuevo", "Index", "Home5", "plus")
+
             @Html.MenuActionLinkMenu("Mis Datos", "Index", "Home2", "user")
 
             @Html.MenuActionLinkMenu("Mis Registros", "Index", "Home3", "file-text-o")
 
             @Html.MenuActionLinkMenu("Mis Estadisticas", "Index", "Home4", "bar-chart")
 
-            @Html.MenuActionLinkMenu("Configuración", "Index", "Home5", "cog")
+            <li class="@MenuHelper.EstadoMenu(Controlador) nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#tablesExamples" aria-expanded="false">
+                    <i class="fa fa-cog"></i>
+                    <p>
+                        Configuración
+                        <b class="caret"></b>
+                    </p>
+                </a>
+
+                <div id="tablesExamples" class="collapse" style="">
+                    <ul class="nav">
+                        @Html.MenuActionSubLinkMenu("Mis Datos", "Configuracion", "MisDatos", "user")
+                        @Html.MenuActionSubLinkMenu("Parametros", "Configuracion", "Parametros", "user")
+                        @Html.MenuActionSubLinkMenu("Categorias", "Configuracion", "Categorias", "user")
+                        @Html.MenuActionSubLinkMenu("SubCategorias", "Configuracion", "SubCategorias", "user")
+                    </ul>
+                </div>
+            </li>
 
             @Html.MenuActionLinkMenu("Cerrar Sesión", "LogOff", "Cuenta", "sign-out")
 
             @Html.MenuActionLinkMenu("Upgrade to PRO", "LogOff", "Cuenta6", "arrow-circle-up")
-            
+
         </ul>
     </div>
 </div>
+<script>
+    $('.collapsible').collapsible();
+</script>

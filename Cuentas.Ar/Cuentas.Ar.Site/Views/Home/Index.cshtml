@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
+<link href="~/Content/vendor/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet" />
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -9,17 +10,43 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Fecha Desde</label>
-                                    @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control maskDate datepicker" })
+                                    <label class="bmd-label-floating">Cristian Ilincyk</label>
+                                    <br />
+                                    <label class="bmd-label-floating">Cuenta: Business</label>
+                                    <br />
+                                    <label class="bmd-label-floating">Estado: Bueno</label>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="row justify-content-md-center">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Fecha Desde</label>
+                                            @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control maskDate datepicker" })
+                                        </div>
+                                    </div>
 
-                            <div class="col-md-2">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Fecha Hasta</label>
+                                            @Html.TextBoxFor(model => model.FechaHasta, new { @id = "fechaHasta", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-md-center">
+                                    <a href="#pablo" class="btn btn-primary btn-amber">Actualizar</a>
+                                </div>
+                            </div>
+                            <div class="col col-md-3 text-right">
                                 <div class="form-group">
-                                    <label class="bmd-label-floating">Fecha Hasta</label>
-                                    @Html.TextBoxFor(model => model.FechaHasta, new { @id = "fechaHasta", @class = "form-control" })
+                                    <label class="bmd-label-floating">Saldo Actual: $10.000</label>
+                                    <br />
+                                    <label class="bmd-label-floating">Ingresos: $35.000</label>
+                                    <br />
+                                    <label class="bmd-label-floating">Egresos: $25.000</label>
+                                    <br />
                                 </div>
                             </div>
                         </div>
@@ -128,15 +155,14 @@
                         <p class="card-description">
                             Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
                         </p>
-                        <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-    <script>
-        $(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
-        $("#fechaDesde").blur();
-        $("#fechaHasta").blur();
-    </script>
+<script>
+    $(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
+    $("#fechaDesde").blur();
+    $("#fechaHasta").blur();
+</script>
