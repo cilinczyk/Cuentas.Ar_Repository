@@ -25,20 +25,16 @@ namespace Cuentas.Ar.Site
             #region [Región: Sistema]
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                     "~/Content/CuentasArStyleSheet.css",
-                    "~/Content/assets/js/core/bootstrap-material-design.min.js",
-                    "~/Content/assets/css/material-dashboard.css",
-                    "~/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js",
-                    "~/Content/assets/js/core/popper.min.js",
-                    "~/Content/font-awesome.min.css",
-                    "~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css",
-                    "~/Content/login/fonts/iconic/css/material-design-iconic-font.min.css"
-                ));
+                    "~/Content/vendor/bootstrap/css/bootstrap.min.css",
+                    "~/Content/assets/css/material-dashboard.min.css",
+                    "~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css"));
 
-                bundles.Add(new ScriptBundle("~/bundles/js").Include(
-                    "~/Scripts/jquery-3.3.1.min.js",
-                    "~/Content/vendor/bootstrap/js/bootstrap.min.js",
-                    "~/Content/vendor/metisMenu/metisMenu.min.js",
-                    "~/Scripts/select2.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                    "~/Content/assets/js/core/popper.min.js",
+                    "~/Content/assets/js/core/bootstrap-material-design.min.js",
+                    "~/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js",
+                    "~/Content/assets/js/material-dashboard.js",
+                    "~/Scripts/moment.min.js"));
             #endregion
 
             #region [Región: Auxiliares]
@@ -50,6 +46,7 @@ namespace Cuentas.Ar.Site
                     "~/Scripts/inputmask/inputmask.numeric.extensions.min.js"));
 
                 bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                    "~/Scripts/jquery-3.3.1.min.js",
                     "~/Scripts/jquery.validate*",
                     "~/Scripts/jquery.unobtrusive-ajax.min.js",
                     "~/Scripts/mvcfoolproof.unobtrusive.min.js",
