@@ -14,6 +14,7 @@ namespace Cuentas.Ar.Entities.Validaciones
         {
             var formaPago = validationContext.ObjectInstance as M_FormaPago;
             var idTipoTarjeta = formaPago.idTipoTarjeta;
+            //var nroTarjeta = value.ToString();
             var nroTarjeta = value.ToString();
 
             try
@@ -28,31 +29,7 @@ namespace Cuentas.Ar.Entities.Validaciones
                 return new ValidationResult(ex.Message);
             }
 
-            #region [Región: Algoritmo de Luhn]
-            int sum = 0;
-            int digit = 0;
-            int addend = 0;
-            bool timesTwo = false;
-
-            for (int i = nroTarjeta.Length - 1; i >= 0; i--)
-            {
-                digit = Int32.Parse(nroTarjeta.Substring(i, 1));
-                if (timesTwo)
-                {
-                    addend = digit * 2;
-                    if (addend > 9)
-                    {
-                        addend -= 9;
-                    }
-                }
-                else
-                {
-                    addend = digit;
-                }
-                sum += addend;
-                timesTwo = !timesTwo;
-            }
-            if (sum % 10 != 0)
+            if (Luhn(nroTarjeta))
             {
                 return ValidationResult.Success;
             }
@@ -60,7 +37,6 @@ namespace Cuentas.Ar.Entities.Validaciones
             {
                 return new ValidationResult("El número de tarjeta ingresado es incorrecto.");
             }
-            #endregion
         }
 
         private int ObtenerEntidadTarjeta(string nroTarjeta)
@@ -88,6 +64,16 @@ namespace Cuentas.Ar.Entities.Validaciones
                     throw new Exception("El nro. de tarjeta ingresado no pertenece a las entidades permitidas.");
                 }
             }
+        }
+
+        public static bool Luhn(string digits)
+        {
+            return digits.All(char.IsDigit) && digits.Reverse()
+                .Select(c => c - 48)
+                .Select((thisNum, i) => i % 2 == 0
+                    ? thisNum
+                    : ((thisNum *= 2) > 9 ? thisNum - 9 : thisNum)
+                ).Sum() % 10 == 0;
         }
     }
 }

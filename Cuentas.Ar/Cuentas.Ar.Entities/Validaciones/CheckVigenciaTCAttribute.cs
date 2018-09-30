@@ -17,7 +17,7 @@ namespace Cuentas.Ar.Entities.Validaciones
                 if (value != null && !string.IsNullOrEmpty(value.ToString()))
                 {
                     var mes = Convert.ToInt32(value.ToString().Split('/')[0]);
-                    var anio = Convert.ToInt32(string.Format("{0}{1}", DateTime.Now.Year, value.ToString().Split('/')[1]));
+                    var anio = Convert.ToInt32(string.Format("{0}{1}", DateTime.Now.Year.ToString().Substring(0, 2), value.ToString().Split('/')[1]));
 
                     if (anio < DateTime.Now.Year)
                     {
@@ -25,7 +25,7 @@ namespace Cuentas.Ar.Entities.Validaciones
                     }
                     else
                     {
-                        if (mes < DateTime.Now.Month)
+                        if (anio == DateTime.Now.Year && mes < DateTime.Now.Month)
                         {
                             return new ValidationResult("La tarjeta ingresada se encuentra vencida.");
                         }

@@ -12,32 +12,19 @@ namespace Cuentas.Ar.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class SubCategoria
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
+        public SubCategoria()
         {
             this.Registro = new HashSet<Registro>();
         }
     
-        public int idUsuario { get; set; }
-        public int idTipoCuenta { get; set; }
-        public Nullable<int> idTipoTarjeta { get; set; }
-        public string Nombre { get; set; }
-        public Nullable<System.DateTime> FechaNacimiento { get; set; }
-        public Nullable<bool> Sexo { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public bool Administrador { get; set; }
-        public string NroTarjeta { get; set; }
-        public string VencTarjeta { get; set; }
-        public string CodSeguridad { get; set; }
-        public Nullable<System.DateTime> FechaCobro { get; set; }
-        public System.DateTime FechaAlta { get; set; }
-        public bool Estado { get; set; }
+        public int idSubCateogria { get; set; }
+        public int idCategoria { get; set; }
+        public string Descripcion { get; set; }
     
-        public virtual TipoCuenta TipoCuenta { get; set; }
-        public virtual TipoTarjeta TipoTarjeta { get; set; }
+        public virtual Categoria Categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registro> Registro { get; set; }
     }
