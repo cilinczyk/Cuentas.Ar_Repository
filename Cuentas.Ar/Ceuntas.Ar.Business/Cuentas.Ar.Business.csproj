@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\TipoRegistroBusiness.cs" />
     <Compile Include="Clases\TipoTarjetaBusiness.cs" />
     <Compile Include="Clases\UsuarioBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
