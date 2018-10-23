@@ -17,7 +17,8 @@ namespace Cuentas.Ar.Site.Controllers
         #region [Región: Listado]
         public ActionResult Listado()
         {
-            return View("Listado");
+            var listadoCategoria = new CategoriaBusiness().Listar();
+            return View("Listado", listadoCategoria);
         }
         #endregion
 

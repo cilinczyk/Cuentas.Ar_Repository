@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\CategoriaRepository.cs" />
     <Compile Include="Clases\TipoRegistroRepository.cs" />
     <Compile Include="Clases\TipoTarjetaRepository.cs" />
     <Compile Include="Clases\UsuarioRepository.cs" />
