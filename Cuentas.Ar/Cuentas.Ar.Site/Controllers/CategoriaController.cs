@@ -26,7 +26,7 @@ namespace Cuentas.Ar.Site.Controllers
         public ActionResult Alta()
         {
             ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
-            return View("AltaCategoria");
+            return View("Alta");
         }
 
         [HttpPost]
@@ -38,12 +38,42 @@ namespace Cuentas.Ar.Site.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
-                    return View("AltaLoginResult", model);
+
+                    RedirectToAction("Listado");
                 }
 
                 ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
-                return View("AltaLoginFormaPago", model);
+                return View("Alta", model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region [Región: Editar de categoria]
+        public ActionResult Editar()
+        {
+            ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
+            return View("Editar");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public ActionResult Editar(Categoria model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    return View("Detalle", model);
+                }
+
+                ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
+                return View("Editar", model);
             }
             catch (Exception ex)
             {
