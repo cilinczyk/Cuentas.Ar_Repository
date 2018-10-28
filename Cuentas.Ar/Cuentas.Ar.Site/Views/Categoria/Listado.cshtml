@@ -4,6 +4,7 @@
 }
 <link href="~/Content/DataTables/datatables.min.css" rel="stylesheet" />
 <script src="~/Content/DataTables/datatables.min.js"></script>
+
 <div class="content" id="ListaCategoria">
     <div class="container-fluid">
         <div class="row">
@@ -31,7 +32,7 @@
                                                 <tr role="row">
                                                     <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Tipo de Registro</th>
                                                     <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Categoría</th>
-                                                    <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Acción</th>
+                                                    <th class="disabled-sorting text-left" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Acción</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
@@ -93,7 +94,6 @@
                 [10, 25, 50, -1],
                 [10, 25, 50, "All"]
             ],
-            //"bLengthChange": false,
             responsive: true,
             language: {
                 "sProcessing": "Procesando...",
@@ -125,29 +125,11 @@
 
         var table = $('#datatable').DataTable();
 
-        // Edit record
-        table.on('click', '.edit', function () {
-            $tr = $(this).closest('tr');
-            var data = table.row($tr).data();
-            alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-        });
-
-        // Delete a record
-        table.on('click', '.remove', function (e) {
-            $tr = $(this).closest('tr');
-            table.row($tr).remove().draw();
-            e.preventDefault();
-        });
-
-        //Like record
-        table.on('click', '.like', function () {
-            alert('You clicked on Like button');
-        });
-
         $("#ListaCategoria a[data-modal]").on("click", function (e) {
             $('#ModalGeneralBody').load(this.href, function () {
                 $('#ModalGeneral').modal({
-                    keyboard: true
+                    keyboard: true,
+                    backdrop: 'static'
                 }, 'show');
                 bindModal(this);
             });

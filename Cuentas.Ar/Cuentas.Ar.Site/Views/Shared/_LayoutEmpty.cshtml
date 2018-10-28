@@ -7,15 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Cuentas.Ar</title>
 
-    <!-- Bootstrap Core CSS -->
+    <!-- CSS -->
     @Styles.Render("~/bundles/css")
 
-    <!-- jQuery -->
-    @Scripts.Render("~/bundles/js")
-    @Scripts.Render("~/bundles/inputmask")
+    <!-- JS -->
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/inputmask")
 </head>
 <body>
     @RenderBody()
 </body>
 </html>
+
+@Scripts.Render("~/bundles/js")

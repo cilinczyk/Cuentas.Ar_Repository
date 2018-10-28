@@ -26,7 +26,7 @@ namespace Cuentas.Ar.Site.Controllers
         public ActionResult Alta()
         {
             ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
-            return View("Alta");
+            return PartialView("Alta");
         }
 
         [HttpPost]

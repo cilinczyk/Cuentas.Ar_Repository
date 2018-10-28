@@ -1,0 +1,52 @@
+﻿@model Cuentas.Ar.Entities.Categoria
+
+<link href="~/Content/assets/css/material-dashboard.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+                <i class="material-icons">mail_outline</i>
+            </div>
+            <h4 class="card-title">Alta de Categoría</h4>
+        </div>
+        <div class="card-body ">
+            @using (Html.BeginForm("Alta", "Categoria", FormMethod.Post, new { id = "categoriaForm", role = "form" }))
+            {
+            <div class="form-horizontal">
+                <div class="row">
+                    <label class="col-md-3 col-form-label">Tipo Registro</label>
+                    <div class="col-md-9">
+                        <div class="form-group has-default bmd-form-group">
+                            @*@Html.DropDownListFor(model => model.idTipoRegistro, ViewBag.ddl_TipoRegistro as SelectList, "Seleccione un tipo de registro.", new { @id = "TipoRegistro", @class = "selectpicker col-md-12", @data_style = "select-with-transition" })*@
+                            @Html.DropDownListFor(model => model.idTipoRegistro, ViewBag.ddl_TipoRegistro as SelectList, new { @id = "TipoRegistro", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione un tipo de registro" })
+                            @Html.ValidationMessageFor(model => model.idTipoRegistro)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-md-3 col-form-label">Categoría</label>
+                    <div class="col-md-9">
+                        <div class="form-group bmd-form-group">
+                            @Html.TextBoxFor(model => model.Descripcion, new { @id = "descCategoria", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-fill btn-primary" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-fill btn-primary">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/assets/js/material-dashboard.min.js"></script>
+<script src="~/Content/vendor/bootstrap/js/bootstrap-selectpicker.js"></script>
+
+<script>
+    $(document).ready(function () {
+    });
+</script>

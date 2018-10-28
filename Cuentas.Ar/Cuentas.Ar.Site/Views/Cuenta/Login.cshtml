@@ -39,7 +39,7 @@
                                 <span class="btn-show-pass">
                                     <i class="zmdi zmdi-eye"></i>
                                 </span>
-                                @Html.PasswordFor(model => model.Password, new { @class = "input100", @maxlength = "40", @autocomplete = "off", Value = "" })
+                                @Html.PasswordFor(model => model.Password, new { @class = "input100", @maxlength = "40", @autocomplete = "off", Value = "", id="password" })
                                 <span class="focus-input100" data-placeholder="Password"></span>
                             </div>
                             @Html.ValidationMessageFor(model => model.Password)
@@ -80,5 +80,9 @@
     }
     else {
         $("#email").focusout();
+    }
+
+    if ($("#password").val() != null && $("#password") != "") {
+        $("#password").val("");
     }
 </script>

@@ -23,7 +23,7 @@ namespace Cuentas.Ar.Site
             #endregion
 
             #region [Región: Sistema]
-            bundles.Add(new StyleBundle("~/bundles/css").Include(
+             bundles.Add(new StyleBundle("~/bundles/css").Include(
                     "~/Content/CuentasArStyleSheet.css",
                     "~/Content/vendor/bootstrap/css/bootstrap.min.css",
                     "~/Content/assets/css/material-dashboard.min.css",
@@ -34,6 +34,7 @@ namespace Cuentas.Ar.Site
                     "~/Content/assets/js/core/bootstrap-material-design.min.js",
                     "~/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js",
                     "~/Content/assets/js/material-dashboard.js",
+                    "~/Content/vendor/bootstrap/js/bootstrap-selectpicker.js",
                     "~/Scripts/moment.min.js"));
             #endregion
 
