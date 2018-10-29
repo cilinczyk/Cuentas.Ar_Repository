@@ -1086,6 +1086,11 @@
     <Content Include="Views\Categoria\_Edicion.cshtml" />
     <Content Include="Views\Shared\_Modals.cshtml" />
     <Content Include="Views\Categoria\_Baja.cshtml" />
+    <Content Include="Views\SubCategoria\_Alta.cshtml" />
+    <Content Include="Views\SubCategoria\_Baja.cshtml" />
+    <Content Include="Views\SubCategoria\_Edicion.cshtml" />
+    <Content Include="Views\SubCategoria\_ListaSubCategoria.cshtml" />
+    <Content Include="Views\SubCategoria\Listado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
