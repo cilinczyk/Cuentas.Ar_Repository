@@ -34,6 +34,7 @@
                         <div class="col-md-9">
                             <div class="form-group bmd-form-group">
                                 @Html.TextBoxFor(model => model.Descripcion, new { @id = "descCategoria", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Descripcion)
                             </div>
                         </div>
                     </div>

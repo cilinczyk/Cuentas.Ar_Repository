@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Entidades\M_Home.cs" />
     <Compile Include="Entidades\M_UsuarioLogin.cs" />
+    <Compile Include="Entidades\Categoria.cs" />
     <Compile Include="Enums\eTipoTarjeta.cs" />
     <Compile Include="Enums\eTipoCuenta.cs" />
     <Compile Include="ModeloCuentasAr.cs">
