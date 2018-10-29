@@ -575,6 +575,8 @@
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.min.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-select.css" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-select.min.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\vendor\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -972,6 +974,7 @@
     <Content Include="Content\login\fonts\poppins\Poppins-ThinItalic.ttf" />
     <Content Include="Content\DataTables\Buttons-1.5.4\css\common.scss" />
     <Content Include="Content\DataTables\Buttons-1.5.4\css\mixins.scss" />
+    <Content Include="Content\vendor\bootstrap\css\bootstrap-select.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\inputmask.dependencyLib.jquery.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />
@@ -1078,7 +1081,11 @@
     <Content Include="Views\Usuario\AltaLoginFormaPago.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Categoria\Listado.cshtml" />
-    <Content Include="Views\Categoria\Alta.cshtml" />
+    <Content Include="Views\Categoria\_Alta.cshtml" />
+    <Content Include="Views\Categoria\_ListaCategoria.cshtml" />
+    <Content Include="Views\Categoria\_Edicion.cshtml" />
+    <Content Include="Views\Shared\_Modals.cshtml" />
+    <Content Include="Views\Categoria\_Baja.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

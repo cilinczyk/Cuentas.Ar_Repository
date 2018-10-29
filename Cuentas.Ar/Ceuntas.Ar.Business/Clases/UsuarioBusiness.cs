@@ -32,9 +32,9 @@ namespace Cuentas.Ar.Business
             return repositorio.IniciarSesion(email, password);
         }
 
-        public int Guardar (Usuario usuario)
+        public int Guardar (Usuario model)
         {
-            return repositorio.Guardar(usuario);
+            return repositorio.Guardar(model);
         }
     }
 }

@@ -21,5 +21,25 @@ namespace Cuentas.Ar.Business
         {
             return repositorio.Listar();
         }
+
+        public Categoria Obtener(int idCategoria)
+        {
+            return repositorio.Obtener(idCategoria);
+        }
+
+        public int Guardar(Categoria model)
+        {
+            return repositorio.Guardar(model);
+        }
+
+        public int Modificar(Categoria model)
+        {
+            return repositorio.Modificar(model);
+        }
+
+        public void Eliminar(int idCateogria)
+        {
+            repositorio.Eliminar(idCateogria);
+        }
     }
 }
