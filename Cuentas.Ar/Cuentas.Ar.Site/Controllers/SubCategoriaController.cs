@@ -12,46 +12,46 @@ using Microsoft.Owin.Security;
 
 namespace Cuentas.Ar.Site.Controllers
 {
-    public class CategoriaController : Controller
+    public class SubCategoriaController : Controller
     {
-        #region [Región: Listado de Categoria]
+        #region [Región: Listado de SubCategoria]
         public ActionResult Listado()
         {
-            ViewData.Model = new CategoriaBusiness().Listar();
+            ViewData.Model = new SubCategoriaBusiness().Listar();
             return View("Listado");
         }
 
         public ActionResult ListaParcial()
         {
-            var listadoCategoria = new CategoriaBusiness().Listar();
-            return PartialView("_ListaCategoria", listadoCategoria);
+            var listadoSubCategoria = new SubCategoriaBusiness().Listar();
+            return PartialView("_ListaSubCategoria", listadoSubCategoria);
         }
         #endregion
 
-        #region [Región: Alta de Categoria]
+        #region [Región: Alta de SubCategoria]
         public ActionResult Alta()
         {
-            ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
+            ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
             return PartialView("_Alta");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Alta(Categoria model)
+        public ActionResult Alta(SubCategoria model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    new CategoriaBusiness().Guardar(model);
+                    new SubCategoriaBusiness().Guardar(model);
 
-                    string url = Url.Action("ListaParcial", "Categoria");
+                    string url = Url.Action("ListaParcial", "SubCategoria");
                     return Json(new { success = true, url });
                 }
                 else
                 {
-                    ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
+                    ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
                     return PartialView("_Alta", model);
                 }
             }
@@ -62,31 +62,31 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
-        #region [Región: Edición de Categoria]
+        #region [Región: Edición de SubCategoria]
         public ActionResult Edicion(int idCategoria)
         {
-            var model = new CategoriaBusiness().Obtener(idCategoria);
+            var model = new SubCategoriaBusiness().Obtener(idCategoria);
 
-            ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
+            ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
             return PartialView("_Edicion", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Edicion(Categoria model)
+        public ActionResult Edicion(SubCategoria model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    new CategoriaBusiness().Modificar(model);
+                    new SubCategoriaBusiness().Modificar(model);
 
-                    string url = Url.Action("ListaParcial", "Categoria");
+                    string url = Url.Action("ListaParcial", "SubCategoria");
                     return Json(new { success = true, url });
                 }
 
-                ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
+                ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
                 return PartialView("_Edicion", model);
             }
             catch (Exception ex)
@@ -96,10 +96,10 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
-        #region [Región: Baja de Categoria]
-        public ActionResult Baja(int idCategoria, string descripcion)
+        #region [Región: Baja de SubCategoria]
+        public ActionResult Baja(int idSubCategoria, string descripcion)
         {
-            ViewBag.idCategoria = idCategoria;
+            ViewBag.idSubCategoria = idSubCategoria;
             ViewBag.Descripcion = descripcion;
 
             return PartialView("_Baja");
@@ -108,11 +108,11 @@ namespace Cuentas.Ar.Site.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Baja(int idCategoria)
+        public ActionResult Baja(int idSubCategoria)
         {
             try
             {
-                new CategoriaBusiness().Eliminar(idCategoria);
+                new SubCategoriaBusiness().Eliminar(idSubCategoria);
 
                 string url = Url.Action("ListaParcial", "Categoria");
                 return Json(new { success = true, url });

@@ -1,4 +1,4 @@
-﻿@model Cuentas.Ar.Entities.Categoria
+﻿@model Cuentas.Ar.Entities.SubCategoria
 
 <!-- #region Estilos CSS -->
 <link href="~/Content/assets/css/material-dashboard.min.css" rel="stylesheet" />
@@ -6,7 +6,7 @@
 <!-- #endregion -->
 
 <div class="col-md-12">
-    @using (Html.BeginForm("Edicion", "Categoria", FormMethod.Post, new { id = "categoriaForm", role = "form" }))
+    @using (Html.BeginForm("Edicion", "SubCategoria", FormMethod.Post, new { id = "subCategoriaForm", role = "form" }))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.idCategoria)
@@ -24,8 +24,8 @@
                         <label class="col-md-3 col-form-label">Tipo Registro</label>
                         <div class="col-md-9">
                             <div class="form-group has-default bmd-form-group">
-                                @Html.DropDownListFor(model => model.idTipoRegistro, ViewBag.ddl_TipoRegistro as SelectList, new { @id = "TipoRegistro", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione un tipo de registro" })
-                                @Html.ValidationMessageFor(model => model.idTipoRegistro)
+                                @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "Categoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione una categoría" })
+                                @Html.ValidationMessageFor(model => model.idCategoria)
                             </div>
                         </div>
                     </div>

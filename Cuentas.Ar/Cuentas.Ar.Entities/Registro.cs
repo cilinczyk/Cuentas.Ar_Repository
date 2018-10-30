@@ -24,7 +24,7 @@ namespace Cuentas.Ar.Entities
         public System.DateTime FechaAlta { get; set; }
     
         public virtual Categoria Categoria { get; set; }
-        public virtual SubCategoria SubCategoria { get; set; }
         public virtual Usuario Usuario { get; set; }
+        public virtual SubCategoria SubCategoria { get; set; }
     }
 }

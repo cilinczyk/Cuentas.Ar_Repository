@@ -6,19 +6,19 @@
     <edmx:Diagrams>
       <Diagram DiagramId="4c88000d60b9447ca3ce51f79bbf29d1" Name="Diagram1">
         <EntityTypeShape EntityType="ModeloCuentasAr.Categoria" Width="1.5" PointX="3" PointY="3.125" />
-        <EntityTypeShape EntityType="ModeloCuentasAr.SubCategoria" Width="1.5" PointX="5.25" PointY="3.25" />
         <EntityTypeShape EntityType="ModeloCuentasAr.TipoCuenta" Width="1.5" PointX="3" PointY="10.625" />
         <EntityTypeShape EntityType="ModeloCuentasAr.TipoRegistro" Width="1.5" PointX="0.75" PointY="3.5" />
         <EntityTypeShape EntityType="ModeloCuentasAr.TipoTarjeta" Width="1.5" PointX="3" PointY="8.25" />
         <EntityTypeShape EntityType="ModeloCuentasAr.Usuario" Width="1.5" PointX="5.25" PointY="8" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Categoria_TipoRegistro" />
-        <AssociationConnector Association="ModeloCuentasAr.FK_SubCategoria_Categoria" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Usuario_TipoCuenta" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Usuario_TipoTarjeta" />
         <EntityTypeShape EntityType="ModeloCuentasAr.Registro" Width="1.5" PointX="7.5" PointY="6.25" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Registro_Categoria" />
-        <AssociationConnector Association="ModeloCuentasAr.FK_Registro_SubCategoria" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Registro_Usuario" />
+        <EntityTypeShape EntityType="ModeloCuentasAr.SubCategoria" Width="1.5" PointX="5.25" PointY="3.125" />
+        <AssociationConnector Association="ModeloCuentasAr.FK_SubCategoria_Categoria" />
+        <AssociationConnector Association="ModeloCuentasAr.FK_Registro_SubCategoria" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

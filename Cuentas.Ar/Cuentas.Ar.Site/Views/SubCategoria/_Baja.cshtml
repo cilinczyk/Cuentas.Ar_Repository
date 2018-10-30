@@ -1,6 +1,6 @@
 ﻿
 <div class="col-md-12">
-    @using (Html.BeginForm("BajaConfirmada", "Categoria", new { idCategoria = ViewData["idCategoria"] } , FormMethod.Post, new { id = "categoriaForm", role = "form" }))
+    @using (Html.BeginForm("Baja", "SubCategoria", new { idCategoria = ViewData["idSubCategoria"] } , FormMethod.Post, new { id = "subCategoriaForm", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
@@ -14,7 +14,7 @@
             <div class="card-body ">
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="col-form-label">¿Esta seguro que desea eliminar la Categoría: @ViewData["Descripcion"]?</label>
+                        <label class="col-form-label">¿Esta seguro que desea eliminar la SubCategoría: @ViewData["Descripcion"]?</label>
                     </div>
                 </div>
             </div>

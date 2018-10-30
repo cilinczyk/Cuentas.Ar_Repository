@@ -20,9 +20,10 @@ namespace Cuentas.Ar.Entities
             this.Registro = new HashSet<Registro>();
         }
     
-        public int idSubCateogria { get; set; }
+        public int idSubCategoria { get; set; }
         public int idCategoria { get; set; }
         public string Descripcion { get; set; }
+        public bool DefaultValue { get; set; }
     
         public virtual Categoria Categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
