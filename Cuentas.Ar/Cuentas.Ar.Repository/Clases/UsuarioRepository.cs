@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Cuentas.Ar.Entities;
 
 namespace Cuentas.Ar.Repository
@@ -92,6 +90,14 @@ namespace Cuentas.Ar.Repository
                 throw new Exception("No se puede eliminar el registro.", ex);
             }
             
+        }
+
+        public Usuario Obtener(int idUsuario)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Usuario.FirstOrDefault(x => x.idUsuario == idUsuario);
+            }
         }
     }
 }

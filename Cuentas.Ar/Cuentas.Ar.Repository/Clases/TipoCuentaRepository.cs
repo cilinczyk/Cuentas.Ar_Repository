@@ -4,13 +4,13 @@ using Cuentas.Ar.Entities;
 
 namespace Cuentas.Ar.Repository
 {
-    public class TipoRegistroRepository
+    public class TipoCuentaRepository
     {
-        public List<TipoRegistro> Listar()
+        public List<TipoCuenta> Listar()
         {
             using (var context = new CuentasArEntities())
             {
-                return context.TipoRegistro.ToList();
+                return context.TipoCuenta.Where(x => x.idTipoCuenta != eTipoCuenta.Free).ToList();
             }
         }
     }

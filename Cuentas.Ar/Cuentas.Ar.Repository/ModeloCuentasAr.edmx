@@ -13,6 +13,22 @@
           <Property Name="idTipoRegistro" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Localidad">
+          <Key>
+            <PropertyRef Name="idLocalidad" />
+          </Key>
+          <Property Name="idLocalidad" Type="int" Nullable="false" />
+          <Property Name="idProvincia" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CodigoPostal" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="idProvincia" />
+          </Key>
+          <Property Name="idProvincia" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="40" />
+        </EntityType>
         <EntityType Name="Registro">
           <Key>
             <PropertyRef Name="idRegistro" />
@@ -75,6 +91,11 @@
           <Property Name="FechaCobro" Type="datetime" />
           <Property Name="FechaAlta" Type="datetime" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="50" />
+          <Property Name="idProvincia" Type="int" />
+          <Property Name="idLocalidad" Type="int" />
+          <Property Name="CodigoPostal" Type="nvarchar" MaxLength="10" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK_Categoria_TipoRegistro">
           <End Role="TipoRegistro" Type="Self.TipoRegistro" Multiplicity="1" />
@@ -125,7 +146,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SubCategoria_Categoria">
-          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SubCategoria" Type="Self.SubCategoria" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categoria">
@@ -133,6 +156,30 @@
             </Principal>
             <Dependent Role="SubCategoria">
               <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Localidad">
+          <End Role="Localidad" Type="Self.Localidad" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Localidad">
+              <PropertyRef Name="idLocalidad" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idLocalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Provincia">
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idProvincia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -162,6 +209,8 @@
         </Association>
         <EntityContainer Name="ModeloCuentasArStoreContainer">
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Localidad" EntityType="Self.Localidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Registro" EntityType="Self.Registro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubCategoria" EntityType="Self.SubCategoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoCuenta" EntityType="Self.TipoCuenta" Schema="dbo" store:Type="Tables" />
@@ -188,6 +237,14 @@
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="SubCategoria" EntitySet="SubCategoria" />
           </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Localidad" Association="Self.FK_Usuario_Localidad">
+            <End Role="Localidad" EntitySet="Localidad" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Provincia" Association="Self.FK_Usuario_Provincia">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
           <AssociationSet Name="FK_Usuario_TipoCuenta" Association="Self.FK_Usuario_TipoCuenta">
             <End Role="TipoCuenta" EntitySet="TipoCuenta" />
             <End Role="Usuario" EntitySet="Usuario" />
@@ -202,14 +259,42 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ModeloCuentasAr" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CuentasArEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categoria" EntityType="ModeloCuentasAr.Categoria" />
           <EntitySet Name="TipoCuenta" EntityType="ModeloCuentasAr.TipoCuenta" />
           <EntitySet Name="TipoRegistro" EntityType="ModeloCuentasAr.TipoRegistro" />
           <EntitySet Name="TipoTarjeta" EntityType="ModeloCuentasAr.TipoTarjeta" />
-          <EntitySet Name="Usuario" EntityType="ModeloCuentasAr.Usuario" />
+          <EntitySet Name="Registro" EntityType="ModeloCuentasAr.Registro" />
+          <EntitySet Name="Categoria" EntityType="ModeloCuentasAr.Categoria" />
+          <EntitySet Name="SubCategoria" EntityType="ModeloCuentasAr.SubCategoria" />
           <AssociationSet Name="FK_Categoria_TipoRegistro" Association="ModeloCuentasAr.FK_Categoria_TipoRegistro">
             <End Role="TipoRegistro" EntitySet="TipoRegistro" />
             <End Role="Categoria" EntitySet="Categoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Registro_Categoria" Association="ModeloCuentasAr.FK_Registro_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubCategoria_Categoria" Association="ModeloCuentasAr.FK_SubCategoria_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="SubCategoria" EntitySet="SubCategoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Registro_SubCategoria" Association="ModeloCuentasAr.FK_Registro_SubCategoria">
+            <End Role="SubCategoria" EntitySet="SubCategoria" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+          <EntitySet Name="Localidad" EntityType="ModeloCuentasAr.Localidad" />
+          <EntitySet Name="Provincia" EntityType="ModeloCuentasAr.Provincia" />
+          <EntitySet Name="Usuario" EntityType="ModeloCuentasAr.Usuario" />
+          <AssociationSet Name="FK_Usuario_Localidad" Association="ModeloCuentasAr.FK_Usuario_Localidad">
+            <End Role="Localidad" EntitySet="Localidad" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Provincia" Association="ModeloCuentasAr.FK_Usuario_Provincia">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Registro_Usuario" Association="ModeloCuentasAr.FK_Registro_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Registro" EntitySet="Registro" />
           </AssociationSet>
           <AssociationSet Name="FK_Usuario_TipoCuenta" Association="ModeloCuentasAr.FK_Usuario_TipoCuenta">
             <End Role="TipoCuenta" EntitySet="TipoCuenta" />
@@ -219,36 +304,7 @@
             <End Role="TipoTarjeta" EntitySet="TipoTarjeta" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
-          <EntitySet Name="Registro" EntityType="ModeloCuentasAr.Registro" />
-          <AssociationSet Name="FK_Registro_Categoria" Association="ModeloCuentasAr.FK_Registro_Categoria">
-            <End Role="Categoria" EntitySet="Categoria" />
-            <End Role="Registro" EntitySet="Registro" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Registro_Usuario" Association="ModeloCuentasAr.FK_Registro_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Registro" EntitySet="Registro" />
-          </AssociationSet>
-          <EntitySet Name="SubCategoria" EntityType="ModeloCuentasAr.SubCategoria" />
-          <AssociationSet Name="FK_SubCategoria_Categoria" Association="ModeloCuentasAr.FK_SubCategoria_Categoria">
-            <End Role="Categoria" EntitySet="Categoria" />
-            <End Role="SubCategoria" EntitySet="SubCategoria" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Registro_SubCategoria" Association="ModeloCuentasAr.FK_Registro_SubCategoria">
-            <End Role="SubCategoria" EntitySet="SubCategoria" />
-            <End Role="Registro" EntitySet="Registro" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Categoria">
-          <Key>
-            <PropertyRef Name="idCategoria" />
-          </Key>
-          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idTipoRegistro" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TipoRegistro" Relationship="ModeloCuentasAr.FK_Categoria_TipoRegistro" FromRole="Categoria" ToRole="TipoRegistro" />
-          <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_Categoria" FromRole="Categoria" ToRole="Registro" />
-          <NavigationProperty Name="SubCategoria" Relationship="ModeloCuentasAr.FK_SubCategoria_Categoria" FromRole="Categoria" ToRole="SubCategoria" />
-        </EntityType>
+          </EntityContainer>
         <EntityType Name="TipoCuenta">
           <Key>
             <PropertyRef Name="idTipoCuenta" />
@@ -273,6 +329,112 @@
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Usuario" Relationship="ModeloCuentasAr.FK_Usuario_TipoTarjeta" FromRole="TipoTarjeta" ToRole="Usuario" />
         </EntityType>
+        <EntityType Name="Registro">
+          <Key>
+            <PropertyRef Name="idRegistro" />
+          </Key>
+          <Property Name="idRegistro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idTipoRegistro" Type="Int32" Nullable="false" />
+          <Property Name="idCategoria" Type="Int32" Nullable="false" />
+          <Property Name="idSubCategoria" Type="Int32" Nullable="false" />
+          <Property Name="Importe" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Observaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Categoria" Relationship="ModeloCuentasAr.FK_Registro_Categoria" FromRole="Registro" ToRole="Categoria" />
+          <NavigationProperty Name="SubCategoria" Relationship="ModeloCuentasAr.FK_Registro_SubCategoria" FromRole="Registro" ToRole="SubCategoria" />
+          <NavigationProperty Name="Usuario" Relationship="ModeloCuentasAr.FK_Registro_Usuario" FromRole="Registro" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTipoRegistro" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TipoRegistro" Relationship="ModeloCuentasAr.FK_Categoria_TipoRegistro" FromRole="Categoria" ToRole="TipoRegistro" />
+          <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_Categoria" FromRole="Categoria" ToRole="Registro" />
+          <NavigationProperty Name="SubCategoria" Relationship="ModeloCuentasAr.FK_SubCategoria_Categoria" FromRole="Categoria" ToRole="SubCategoria" />
+        </EntityType>
+        <EntityType Name="SubCategoria">
+          <Key>
+            <PropertyRef Name="idSubCategoria" />
+          </Key>
+          <Property Name="idSubCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCategoria" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DefaultValue" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="ModeloCuentasAr.FK_SubCategoria_Categoria" FromRole="SubCategoria" ToRole="Categoria" />
+          <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_SubCategoria" FromRole="SubCategoria" ToRole="Registro" />
+        </EntityType>
+        <Association Name="FK_Categoria_TipoRegistro">
+          <End Type="ModeloCuentasAr.TipoRegistro" Role="TipoRegistro" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.Categoria" Role="Categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoRegistro">
+              <PropertyRef Name="idTipoRegistro" />
+            </Principal>
+            <Dependent Role="Categoria">
+              <PropertyRef Name="idTipoRegistro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Registro_Categoria">
+          <End Type="ModeloCuentasAr.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.Registro" Role="Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubCategoria_Categoria">
+          <End Type="ModeloCuentasAr.Categoria" Role="Categoria" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ModeloCuentasAr.SubCategoria" Role="SubCategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="SubCategoria">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Registro_SubCategoria">
+          <End Type="ModeloCuentasAr.SubCategoria" Role="SubCategoria" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.Registro" Role="Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubCategoria">
+              <PropertyRef Name="idSubCategoria" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="idSubCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Localidad">
+          <Key>
+            <PropertyRef Name="idLocalidad" />
+          </Key>
+          <Property Name="idLocalidad" Type="Int32" Nullable="false" />
+          <Property Name="idProvincia" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CodigoPostal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuario" Relationship="ModeloCuentasAr.FK_Usuario_Localidad" FromRole="Localidad" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="idProvincia" />
+          </Key>
+          <Property Name="idProvincia" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuario" Relationship="ModeloCuentasAr.FK_Usuario_Provincia" FromRole="Provincia" ToRole="Usuario" />
+        </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="idUsuario" />
@@ -292,19 +454,50 @@
           <Property Name="FechaCobro" Type="DateTime" Precision="3" />
           <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idProvincia" Type="Int32" />
+          <Property Name="idLocalidad" Type="Int32" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Localidad" Relationship="ModeloCuentasAr.FK_Usuario_Localidad" FromRole="Usuario" ToRole="Localidad" />
+          <NavigationProperty Name="Provincia" Relationship="ModeloCuentasAr.FK_Usuario_Provincia" FromRole="Usuario" ToRole="Provincia" />
+          <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_Usuario" FromRole="Usuario" ToRole="Registro" />
           <NavigationProperty Name="TipoCuenta" Relationship="ModeloCuentasAr.FK_Usuario_TipoCuenta" FromRole="Usuario" ToRole="TipoCuenta" />
           <NavigationProperty Name="TipoTarjeta" Relationship="ModeloCuentasAr.FK_Usuario_TipoTarjeta" FromRole="Usuario" ToRole="TipoTarjeta" />
-          <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_Usuario" FromRole="Usuario" ToRole="Registro" />
         </EntityType>
-        <Association Name="FK_Categoria_TipoRegistro">
-          <End Type="ModeloCuentasAr.TipoRegistro" Role="TipoRegistro" Multiplicity="1" />
-          <End Type="ModeloCuentasAr.Categoria" Role="Categoria" Multiplicity="*" />
+        <Association Name="FK_Usuario_Localidad">
+          <End Type="ModeloCuentasAr.Localidad" Role="Localidad" Multiplicity="0..1" />
+          <End Type="ModeloCuentasAr.Usuario" Role="Usuario" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TipoRegistro">
-              <PropertyRef Name="idTipoRegistro" />
+            <Principal Role="Localidad">
+              <PropertyRef Name="idLocalidad" />
             </Principal>
-            <Dependent Role="Categoria">
-              <PropertyRef Name="idTipoRegistro" />
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idLocalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Provincia">
+          <End Type="ModeloCuentasAr.Provincia" Role="Provincia" Multiplicity="0..1" />
+          <End Type="ModeloCuentasAr.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Registro_Usuario">
+          <End Type="ModeloCuentasAr.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.Registro" Role="Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="idUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -332,96 +525,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Registro">
-          <Key>
-            <PropertyRef Name="idRegistro" />
-          </Key>
-          <Property Name="idRegistro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idUsuario" Type="Int32" Nullable="false" />
-          <Property Name="idTipoRegistro" Type="Int32" Nullable="false" />
-          <Property Name="idCategoria" Type="Int32" Nullable="false" />
-          <Property Name="idSubCategoria" Type="Int32" Nullable="false" />
-          <Property Name="Importe" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Observaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Categoria" Relationship="ModeloCuentasAr.FK_Registro_Categoria" FromRole="Registro" ToRole="Categoria" />
-          <NavigationProperty Name="Usuario" Relationship="ModeloCuentasAr.FK_Registro_Usuario" FromRole="Registro" ToRole="Usuario" />
-          <NavigationProperty Name="SubCategoria" Relationship="ModeloCuentasAr.FK_Registro_SubCategoria" FromRole="Registro" ToRole="SubCategoria" />
-        </EntityType>
-        <Association Name="FK_Registro_Categoria">
-          <End Type="ModeloCuentasAr.Categoria" Role="Categoria" Multiplicity="1" />
-          <End Type="ModeloCuentasAr.Registro" Role="Registro" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categoria">
-              <PropertyRef Name="idCategoria" />
-            </Principal>
-            <Dependent Role="Registro">
-              <PropertyRef Name="idCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Registro_Usuario">
-          <End Type="ModeloCuentasAr.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="ModeloCuentasAr.Registro" Role="Registro" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="idUsuario" />
-            </Principal>
-            <Dependent Role="Registro">
-              <PropertyRef Name="idUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="SubCategoria">
-          <Key>
-            <PropertyRef Name="idSubCategoria" />
-          </Key>
-          <Property Name="idSubCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idCategoria" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DefaultValue" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Categoria" Relationship="ModeloCuentasAr.FK_SubCategoria_Categoria" FromRole="SubCategoria" ToRole="Categoria" />
-          <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_SubCategoria" FromRole="SubCategoria" ToRole="Registro" />
-        </EntityType>
-        <Association Name="FK_SubCategoria_Categoria">
-          <End Type="ModeloCuentasAr.Categoria" Role="Categoria" Multiplicity="1" />
-          <End Type="ModeloCuentasAr.SubCategoria" Role="SubCategoria" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categoria">
-              <PropertyRef Name="idCategoria" />
-            </Principal>
-            <Dependent Role="SubCategoria">
-              <PropertyRef Name="idCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Registro_SubCategoria">
-          <End Type="ModeloCuentasAr.SubCategoria" Role="SubCategoria" Multiplicity="1" />
-          <End Type="ModeloCuentasAr.Registro" Role="Registro" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SubCategoria">
-              <PropertyRef Name="idSubCategoria" />
-            </Principal>
-            <Dependent Role="Registro">
-              <PropertyRef Name="idSubCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModeloCuentasArStoreContainer" CdmEntityContainer="CuentasArEntities">
-          <EntitySetMapping Name="Categoria">
-            <EntityTypeMapping TypeName="ModeloCuentasAr.Categoria">
-              <MappingFragment StoreEntitySet="Categoria">
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="idTipoRegistro" ColumnName="idTipoRegistro" />
-                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TipoCuenta">
             <EntityTypeMapping TypeName="ModeloCuentasAr.TipoCuenta">
               <MappingFragment StoreEntitySet="TipoCuenta">
@@ -446,9 +555,65 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Registro">
+            <EntityTypeMapping TypeName="ModeloCuentasAr.Registro">
+              <MappingFragment StoreEntitySet="Registro">
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="idSubCategoria" ColumnName="idSubCategoria" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="idTipoRegistro" ColumnName="idTipoRegistro" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="ModeloCuentasAr.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idTipoRegistro" ColumnName="idTipoRegistro" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubCategoria">
+            <EntityTypeMapping TypeName="ModeloCuentasAr.SubCategoria">
+              <MappingFragment StoreEntitySet="SubCategoria">
+                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="idSubCategoria" ColumnName="idSubCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Localidad">
+            <EntityTypeMapping TypeName="ModeloCuentasAr.Localidad">
+              <MappingFragment StoreEntitySet="Localidad">
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
+                <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincia">
+            <EntityTypeMapping TypeName="ModeloCuentasAr.Provincia">
+              <MappingFragment StoreEntitySet="Provincia">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="ModeloCuentasAr.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
+                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
                 <ScalarProperty Name="FechaCobro" ColumnName="FechaCobro" />
@@ -464,30 +629,6 @@
                 <ScalarProperty Name="idTipoTarjeta" ColumnName="idTipoTarjeta" />
                 <ScalarProperty Name="idTipoCuenta" ColumnName="idTipoCuenta" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Registro">
-            <EntityTypeMapping TypeName="ModeloCuentasAr.Registro">
-              <MappingFragment StoreEntitySet="Registro">
-                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
-                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
-                <ScalarProperty Name="Importe" ColumnName="Importe" />
-                <ScalarProperty Name="idSubCategoria" ColumnName="idSubCategoria" />
-                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
-                <ScalarProperty Name="idTipoRegistro" ColumnName="idTipoRegistro" />
-                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SubCategoria">
-            <EntityTypeMapping TypeName="ModeloCuentasAr.SubCategoria">
-              <MappingFragment StoreEntitySet="SubCategoria">
-                <ScalarProperty Name="DefaultValue" ColumnName="DefaultValue" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
-                <ScalarProperty Name="idSubCategoria" ColumnName="idSubCategoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

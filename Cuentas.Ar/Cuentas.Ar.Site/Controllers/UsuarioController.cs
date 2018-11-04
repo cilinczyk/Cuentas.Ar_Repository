@@ -30,7 +30,7 @@ namespace Cuentas.Ar.Site.Controllers
         {
             try
             {
-                return RedirectToAction("AltaLogin", "Usuario", new { idTipoCuenta } );
+                return RedirectToAction("AltaLogin", "Usuario", new { idTipoCuenta });
 
             }
             catch (Exception ex)
@@ -152,6 +152,38 @@ namespace Cuentas.Ar.Site.Controllers
 
             usuarioBusiness.Guardar(usuario);
             #endregion
+        }
+        #endregion
+
+        #region [Región: Mis Datos]
+        [AllowAnonymous]
+        public ActionResult MisDatos()
+        {
+            int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+
+            Usuario usuario = new UsuarioBusiness().Obtener(idUsuario);
+            usuario.UsuarioActualizado = false;
+
+            ViewBag.ddl_Provincia = new SelectList(new ProvinciaBusiness().Listar(), "idProvincia", "Descripcion");
+            ViewBag.ddl_TipoCuenta = new SelectList(new TipoCuentaBusiness().Listar(), "idTipoCuenta", "Descripcion");
+            ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
+            return View("MisDatos", usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public ActionResult MisDatos(Usuario model)
+        {
+            try
+            {
+                return RedirectToAction("AltaLogin", "Usuario");
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
     }

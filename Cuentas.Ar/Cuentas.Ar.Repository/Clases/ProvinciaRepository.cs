@@ -4,13 +4,13 @@ using Cuentas.Ar.Entities;
 
 namespace Cuentas.Ar.Repository
 {
-    public class TipoRegistroRepository
+    public class ProvinciaRepository
     {
-        public List<TipoRegistro> Listar()
+        public List<Provincia> Listar()
         {
             using (var context = new CuentasArEntities())
             {
-                return context.TipoRegistro.ToList();
+                return context.Provincia.ToList();
             }
         }
     }

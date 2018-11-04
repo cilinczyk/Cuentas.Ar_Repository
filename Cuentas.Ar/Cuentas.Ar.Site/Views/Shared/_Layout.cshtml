@@ -22,11 +22,14 @@
         <!-- Menu -->
         @Html.Partial("_Menu")
         <!-- End Menu -->
+
         <!-- Page Content -->
-        <div class="content">
-            <div class="main-panel">
-                @Html.Partial("_Header")
-                @RenderBody()
+        <div class="main-panel">
+            @Html.Partial("_Header")
+            <div class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
             </div>
         </div>
         <!-- End Page Content -->

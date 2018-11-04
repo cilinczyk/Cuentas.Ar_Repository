@@ -7,7 +7,7 @@ namespace Cuentas.Ar.Entities
     [MetadataType(typeof(UsuarioMetadata))]
     public partial class Usuario
     {
-        public bool isPost { get; set; }
+        public bool UsuarioActualizado { get; set; }
     }
 
     public class UsuarioMetadata

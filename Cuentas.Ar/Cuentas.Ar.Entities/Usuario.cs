@@ -35,10 +35,17 @@ namespace Cuentas.Ar.Entities
         public Nullable<System.DateTime> FechaCobro { get; set; }
         public System.DateTime FechaAlta { get; set; }
         public bool Estado { get; set; }
+        public string Direccion { get; set; }
+        public Nullable<int> idProvincia { get; set; }
+        public Nullable<int> idLocalidad { get; set; }
+        public string CodigoPostal { get; set; }
+        public string Telefono { get; set; }
     
-        public virtual TipoCuenta TipoCuenta { get; set; }
-        public virtual TipoTarjeta TipoTarjeta { get; set; }
+        public virtual Localidad Localidad { get; set; }
+        public virtual Provincia Provincia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registro> Registro { get; set; }
+        public virtual TipoCuenta TipoCuenta { get; set; }
+        public virtual TipoTarjeta TipoTarjeta { get; set; }
     }
 }

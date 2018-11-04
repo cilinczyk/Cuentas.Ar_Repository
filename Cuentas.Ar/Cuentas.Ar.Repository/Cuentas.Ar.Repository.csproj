@@ -57,7 +57,10 @@
   <ItemGroup>
     <Compile Include="Clases\SubCategoriaRepository.cs" />
     <Compile Include="Clases\CategoriaRepository.cs" />
+    <Compile Include="Clases\LocalidadRepository.cs" />
+    <Compile Include="Clases\ProvinciaRepository.cs" />
     <Compile Include="Clases\TipoRegistroRepository.cs" />
+    <Compile Include="Clases\TipoCuentaRepository.cs" />
     <Compile Include="Clases\TipoTarjetaRepository.cs" />
     <Compile Include="Clases\UsuarioRepository.cs" />
     <Compile Include="ModeloCuentasAr.Context.cs">

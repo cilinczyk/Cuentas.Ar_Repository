@@ -43,6 +43,9 @@
     <Compile Include="Clases\SubCategoriaBusiness.cs" />
     <Compile Include="Clases\CategoriaBusiness.cs" />
     <Compile Include="Clases\TipoRegistroBusiness.cs" />
+    <Compile Include="Clases\LocalidadBusiness.cs" />
+    <Compile Include="Clases\ProvinciaBusiness.cs" />
+    <Compile Include="Clases\TipoCuentaBusiness.cs" />
     <Compile Include="Clases\TipoTarjetaBusiness.cs" />
     <Compile Include="Clases\UsuarioBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

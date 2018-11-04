@@ -4,13 +4,13 @@ using Cuentas.Ar.Entities;
 
 namespace Cuentas.Ar.Repository
 {
-    public class TipoRegistroRepository
+    public class LocalidadRepository
     {
-        public List<TipoRegistro> Listar()
+        public List<Localidad> Listar(int idProvincia)
         {
             using (var context = new CuentasArEntities())
             {
-                return context.TipoRegistro.ToList();
+                return context.Localidad.Where(x => x.idProvincia == idProvincia).ToList();
             }
         }
     }

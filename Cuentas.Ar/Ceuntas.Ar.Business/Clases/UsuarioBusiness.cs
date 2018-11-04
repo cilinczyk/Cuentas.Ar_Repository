@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Cuentas.Ar.Entities;
 using Cuentas.Ar.Repository;
 
@@ -35,6 +31,11 @@ namespace Cuentas.Ar.Business
         public int Guardar (Usuario model)
         {
             return repositorio.Guardar(model);
+        }
+
+        public Usuario Obtener(int idUsuario)
+        {
+            return repositorio.Obtener(idUsuario);
         }
     }
 }

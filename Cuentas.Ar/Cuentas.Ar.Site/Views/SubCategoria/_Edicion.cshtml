@@ -21,7 +21,7 @@
             <div class="card-body ">
                 <div class="form-horizontal">
                     <div class="row">
-                        <label class="col-md-3 col-form-label">Tipo Registro</label>
+                        <label class="col-md-3 col-form-label">Categoría</label>
                         <div class="col-md-9">
                             <div class="form-group has-default bmd-form-group">
                                 @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "Categoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione una categoría" })
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label class="col-md-3 col-form-label">Categoría</label>
+                        <label class="col-md-3 col-form-label">SubCategoría</label>
                         <div class="col-md-9">
                             <div class="form-group bmd-form-group">
                                 @Html.TextBoxFor(model => model.Descripcion, new { @id = "descCategoria", @class = "form-control" })

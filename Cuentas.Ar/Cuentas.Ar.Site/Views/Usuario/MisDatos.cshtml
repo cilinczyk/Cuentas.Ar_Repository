@@ -1,0 +1,185 @@
+﻿@model Cuentas.Ar.Entities.Usuario
+
+@{
+    ViewBag.Title = "MisDatos";
+}
+
+<!-- #region Estilos CSS -->
+<link href="~/Content/vendor/bootstrap/css/bootstrap-select.min.css" rel="stylesheet" />
+<!-- #endregion -->
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Mis Datos</h4>
+                <p class="card-category">Perfil de Usuario</p>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Nombre Completo / Organización</label>
+                                @Html.TextBoxFor(model => model.Nombre, new { @id = "Nombre", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">F. Nacimiento / I. de Actividad</label>
+                                @Html.TextBoxFor(model => model.FechaNacimiento, new { @id = "Fecha", @class = "form-control maskDate datepicker" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Email</label>
+                                @Html.TextBoxFor(model => model.Email, new { @id = "Email", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Contraseña</label>
+                                @Html.PasswordFor(model => model.Password, new { @id = "Password", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Dirección</label>
+                                @Html.TextBoxFor(model => model.Direccion, new { @id = "Direccion", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Código Postal</label>
+                                @Html.TextBoxFor(model => model.CodigoPostal, new { @id = "CodigoPostal", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.idProvincia, ViewBag.ddl_Provincia as SelectList, new { @id = "Provincia", @class = "selectpicker", @data_style = "btn btn-primary btn-sm", @data_live_search = "true", @data_size = "5", @title = "Seleccione una povincia", data_width = "100%" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.idLocalidad, new SelectListItem[] { new SelectListItem() { Text = "", Value = "" } }, new { @id = "Localidad", @class = "selectpicker", @data_style = "btn btn-primary btn-sm", data_width = "100%", @data_live_search = "true", @data_size = "5", @title = "Seleccione una localidad", disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.idTipoCuenta, ViewBag.ddl_TipoCuenta as SelectList, new { @id = "TipoCuenta", @class = "selectpicker", @data_style = "btn btn-primary btn-sm", data_width = "100%", @title = "Seleccione un tipo de cuenta" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.idTipoTarjeta, ViewBag.ddl_TipoTarjeta as SelectList, new { @id = "TipoTarjeta", @class = "selectpicker", @data_style = "btn btn-primary btn-sm", data_width = "100%", @title = "Seleccione un tipo de tarjeta" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Número de Tarjeta</label>
+                                @Html.TextBoxFor(model => model.NroTarjeta, new { @id = "NroTarjeta", @class = "form-control", @maxlength = "18" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Código de Seguridad</label>
+                                @Html.TextBoxFor(model => model.CodSeguridad, new { @id = "CodSeguridad", @class = "form-control", @maxlength = "4" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Venc. Tarjeta</label>
+                                @Html.TextBoxFor(model => model.VencTarjeta, new { @id = "VencTarjeta", @class = "form-control maskDateMin", @maxlength = "5" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card ">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Planes</h4>
+                <p class="card-category">Detalles</p>
+            </div>
+            <div class="card-body ">
+                <ul class="nav nav-pills nav-pills-primary" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#link1" role="tablist">
+                            Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active show" data-toggle="tab" href="#link2" role="tablist">
+                            Settings
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content tab-space">
+                    <div class="tab-pane" id="link1">
+                        Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
+                        <br>
+                        <br> Dramatically visualize customer directed convergence without revolutionary ROI. Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
+                        <br>
+                        <br> This is very nice.
+                    </div>
+                    <div class="tab-pane active show" id="link2">
+                        Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
+                        <br>
+                        <br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".maskDateMin").inputmask({ mask: "99/99", placeholder: "mm/yy", showMaskOnFocus: false, showMaskOnHover: false });
+    $(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
+
+    /*Se cargan las localidades dependiendo de la provincia seleccionada*/
+    $('#Provincia').change(function () {
+            var idProvincia = $(this).val();
+            if (idProvincia != null && idProvincia != "")
+            {
+                $('#CodigoPostal').val("");
+                $('#Localidad').val("");
+                $.getJSON('@Url.Action("ListarLocalidades", "Localidad")', {
+                    idProvincia: idProvincia
+                })
+                .done(function (data) {
+                    if (data.Estado == 1) {
+                        var items = "";
+                        $.each(data.Combo, function (i, Loca) {
+                            items += "<option value='" + Loca.Value + "'>" + Loca.Text + "</option>";
+                        });
+
+                        $('#Localidad').append(items);
+                        $('#Localidad').removeAttr("disabled");
+                        $('#Localidad').selectpicker('refresh')
+                    }
+                })
+                .fail(function (jqxhr, textStatus, error) {
+                    var err = textStatus + ", " + error;
+                    console.log("Request Failed: " + err);
+                });
+            }
+            return false;
+        });
+        /*Se cargan las localidades dependiendo de la provincia seleccionada*/
+</script>
