@@ -79,23 +79,23 @@
           <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idTipoCuenta" Type="int" Nullable="false" />
           <Property Name="idTipoTarjeta" Type="int" />
+          <Property Name="idProvincia" Type="int" />
+          <Property Name="idLocalidad" Type="int" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FechaNacimiento" Type="date" />
           <Property Name="Sexo" Type="bit" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Administrador" Type="bit" Nullable="false" />
           <Property Name="NroTarjeta" Type="nvarchar" MaxLength="50" />
           <Property Name="VencTarjeta" Type="nvarchar" MaxLength="5" />
           <Property Name="CodSeguridad" Type="nvarchar" MaxLength="5" />
           <Property Name="FechaCobro" Type="datetime" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="20" />
+          <Property Name="Profesion" Type="nvarchar" MaxLength="50" />
           <Property Name="FechaAlta" Type="datetime" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
-          <Property Name="Direccion" Type="nvarchar" MaxLength="50" />
-          <Property Name="idProvincia" Type="int" />
-          <Property Name="idLocalidad" Type="int" />
           <Property Name="CodigoPostal" Type="nvarchar" MaxLength="10" />
-          <Property Name="Telefono" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK_Categoria_TipoRegistro">
           <End Role="TipoRegistro" Type="Self.TipoRegistro" Multiplicity="1" />
@@ -442,23 +442,23 @@
           <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idTipoCuenta" Type="Int32" Nullable="false" />
           <Property Name="idTipoTarjeta" Type="Int32" />
+          <Property Name="idProvincia" Type="Int32" />
+          <Property Name="idLocalidad" Type="Int32" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
           <Property Name="Sexo" Type="Boolean" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Administrador" Type="Boolean" Nullable="false" />
           <Property Name="NroTarjeta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VencTarjeta" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="CodSeguridad" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="FechaCobro" Type="DateTime" Precision="3" />
+          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Profesion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="idProvincia" Type="Int32" />
-          <Property Name="idLocalidad" Type="Int32" />
           <Property Name="CodigoPostal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Localidad" Relationship="ModeloCuentasAr.FK_Usuario_Localidad" FromRole="Usuario" ToRole="Localidad" />
           <NavigationProperty Name="Provincia" Relationship="ModeloCuentasAr.FK_Usuario_Provincia" FromRole="Usuario" ToRole="Provincia" />
           <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_Usuario" FromRole="Usuario" ToRole="Registro" />
@@ -609,23 +609,23 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="ModeloCuentasAr.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
-                <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
-                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
-                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Profesion" ColumnName="Profesion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
                 <ScalarProperty Name="FechaCobro" ColumnName="FechaCobro" />
                 <ScalarProperty Name="CodSeguridad" ColumnName="CodSeguridad" />
                 <ScalarProperty Name="VencTarjeta" ColumnName="VencTarjeta" />
                 <ScalarProperty Name="NroTarjeta" ColumnName="NroTarjeta" />
-                <ScalarProperty Name="Administrador" ColumnName="Administrador" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Sexo" ColumnName="Sexo" />
                 <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
+                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
                 <ScalarProperty Name="idTipoTarjeta" ColumnName="idTipoTarjeta" />
                 <ScalarProperty Name="idTipoCuenta" ColumnName="idTipoCuenta" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />

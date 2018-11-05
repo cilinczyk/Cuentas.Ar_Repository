@@ -59,7 +59,6 @@ namespace Cuentas.Ar.Site.Controllers
                                 new Claim(ClaimTypes.GivenName, usuario.Nombre),
                                 new Claim(ClaimTypes.Email, usuario.Email),
                                 new Claim(ClaimTypes.Sid, usuario.idUsuario.ToString()),
-                                new Claim(ClaimTypes.Role, usuario.Administrador ? "ADMIN" : "STANDARD"),
                             };
 
                             #endregion

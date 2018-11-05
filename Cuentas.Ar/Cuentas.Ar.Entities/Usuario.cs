@@ -23,23 +23,23 @@ namespace Cuentas.Ar.Entities
         public int idUsuario { get; set; }
         public int idTipoCuenta { get; set; }
         public Nullable<int> idTipoTarjeta { get; set; }
+        public Nullable<int> idProvincia { get; set; }
+        public Nullable<int> idLocalidad { get; set; }
         public string Nombre { get; set; }
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
         public Nullable<bool> Sexo { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public bool Administrador { get; set; }
         public string NroTarjeta { get; set; }
         public string VencTarjeta { get; set; }
         public string CodSeguridad { get; set; }
         public Nullable<System.DateTime> FechaCobro { get; set; }
+        public string Direccion { get; set; }
+        public string Telefono { get; set; }
+        public string Profesion { get; set; }
         public System.DateTime FechaAlta { get; set; }
         public bool Estado { get; set; }
-        public string Direccion { get; set; }
-        public Nullable<int> idProvincia { get; set; }
-        public Nullable<int> idLocalidad { get; set; }
         public string CodigoPostal { get; set; }
-        public string Telefono { get; set; }
     
         public virtual Localidad Localidad { get; set; }
         public virtual Provincia Provincia { get; set; }

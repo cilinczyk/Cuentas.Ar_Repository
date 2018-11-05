@@ -135,7 +135,6 @@ namespace Cuentas.Ar.Site.Controllers
             #region Alta de Usuario
             Usuario usuario = new Usuario
             {
-                Administrador = false,
                 Estado = true,
                 FechaAlta = DateTime.Now,
                 idTipoCuenta = model.idTipoCuenta,
@@ -160,9 +159,7 @@ namespace Cuentas.Ar.Site.Controllers
         public ActionResult MisDatos()
         {
             int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
-
             Usuario usuario = new UsuarioBusiness().Obtener(idUsuario);
-            usuario.UsuarioActualizado = false;
 
             ViewBag.ddl_Provincia = new SelectList(new ProvinciaBusiness().Listar(), "idProvincia", "Descripcion");
             ViewBag.ddl_TipoCuenta = new SelectList(new TipoCuentaBusiness().Listar(), "idTipoCuenta", "Descripcion");
@@ -177,8 +174,32 @@ namespace Cuentas.Ar.Site.Controllers
         {
             try
             {
-                return RedirectToAction("AltaLogin", "Usuario");
+                if (ModelState.IsValid)
+                {
+                    UsuarioBusiness usuarioBusiness = new UsuarioBusiness();
+                    var usuarioOriginal = usuarioBusiness.Obtener(model.idUsuario);
 
+                    if (model.Password != "password")
+                    {
+                        model.Password = Crypto.SHA1(model.Password);
+                    }
+                    else
+                    {
+                        model.Password = usuarioOriginal.Password;
+                    }
+
+                    if (usuarioOriginal.idTipoCuenta == eTipoCuenta.Free)
+                    {
+                        model.FechaCobro = DateTime.Now.AddMonths(1);
+                    }
+
+                    usuarioBusiness.Modificar(model);
+                }
+
+                ViewBag.ddl_Provincia = new SelectList(new ProvinciaBusiness().Listar(), "idProvincia", "Descripcion");
+                ViewBag.ddl_TipoCuenta = new SelectList(new TipoCuentaBusiness().Listar(), "idTipoCuenta", "Descripcion");
+                ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
+                return RedirectToAction("MisDatos", "Usuario", model);
             }
             catch (Exception ex)
             {

@@ -16,46 +16,74 @@
                 <p class="card-category">Perfil de Usuario</p>
             </div>
             <div class="card-body">
-                <form>
+                @using (Html.BeginForm("MisDatos", "Usuario", FormMethod.Post, new { id = "misDatosForm", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Nombre Completo / Organización</label>
                                 @Html.TextBoxFor(model => model.Nombre, new { @id = "Nombre", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Nombre)
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="bmd-label-floating">F. Nacimiento / I. de Actividad</label>
-                                @Html.TextBoxFor(model => model.FechaNacimiento, new { @id = "Fecha", @class = "form-control maskDate datepicker" })
-                            </div>
                         </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Email</label>
                                 @Html.TextBoxFor(model => model.Email, new { @id = "Email", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email)
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Contraseña</label>
-                                @Html.PasswordFor(model => model.Password, new { @id = "Password", @class = "form-control" })
+                                @Html.PasswordFor(model => model.Password, new { @id = "Password", @class = "form-control", Value = "password" })
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Dirección</label>
-                                @Html.TextBoxFor(model => model.Direccion, new { @id = "Direccion", @class = "form-control" })
+                                <label class="bmd-label-floating">Profesión</label>
+                                @Html.TextBoxFor(model => model.Profesion, new { @id = "Profesion", @class = "form-control" })
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="bmd-label-floating">Código Postal</label>
+                                <label class="bmd-label-floating">Teléfono</label>
+                                @Html.TextBoxFor(model => model.Telefono, new { @id = "Telefono", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Sexo</label>
+                                @Html.TextBoxFor(model => model.Sexo, new { @id = "Sexo", @class = "form-control", @maxlength = "1" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">F. Nacimiento / I. de Actividad</label>
+                                @Html.TextBoxFor(model => model.FechaNacimiento, new { @id = "Fecha", @class = "form-control maskDate" })
+                                @Html.ValidationMessageFor(model => model.FechaNacimiento)
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Dirección</label>
+                                @Html.TextBoxFor(model => model.Direccion, new { @id = "Direccion", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Direccion)
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Cód. Postal</label>
                                 @Html.TextBoxFor(model => model.CodigoPostal, new { @id = "CodigoPostal", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CodigoPostal)
                             </div>
                         </div>
                     </div>
@@ -63,11 +91,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.DropDownListFor(model => model.idProvincia, ViewBag.ddl_Provincia as SelectList, new { @id = "Provincia", @class = "selectpicker", @data_style = "btn btn-primary btn-sm", @data_live_search = "true", @data_size = "5", @title = "Seleccione una povincia", data_width = "100%" })
+                                @Html.ValidationMessageFor(model => model.idProvincia)
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.DropDownListFor(model => model.idLocalidad, new SelectListItem[] { new SelectListItem() { Text = "", Value = "" } }, new { @id = "Localidad", @class = "selectpicker", @data_style = "btn btn-primary btn-sm", data_width = "100%", @data_live_search = "true", @data_size = "5", @title = "Seleccione una localidad", disabled = "disabled" })
+                                @Html.ValidationMessageFor(model => model.idLocalidad)
                             </div>
                         </div>
                     </div>
@@ -75,11 +105,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.DropDownListFor(model => model.idTipoCuenta, ViewBag.ddl_TipoCuenta as SelectList, new { @id = "TipoCuenta", @class = "selectpicker", @data_style = "btn btn-primary btn-sm", data_width = "100%", @title = "Seleccione un tipo de cuenta" })
+                                @Html.ValidationMessageFor(model => model.idTipoCuenta)
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.DropDownListFor(model => model.idTipoTarjeta, ViewBag.ddl_TipoTarjeta as SelectList, new { @id = "TipoTarjeta", @class = "selectpicker", @data_style = "btn btn-primary btn-sm", data_width = "100%", @title = "Seleccione un tipo de tarjeta" })
+                                @Html.ValidationMessageFor(model => model.idTipoTarjeta)
                             </div>
                         </div>
                     </div>
@@ -88,59 +120,78 @@
                             <div class="form-group">
                                 <label class="bmd-label-floating">Número de Tarjeta</label>
                                 @Html.TextBoxFor(model => model.NroTarjeta, new { @id = "NroTarjeta", @class = "form-control", @maxlength = "18" })
+                                @Html.ValidationMessageFor(model => model.NroTarjeta)
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Código de Seguridad</label>
                                 @Html.TextBoxFor(model => model.CodSeguridad, new { @id = "CodSeguridad", @class = "form-control", @maxlength = "4" })
+                                @Html.ValidationMessageFor(model => model.CodSeguridad)
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Venc. Tarjeta</label>
                                 @Html.TextBoxFor(model => model.VencTarjeta, new { @id = "VencTarjeta", @class = "form-control maskDateMin", @maxlength = "5" })
+                                @Html.ValidationMessageFor(model => model.VencTarjeta)
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <div class="row">
+                        <div class="alert alert-warning col-md-12">
+                            <span>
+                                <b> Contraseña - </b> Solamente completar el campo si desea modificarla.
+                            </span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right">Actualizar Perfil</button>
                     <div class="clearfix"></div>
-                </form>
+                }
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card ">
-            <div class="card-header card-header-primary">
+            <div class="card-header card-header-info">
                 <h4 class="card-title">Planes</h4>
                 <p class="card-category">Detalles</p>
             </div>
             <div class="card-body ">
-                <ul class="nav nav-pills nav-pills-primary" role="tablist">
+                <ul class="nav nav-pills nav-pills-info" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#link1" role="tablist">
-                            Profile
+                        <a class="nav-link active show" data-toggle="tab" href="#link1" role="tablist">
+                            Premium
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active show" data-toggle="tab" href="#link2" role="tablist">
-                            Settings
+                        <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                            Business
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content tab-space">
                     <div class="tab-pane" id="link1">
-                        Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
-                        <br>
-                        <br> Dramatically visualize customer directed convergence without revolutionary ROI. Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
-                        <br>
-                        <br> This is very nice.
+                        <ul class="fa-ul">
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Costo: USD 1 por Mes</li>
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Módulo de Recordatorios</li>
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Módulo de Objetivos</li>
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Reportes en PDF</li>
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Soporte Técnico</li>
+                            <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Reportes en Excel</li>
+                        </ul>
                     </div>
                     <div class="tab-pane active show" id="link2">
-                        Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
-                        <br>
-                        <br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
+                        <ul class="fa-ul">
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Costo: USD 10 por Año</li>
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Módulo de Recordatorios</li>
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Módulo de Objetivos</li>
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Reportes en PDF</li>
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Reportes en Excel</li>
+                            <li><span class="fa-li"><i class="fa fa-check"></i></span>Soporte Técnico</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -150,8 +201,8 @@
 
 <script>
     $(".maskDateMin").inputmask({ mask: "99/99", placeholder: "mm/yy", showMaskOnFocus: false, showMaskOnHover: false });
-    $(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
-
+    $(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '31/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
+    $('#Fecha').mask("99/99/9999", { placeholder: 'MM/DD/YYYY' });
     /*Se cargan las localidades dependiendo de la provincia seleccionada*/
     $('#Provincia').change(function () {
             var idProvincia = $(this).val();

@@ -7,7 +7,6 @@ namespace Cuentas.Ar.Entities
     [MetadataType(typeof(UsuarioMetadata))]
     public partial class Usuario
     {
-        public bool UsuarioActualizado { get; set; }
     }
 
     public class UsuarioMetadata
@@ -17,6 +16,7 @@ namespace Cuentas.Ar.Entities
         public string Nombre { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
         public Nullable<DateTime> FechaNacimiento { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar un email.")]
@@ -29,6 +29,9 @@ namespace Cuentas.Ar.Entities
         [StringLength(40, ErrorMessage = "La password debe tener un maximo de 40 caracteres.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar un tipo de cuenta.")]
+        public int idTipoCuenta { get; set; }
 
         [RequiredIfNot("idTipoCuenta", eTipoCuenta.Free, ErrorMessage = "Debe seleccionar una tarjeta de credito.")]
         public byte? idTipoTarjeta { get; set; }
@@ -46,7 +49,6 @@ namespace Cuentas.Ar.Entities
         [RegularExpression(@"^\d{1,2}\/\d{1,2}$", ErrorMessage = "Debe ingresar un vencimiento valido.")]
         public string VencTarjeta { get; set; }
 
-        public bool Administrador { get; set; }
         public bool Estado { get; set; }
         public Nullable<bool> Sexo { get; set; }
     }

@@ -33,6 +33,11 @@ namespace Cuentas.Ar.Business
             return repositorio.Guardar(model);
         }
 
+        public void Modificar(Usuario model)
+        {
+            repositorio.Modificar(model);
+        }
+
         public Usuario Obtener(int idUsuario)
         {
             return repositorio.Obtener(idUsuario);

@@ -6,196 +6,94 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Cristian Ilincyk</label>
-                                    <br />
-                                    <label class="bmd-label-floating">Cuenta: Business</label>
-                                    <br />
-                                    <label class="bmd-label-floating">Estado: Bueno</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row justify-content-md-center">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Fecha Desde</label>
-                                            @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control maskDate datepicker" })
-                                        </div>
-                                    </div>
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">contacts</i>
+                    </div>
+                    <h4 class="card-title">Resumen</h4>
+                </div>
+                <div class="card-body ">
+                    <div class="row col-md-12">
+                        <div class="col-md-3">
+                            <label class="col-form-label">Usuario: Cristian Ilincyk</label>
+                            <br />
+                            <label class="col-form-label">Saldo Actual: $ 10.000</label>
+                        </div>
 
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating">Fecha Hasta</label>
-                                            @Html.TextBoxFor(model => model.FechaHasta, new { @id = "fechaHasta", @class = "form-control" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-md-center">
-                                    <a href="#pablo" class="btn btn-primary btn-amber">Actualizar</a>
-                                </div>
-                            </div>
-                            <div class="col col-md-3 text-right">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Saldo Actual: $10.000</label>
-                                    <br />
-                                    <label class="bmd-label-floating">Ingresos: $35.000</label>
-                                    <br />
-                                    <label class="bmd-label-floating">Egresos: $25.000</label>
-                                    <br />
-                                </div>
-                            </div>
+                        <div class="col-md-3">
+                            <label class="col-form-label">Cuenta: Premium</label>
+                            <br />
+                            <label class="col-form-label">Ingresos: $ 50.000</label>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="col-form-label">Estado: Muy Bueno</label>
+                            <br />
+                            <label class="col-form-label">Egresos: $ 40.000</label>
+                        </div>
+                        <div class="col-md-3">
+                                <label class="col-md-6 col-form-label">Fecha Desde</label>
+                                @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control datepicker col-md-6" })
+                            <br />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title">Edit Profile</h4>
-                        <p class="card-category">Complete your profile</p>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Company (disabled)</label>
-                                        <input type="text" class="form-control" disabled>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Username</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Email address</label>
-                                        <input type="email" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Fist Name</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Last Name</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">PROBANDO</label>
-                                        @Html.TextBoxFor(model => model.Ingresos, new { @id = "Descripcion", @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Adress</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">City</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Country</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Postal Code</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 col-md-6 col-sm-3">
 
-                                    <select class="selectpicker" data-style="select-with-transition" multiple title="Choose City" data-size="7">
-                                        <option disabled> Multiple Options</option>
-                                        <option value="2">Paris </option>
-                                        <option value="3">Bucharest</option>
-                                        <option value="4">Rome</option>
-                                        <option value="5">New York</option>
-                                        <option value="6">Miami </option>
-                                        <option value="7">Piatra Neamt</option>
-                                        <option value="8">Paris </option>
-                                        <option value="9">Bucharest</option>
-                                        <option value="10">Rome</option>
-                                        <option value="11">New York</option>
-                                        <option value="12">Miami </option>
-                                        <option value="13">Piatra Neamt</option>
-                                        <option value="14">Paris </option>
-                                        <option value="15">Bucharest</option>
-                                        <option value="16">Rome</option>
-                                        <option value="17">New York</option>
-                                        <option value="18">Miami </option>
-                                        <option value="19">Piatra Neamt</option>
-                                    </select>
-                                </div>
+        <div class="row">
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">contacts</i>
+                    </div>
+                    <h4 class="card-title">Búsqueda</h4>
+                </div>
+                <div class="card-body ">
+                    <form class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-4">
+
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>About Me</label>
-                                        <div class="form-group">
-                                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                            <textarea class="form-control" rows="5"></textarea>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label">Fecha Desde</label>
+                                    <div class="col-md-9">
+                                        <div class="form-group has-default bmd-form-group">
+                                            @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control datepicker" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-3 col-form-label">Fecha Hasta</label>
+                                    <div class="col-md-9">
+                                        <div class="form-group has-default bmd-form-group">
+                                            @Html.TextBoxFor(model => model.FechaHasta, new { @id = "fechaHasta", @class = "form-control datepicker" })
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
-                            <div class="clearfix"></div>
-                        </form>
-                    </div>
+                            <div class="col-md-4">
+
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-profile">
-                    <div class="card-avatar">
-                        <a href="#pablo">
-                            <img class="img" src="../assets/img/faces/marc.jpg" />
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                        <h4 class="card-title">Alec Thompson</h4>
-                        <p class="card-description">
-                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                        </p>
+                <div class="card-footer">
+                    <div class="pull-center">
+                        <button type="submit" class="btn btn-fill btn-primary">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
 <script>
-    $(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
+    //$(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
+    $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
     $("#fechaDesde").blur();
     $("#fechaHasta").blur();
 </script>

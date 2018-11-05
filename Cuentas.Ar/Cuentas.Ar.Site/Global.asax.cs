@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System.Globalization;
+using System.Security.Claims;
+using System.Threading;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -16,6 +18,12 @@ namespace Cuentas.Ar.Site
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Email;
             AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
+        }
+
+        protected void Application_BeginRequest()
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("es-AR");
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("es-AR");
         }
     }
 }

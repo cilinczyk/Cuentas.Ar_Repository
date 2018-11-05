@@ -99,5 +99,39 @@ namespace Cuentas.Ar.Repository
                 return context.Usuario.FirstOrDefault(x => x.idUsuario == idUsuario);
             }
         }
+
+        public void Modificar(Usuario model)
+        {
+            try
+            {
+                using (var context = new CuentasArEntities())
+                {
+                    context.Usuario.Attach(model);
+                    context.Entry(model).Property(x => x.idTipoCuenta).IsModified = true;
+                    context.Entry(model).Property(x => x.idTipoTarjeta).IsModified = true;
+                    context.Entry(model).Property(x => x.idProvincia).IsModified = true;
+                    context.Entry(model).Property(x => x.idLocalidad).IsModified = true;
+                    context.Entry(model).Property(x => x.Nombre).IsModified = true;
+                    context.Entry(model).Property(x => x.FechaNacimiento).IsModified = true;
+                    context.Entry(model).Property(x => x.Email).IsModified = true;
+                    context.Entry(model).Property(x => x.Password).IsModified = true;
+                    context.Entry(model).Property(x => x.NroTarjeta).IsModified = true;
+                    context.Entry(model).Property(x => x.FechaNacimiento).IsModified = true;
+                    context.Entry(model).Property(x => x.CodSeguridad).IsModified = true;
+                    context.Entry(model).Property(x => x.FechaCobro).IsModified = true;
+                    context.Entry(model).Property(x => x.Direccion).IsModified = true;
+                    context.Entry(model).Property(x => x.CodigoPostal).IsModified = true;
+                    context.Entry(model).Property(x => x.Telefono).IsModified = true;
+                    context.Entry(model).Property(x => x.Profesion).IsModified = true;
+                    context.Entry(model).Property(x => x.FechaCobro).IsModified = true;
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("No se puede modificar el registro.", ex);
+            }
+        }
     }
 }

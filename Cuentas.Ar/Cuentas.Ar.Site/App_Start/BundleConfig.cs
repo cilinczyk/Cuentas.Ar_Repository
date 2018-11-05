@@ -33,9 +33,11 @@ namespace Cuentas.Ar.Site
                     "~/Content/assets/js/core/popper.min.js",
                     "~/Content/assets/js/core/bootstrap-material-design.min.js",
                     "~/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js",
-                    "~/Content/assets/js/material-dashboard.js",
-                    "~/Content/vendor/bootstrap/js/bootstrap-selectpicker.js",
-                    "~/Scripts/moment.min.js"));
+                    "~/Content/assets/js/material-dashboard.min.js",
+                    "~/Scripts/moment.min.js",
+                    "~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js",
+                    "~/Content/vendor/bootstrap/js/bootstrap-selectpicker.js"
+                    ));
             #endregion
 
             #region [Región: Auxiliares]
