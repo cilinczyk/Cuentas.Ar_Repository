@@ -28,7 +28,7 @@
                                 @Html.ValidationMessageFor(model => model.Nombre)
                             </div>
                         </div>
-                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -66,9 +66,9 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group">
+                            <div id="lblFechaNacimiento" class="form-group">
                                 <label class="bmd-label-floating">F. Nacimiento / I. de Actividad</label>
-                                @Html.TextBoxFor(model => model.FechaNacimiento, new { @id = "Fecha", @class = "form-control maskDate" })
+                                @Html.TextBoxFor(model => model.FechaNacimiento, new { @id = "Fecha", @class = "form-control maskDate", @maxlength = "10" })
                                 @Html.ValidationMessageFor(model => model.FechaNacimiento)
                             </div>
                         </div>
@@ -198,11 +198,42 @@
         </div>
     </div>
 </div>
-
+@*<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/moment_es.js"></script>
+<script src="~/Scripts/moment-with-locales.min.js"></script>*@
+<script src="~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
 <script>
+    $(function ($) {
+        $.datepicker.regional['es'] = {
+
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'DD/MM/YYY',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+    });
+
+    $(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
     $(".maskDateMin").inputmask({ mask: "99/99", placeholder: "mm/yy", showMaskOnFocus: false, showMaskOnHover: false });
-    $(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '31/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
-    $('#Fecha').mask("99/99/9999", { placeholder: 'MM/DD/YYYY' });
+    $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es' });
+
+    $(".datepicker").on("dp.change", function (e) {
+        $("#lblFechaNacimiento").addClass("is-filled");
+        return false;
+    });
+
     /*Se cargan las localidades dependiendo de la provincia seleccionada*/
     $('#Provincia').change(function () {
             var idProvincia = $(this).val();

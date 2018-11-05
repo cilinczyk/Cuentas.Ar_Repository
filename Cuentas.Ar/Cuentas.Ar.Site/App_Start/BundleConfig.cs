@@ -30,11 +30,11 @@ namespace Cuentas.Ar.Site
                     "~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                    "~/Scripts/moment.min.js",
                     "~/Content/assets/js/core/popper.min.js",
                     "~/Content/assets/js/core/bootstrap-material-design.min.js",
                     "~/Content/assets/js/plugins/perfect-scrollbar.jquery.min.js",
                     "~/Content/assets/js/material-dashboard.min.js",
-                    "~/Scripts/moment.min.js",
                     "~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js",
                     "~/Content/vendor/bootstrap/js/bootstrap-selectpicker.js"
                     ));

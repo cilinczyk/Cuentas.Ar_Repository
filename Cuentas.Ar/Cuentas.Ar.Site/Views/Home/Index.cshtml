@@ -32,11 +32,6 @@
                             <br />
                             <label class="col-form-label">Egresos: $ 40.000</label>
                         </div>
-                        <div class="col-md-3">
-                                <label class="col-md-6 col-form-label">Fecha Desde</label>
-                                @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control datepicker col-md-6" })
-                            <br />
-                        </div>
                     </div>
                 </div>
             </div>
@@ -62,6 +57,7 @@
                                     <div class="col-md-9">
                                         <div class="form-group has-default bmd-form-group">
                                             @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control datepicker" })
+                                            @Html.ValidationMessageFor(model => model.FechaDesde)
                                         </div>
                                     </div>
                                 </div>
@@ -70,6 +66,7 @@
                                     <div class="col-md-9">
                                         <div class="form-group has-default bmd-form-group">
                                             @Html.TextBoxFor(model => model.FechaHasta, new { @id = "fechaHasta", @class = "form-control datepicker" })
+                                            @Html.ValidationMessageFor(model => model.FechaHasta)
                                         </div>
                                     </div>
                                 </div>
@@ -89,10 +86,16 @@
         </div>
     </div>
 </div>
+
 <script src="~/Scripts/moment.js"></script>
 <script src="~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
 <script>
-    //$(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
+    $(function ($) {
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
+    });
+
     $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
     $("#fechaDesde").blur();
     $("#fechaHasta").blur();

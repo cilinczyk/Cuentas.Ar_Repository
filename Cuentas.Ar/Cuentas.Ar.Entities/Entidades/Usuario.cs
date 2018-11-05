@@ -15,8 +15,8 @@ namespace Cuentas.Ar.Entities
         [StringLength(50, ErrorMessage = "El nombre debe tener un maximo de 50 caracteres.")]
         public string Nombre { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<DateTime> FechaNacimiento { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar un email.")]
