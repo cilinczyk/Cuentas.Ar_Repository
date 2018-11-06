@@ -160,10 +160,23 @@ namespace Cuentas.Ar.Site.Controllers
         {
             int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
             Usuario usuario = new UsuarioBusiness().Obtener(idUsuario);
+            usuario.UsuarioActualizado = false;
 
+            #region [Región: Cargar Combos]
             ViewBag.ddl_Provincia = new SelectList(new ProvinciaBusiness().Listar(), "idProvincia", "Descripcion");
             ViewBag.ddl_TipoCuenta = new SelectList(new TipoCuentaBusiness().Listar(), "idTipoCuenta", "Descripcion");
             ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
+
+            if (usuario.idProvincia.HasValue)
+            {
+                ViewBag.ddl_Localidad = new SelectList(new LocalidadBusiness().Listar(usuario.idProvincia.Value), "idLocalidad", "Descripcion");
+            }
+            else
+            {
+                ViewBag.ddl_Localidad = new SelectList( new SelectListItem[] { });
+            }
+            #endregion
+
             return View("MisDatos", usuario);
         }
 
@@ -197,12 +210,22 @@ namespace Cuentas.Ar.Site.Controllers
                     model.UsuarioActualizado = true;
                 }
 
+                #region [Región: Cargar Combos]
                 ViewBag.ddl_Provincia = new SelectList(new ProvinciaBusiness().Listar(), "idProvincia", "Descripcion");
                 ViewBag.ddl_TipoCuenta = new SelectList(new TipoCuentaBusiness().Listar(), "idTipoCuenta", "Descripcion");
                 ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
 
+                if (model.idProvincia.HasValue)
+                {
+                    ViewBag.ddl_Localidad = new SelectList(new LocalidadBusiness().Listar(model.idProvincia.Value), "idLocalidad", "Descripcion");
+                }
+                else
+                {
+                    ViewBag.ddl_Localidad = new SelectListItem() { Text = "", Value = "" };
+                }
+                #endregion
+
                 return View("MisDatos", model);
-                //return RedirectToAction("MisDatos", "Usuario", model);
             }
             catch (Exception ex)
             {

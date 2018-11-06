@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                @Html.DropDownListFor(model => model.idLocalidad, new SelectListItem[] { new SelectListItem() { Text = "", Value = "" } }, new { @id = "Localidad", @class = "selectpicker", @data_style = "btn btn-primary btn-sm", data_width = "100%", @data_live_search = "true", @data_size = "5", @title = "Seleccione una localidad", disabled = "disabled" })
+                                @Html.DropDownListFor(model => model.idLocalidad, ViewBag.ddl_Localidad as SelectList, new { @id = "Localidad", @class = "selectpicker", @data_style = "btn btn-primary btn-sm", data_width = "100%", @data_live_search = "true", @data_size = "5", @title = "Seleccione una localidad", disabled = "disabled" })
                                 @Html.ValidationMessageFor(model => model.idLocalidad)
                             </div>
                         </div>
@@ -209,8 +209,15 @@
 
 <script>
     $(function ($) {
+        console.log("gilas");
+
         $.validator.methods.date = function (value, element) {
             return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
+
+        if ($('#Provincia').val() != null && $('#Provincia').val() != "") {
+            $('#Localidad').removeAttr("disabled");
+            $('#Localidad').selectpicker('refresh')
         }
     });
 
@@ -235,7 +242,11 @@
                 })
                 .done(function (data) {
                     if (data.Estado == 1) {
+                        $('#Localidad').empty();
+                        $('#Localidad').children().remove();
+                        $('#Localidad')[0].options.length = 0;
                         var items = "";
+
                         $.each(data.Combo, function (i, Loca) {
                             items += "<option value='" + Loca.Value + "'>" + Loca.Text + "</option>";
                         });
