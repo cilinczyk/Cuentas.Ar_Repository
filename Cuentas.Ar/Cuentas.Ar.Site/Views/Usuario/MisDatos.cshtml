@@ -68,7 +68,7 @@
                         <div class="col-md-4">
                             <div id="lblFechaNacimiento" class="form-group">
                                 <label class="bmd-label-floating">F. Nacimiento / I. de Actividad</label>
-                                @Html.TextBoxFor(model => model.FechaNacimiento, new { @id = "Fecha", @class = "form-control maskDate", @maxlength = "10" })
+                                @Html.TextBoxFor(model => model.FechaNacimiento, new { @id = "Fecha", @class = "form-control datepicker", @maxlength = "10" })
                                 @Html.ValidationMessageFor(model => model.FechaNacimiento)
                             </div>
                         </div>
@@ -139,12 +139,10 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="alert alert-warning col-md-12">
-                            <span>
-                                <b> Contraseña - </b> Solamente completar el campo si desea modificarla.
-                            </span>
-                        </div>
+                    <div class="alert alert-primary col-md-12">
+                        <span>
+                            <b> Contraseña - </b> Solamente completar el campo si desea modificarla.
+                        </span>
                     </div>
 
                     <button type="submit" class="btn btn-primary pull-right">Actualizar Perfil</button>
@@ -198,34 +196,15 @@
         </div>
     </div>
 </div>
-@*<script src="~/Scripts/moment.min.js"></script>
-<script src="~/Scripts/moment_es.js"></script>
-<script src="~/Scripts/moment-with-locales.min.js"></script>*@
-<script src="~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+
 <script>
     $(function ($) {
-        $.datepicker.regional['es'] = {
-
-            closeText: 'Cerrar',
-            prevText: '<Ant',
-            nextText: 'Sig>',
-            currentText: 'Hoy',
-            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-            weekHeader: 'Sm',
-            dateFormat: 'DD/MM/YYY',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: ''
-        };
-        $.datepicker.setDefaults($.datepicker.regional['es']);
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
     });
 
-    $(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
+    //$(".maskDate").inputmask("datetime", { inputFormat: 'dd/mm/yyyy', min: '01/01/1900', max: '31/12/2100', showMaskOnHover: false, showMaskOnFocus: false });
     $(".maskDateMin").inputmask({ mask: "99/99", placeholder: "mm/yy", showMaskOnFocus: false, showMaskOnHover: false });
     $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es' });
 
