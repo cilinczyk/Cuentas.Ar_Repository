@@ -194,6 +194,7 @@ namespace Cuentas.Ar.Site.Controllers
                     }
 
                     usuarioBusiness.Modificar(model);
+                    model.UsuarioActualizado = true;
                 }
 
                 ViewBag.ddl_Provincia = new SelectList(new ProvinciaBusiness().Listar(), "idProvincia", "Descripcion");
