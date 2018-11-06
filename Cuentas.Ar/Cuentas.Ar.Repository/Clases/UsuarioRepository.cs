@@ -116,14 +116,13 @@ namespace Cuentas.Ar.Repository
                     context.Entry(model).Property(x => x.Email).IsModified = true;
                     context.Entry(model).Property(x => x.Password).IsModified = true;
                     context.Entry(model).Property(x => x.NroTarjeta).IsModified = true;
-                    context.Entry(model).Property(x => x.FechaNacimiento).IsModified = true;
+                    context.Entry(model).Property(x => x.VencTarjeta).IsModified = true;
                     context.Entry(model).Property(x => x.CodSeguridad).IsModified = true;
                     context.Entry(model).Property(x => x.FechaCobro).IsModified = true;
                     context.Entry(model).Property(x => x.Direccion).IsModified = true;
                     context.Entry(model).Property(x => x.CodigoPostal).IsModified = true;
                     context.Entry(model).Property(x => x.Telefono).IsModified = true;
                     context.Entry(model).Property(x => x.Profesion).IsModified = true;
-                    context.Entry(model).Property(x => x.FechaCobro).IsModified = true;
 
                     context.SaveChanges();
                 }

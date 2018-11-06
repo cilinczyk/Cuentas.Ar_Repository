@@ -154,7 +154,7 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
-        #region [Región: Mis Datos]
+        #region [Región: Modulo Mis Datos]
         [AllowAnonymous]
         public ActionResult MisDatos()
         {
@@ -200,7 +200,9 @@ namespace Cuentas.Ar.Site.Controllers
                 ViewBag.ddl_Provincia = new SelectList(new ProvinciaBusiness().Listar(), "idProvincia", "Descripcion");
                 ViewBag.ddl_TipoCuenta = new SelectList(new TipoCuentaBusiness().Listar(), "idTipoCuenta", "Descripcion");
                 ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
-                return RedirectToAction("MisDatos", "Usuario", model);
+
+                return View("MisDatos", model);
+                //return RedirectToAction("MisDatos", "Usuario", model);
             }
             catch (Exception ex)
             {

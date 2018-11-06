@@ -1095,6 +1095,11 @@
     <Content Include="Views\SubCategoria\_ListaSubCategoria.cshtml" />
     <Content Include="Views\SubCategoria\Listado.cshtml" />
     <Content Include="Views\Usuario\MisDatos.cshtml" />
+    <Content Include="Views\Recordatorio\_Alta.cshtml" />
+    <Content Include="Views\Recordatorio\_Baja.cshtml" />
+    <Content Include="Views\Recordatorio\_Edicion.cshtml" />
+    <Content Include="Views\Recordatorio\_ListaRecordatorio.cshtml" />
+    <Content Include="Views\Recordatorio\Listado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

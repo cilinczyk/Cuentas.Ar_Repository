@@ -14,11 +14,13 @@
 
             @Html.MenuActionLinkMenu("Mis Cuentas", "Index", "Home", "home")
 
-            @Html.MenuActionLinkMenu("Nuevo", "Index", "Home5", "plus")
+            @Html.MenuActionLinkMenu("Nuevo Registro", "Index", "Home5", "plus")
 
             @Html.MenuActionLinkMenu("Mis Registros", "Index", "Home3", "file-text-o")
 
             @Html.MenuActionLinkMenu("Mis Estadisticas", "Index", "Home4", "bar-chart")
+
+            @Html.MenuActionLinkMenu("Mis Recordatorios", "Index", "Listado", "clock-o")
 
             <li class="@MenuHelper.EstadoMenu(Controlador) nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#tablesExamples" aria-expanded="false">
@@ -32,16 +34,14 @@
                 <div id="tablesExamples" class="collapse" style="">
                     <ul class="nav">
                         @Html.MenuActionSubLinkMenu("Mis Datos", "MisDatos", "Usuario", "user")
-                        @Html.MenuActionSubLinkMenu("Parametros", "Configuracion", "Parametros", "user")
-                        @Html.MenuActionSubLinkMenu("Categorias", "Listado", "Categoria", "check-square")
-                        @Html.MenuActionSubLinkMenu("SubCategorias", "Listado", "SubCategoria", "check-circle")
+                        @Html.MenuActionSubLinkMenu("Parámetros", "Configuracion", "Parametros", "cogs")
+                        @Html.MenuActionSubLinkMenu("Categorías", "Listado", "Categoria", "check-square")
+                        @Html.MenuActionSubLinkMenu("SubCategorías", "Listado", "SubCategoria", "check-circle")
                     </ul>
                 </div>
             </li>
 
             @Html.MenuActionLinkMenu("Cerrar Sesión", "LogOff", "Cuenta", "sign-out")
-
-            @Html.MenuActionLinkMenu("Upgrade to PRO", "LogOff", "Cuenta6", "arrow-circle-up")
 
         </ul>
     </div>
