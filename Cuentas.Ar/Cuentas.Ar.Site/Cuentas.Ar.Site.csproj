@@ -187,6 +187,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\BotoneraController.cs" />
+    <Compile Include="Controllers\RecordatorioController.cs" />
     <Compile Include="Controllers\LocalidadController.cs" />
     <Compile Include="Controllers\SubCategoriaController.cs" />
     <Compile Include="Controllers\ConfiguracionController.cs" />

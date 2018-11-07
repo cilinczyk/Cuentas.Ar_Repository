@@ -13,6 +13,13 @@
           <Property Name="idTipoRegistro" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="EstadoRecordatorio">
+          <Key>
+            <PropertyRef Name="idEstadoRecordatorio" />
+          </Key>
+          <Property Name="idEstadoRecordatorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Localidad">
           <Key>
             <PropertyRef Name="idLocalidad" />
@@ -28,6 +35,17 @@
           </Key>
           <Property Name="idProvincia" Type="int" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="Recordatorio">
+          <Key>
+            <PropertyRef Name="idRecordatorio" />
+          </Key>
+          <Property Name="idRecordatorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEstado" Type="int" Nullable="false" />
+          <Property Name="idCategoria" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Registro">
           <Key>
@@ -106,6 +124,30 @@
             </Principal>
             <Dependent Role="Categoria">
               <PropertyRef Name="idTipoRegistro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recordatorio_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Recordatorio" Type="Self.Recordatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="Recordatorio">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recordatorio_EstadoRecordatorio">
+          <End Role="EstadoRecordatorio" Type="Self.EstadoRecordatorio" Multiplicity="1" />
+          <End Role="Recordatorio" Type="Self.Recordatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoRecordatorio">
+              <PropertyRef Name="idEstadoRecordatorio" />
+            </Principal>
+            <Dependent Role="Recordatorio">
+              <PropertyRef Name="idEstado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -209,8 +251,10 @@
         </Association>
         <EntityContainer Name="ModeloCuentasArStoreContainer">
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadoRecordatorio" EntityType="Self.EstadoRecordatorio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Localidad" EntityType="Self.Localidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recordatorio" EntityType="Self.Recordatorio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Registro" EntityType="Self.Registro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubCategoria" EntityType="Self.SubCategoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoCuenta" EntityType="Self.TipoCuenta" Schema="dbo" store:Type="Tables" />
@@ -220,6 +264,14 @@
           <AssociationSet Name="FK_Categoria_TipoRegistro" Association="Self.FK_Categoria_TipoRegistro">
             <End Role="TipoRegistro" EntitySet="TipoRegistro" />
             <End Role="Categoria" EntitySet="Categoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recordatorio_Categoria" Association="Self.FK_Recordatorio_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Recordatorio" EntitySet="Recordatorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recordatorio_EstadoRecordatorio" Association="Self.FK_Recordatorio_EstadoRecordatorio">
+            <End Role="EstadoRecordatorio" EntitySet="EstadoRecordatorio" />
+            <End Role="Recordatorio" EntitySet="Recordatorio" />
           </AssociationSet>
           <AssociationSet Name="FK_Registro_Categoria" Association="Self.FK_Registro_Categoria">
             <End Role="Categoria" EntitySet="Categoria" />
@@ -304,6 +356,16 @@
             <End Role="TipoTarjeta" EntitySet="TipoTarjeta" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
+          <EntitySet Name="EstadoRecordatorio" EntityType="ModeloCuentasAr.EstadoRecordatorio" />
+          <EntitySet Name="Recordatorio" EntityType="ModeloCuentasAr.Recordatorio" />
+          <AssociationSet Name="FK_Recordatorio_Categoria" Association="ModeloCuentasAr.FK_Recordatorio_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Recordatorio" EntitySet="Recordatorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recordatorio_EstadoRecordatorio" Association="ModeloCuentasAr.FK_Recordatorio_EstadoRecordatorio">
+            <End Role="EstadoRecordatorio" EntitySet="EstadoRecordatorio" />
+            <End Role="Recordatorio" EntitySet="Recordatorio" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="TipoCuenta">
           <Key>
@@ -355,6 +417,7 @@
           <NavigationProperty Name="TipoRegistro" Relationship="ModeloCuentasAr.FK_Categoria_TipoRegistro" FromRole="Categoria" ToRole="TipoRegistro" />
           <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_Categoria" FromRole="Categoria" ToRole="Registro" />
           <NavigationProperty Name="SubCategoria" Relationship="ModeloCuentasAr.FK_SubCategoria_Categoria" FromRole="Categoria" ToRole="SubCategoria" />
+          <NavigationProperty Name="Recordatorio" Relationship="ModeloCuentasAr.FK_Recordatorio_Categoria" FromRole="Categoria" ToRole="Recordatorio" />
         </EntityType>
         <EntityType Name="SubCategoria">
           <Key>
@@ -525,6 +588,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EstadoRecordatorio">
+          <Key>
+            <PropertyRef Name="idEstadoRecordatorio" />
+          </Key>
+          <Property Name="idEstadoRecordatorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recordatorio" Relationship="ModeloCuentasAr.FK_Recordatorio_EstadoRecordatorio" FromRole="EstadoRecordatorio" ToRole="Recordatorio" />
+        </EntityType>
+        <EntityType Name="Recordatorio">
+          <Key>
+            <PropertyRef Name="idRecordatorio" />
+          </Key>
+          <Property Name="idRecordatorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEstado" Type="Int32" Nullable="false" />
+          <Property Name="idCategoria" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Categoria" Relationship="ModeloCuentasAr.FK_Recordatorio_Categoria" FromRole="Recordatorio" ToRole="Categoria" />
+          <NavigationProperty Name="EstadoRecordatorio" Relationship="ModeloCuentasAr.FK_Recordatorio_EstadoRecordatorio" FromRole="Recordatorio" ToRole="EstadoRecordatorio" />
+        </EntityType>
+        <Association Name="FK_Recordatorio_Categoria">
+          <End Type="ModeloCuentasAr.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.Recordatorio" Role="Recordatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="Recordatorio">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recordatorio_EstadoRecordatorio">
+          <End Type="ModeloCuentasAr.EstadoRecordatorio" Role="EstadoRecordatorio" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.Recordatorio" Role="Recordatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoRecordatorio">
+              <PropertyRef Name="idEstadoRecordatorio" />
+            </Principal>
+            <Dependent Role="Recordatorio">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -629,6 +737,26 @@
                 <ScalarProperty Name="idTipoTarjeta" ColumnName="idTipoTarjeta" />
                 <ScalarProperty Name="idTipoCuenta" ColumnName="idTipoCuenta" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadoRecordatorio">
+            <EntityTypeMapping TypeName="ModeloCuentasAr.EstadoRecordatorio">
+              <MappingFragment StoreEntitySet="EstadoRecordatorio">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idEstadoRecordatorio" ColumnName="idEstadoRecordatorio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recordatorio">
+            <EntityTypeMapping TypeName="ModeloCuentasAr.Recordatorio">
+              <MappingFragment StoreEntitySet="Recordatorio">
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="idRecordatorio" ColumnName="idRecordatorio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

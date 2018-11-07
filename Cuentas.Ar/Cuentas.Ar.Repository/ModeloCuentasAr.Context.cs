@@ -35,5 +35,7 @@
         public virtual DbSet<Localidad> Localidad { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<EstadoRecordatorio> EstadoRecordatorio { get; set; }
+        public virtual DbSet<Recordatorio> Recordatorio { get; set; }
     }
 }

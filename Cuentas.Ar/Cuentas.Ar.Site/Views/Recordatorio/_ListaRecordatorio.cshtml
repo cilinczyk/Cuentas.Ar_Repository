@@ -1,20 +1,20 @@
-﻿@model List<Cuentas.Ar.Entities.Categoria>
+﻿@model List<Cuentas.Ar.Entities.Recordatorio>
 
 <!-- #region Include DataTable -->
 <link href="~/Content/DataTables/datatables.min.css" rel="stylesheet" />
 <script src="~/Content/DataTables/datatables.min.js"></script>
 <!-- #endregion Include DataTable-->
 
-<div class="container-fluid" id="ListaCategoria">
+<div class="container-fluid" id="ListaRecordatorio">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-primary card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">check_box</i>
+                        <i class="material-icons">access_time</i>
                     </div>
                     <div class="card-title">
-                        <h4>Categorías @Html.NoEncodeActionLink("<i class='material-icons'>add</i> Nueva Categoría", "Nuevo", "Alta", "Categoria", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right", id = "btnAlta" })</h4>
+                        <h4>Recordatorios @Html.NoEncodeActionLink("<i class='material-icons'>add</i> Nuevo Recordatorio", "Nuevo", "Alta", "Recordatorio", htmlAttributes: new { data_modal = "", @class = "btn btn-success btn-sm pull-right", id = "btnAlta" })</h4>
                     </div>
 
                 </div>
@@ -26,18 +26,22 @@
                         <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table id="tableCategoria" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" style="width: 100%;" role="grid" aria-describedby="datatables_info" width="100%" cellspacing="0">
+                                    <table id="tableRecordatorio" class="table table-striped table-no-bordered table-hover dataTable dtr-inline" style="width: 100%;" role="grid" aria-describedby="datatables_info" width="100%" cellspacing="0">
                                         <thead>
                                             <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Recordatorio</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Categoría</th>
-                                                <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Tipo de Registro</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Vencimiento</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Estado</th>
                                                 <th class="disabled-sorting text-right" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" orderable="false">Acción</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
+                                                <th rowspan="1" colspan="1">Recordatorio</th>
                                                 <th rowspan="1" colspan="1">Categoría</th>
-                                                <th rowspan="1" colspan="1">Tipo de Registro</th>
+                                                <th rowspan="1" colspan="1">Vencimiento</th>
+                                                <th rowspan="1" colspan="1">Estado</th>
                                                 <th class="text-right" rowspan="1" colspan="1">Acción</th>
                                             </tr>
                                         </tfoot>
@@ -52,10 +56,12 @@
 
                                                     <tr role="row" class="@colorClass">
                                                         <td class="sorting_1">@item.Descripcion</td>
-                                                        <td>@item.TipoRegistro.Descripcion</td>
+                                                        <td>@item.Categoria.Descripcion</td>
+                                                        <td>@item.FechaVencimiento</td>
+                                                        <td>@item.EstadoRecordatorio.Descripcion</td>
                                                         <td class="text-right">
-                                                            @Html.NoEncodeActionLink("<i class='material-icons'>edit</i>", "Modificar", "Edicion", "Categoria", routeValues: new { idCategoria = @item.idCategoria }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-info btn-just-icon like" })
-                                                            @Html.NoEncodeActionLink("<i class='material-icons'>close</i>", "Eliminar", "Baja", "Categoria", routeValues: new { idCategoria = @item.idCategoria, descripcion = @item.Descripcion }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-danger btn-just-icon remove" })
+                                                            @Html.NoEncodeActionLink("<i class='material-icons'>edit</i>", "Modificar", "Edicion", "Recordatorio", routeValues: new { idRecordatorio = @item.idRecordatorio }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-info btn-just-icon like" })
+                                                            @Html.NoEncodeActionLink("<i class='material-icons'>close</i>", "Eliminar", "Baja", "Recordatorio", routeValues: new { idRecordatorio = @item.idRecordatorio, descripcion = @item.Descripcion }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-danger btn-just-icon remove" })
                                                         </td>
                                                     </tr>
                                                 }
@@ -74,7 +80,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#tableCategoria').DataTable({
+        $('#tableRecordatorio').DataTable({
             "columns": [
                 { "orderable": true },
                 { "orderable": true },
@@ -99,7 +105,7 @@
                 "sInfoThousands": ",",
                 "sLoadingRecords": "Cargando...",
                 "search": "_INPUT_",
-                "searchPlaceholder": "Buscar Categoría",
+                "searchPlaceholder": "Buscar Recordatorio",
                 "oPaginate": {
                     "sFirst": "Primero",
                     "sLast": "Último",
@@ -113,7 +119,7 @@
             }
         });
 
-        $("#ListaCategoria a[data-modal]").on("click", function (e) {
+        $("#ListaRecordatorio a[data-modal]").on("click", function (e) {
             $('#ModalGeneralBody').load(this.href, function () {
                 $('#ModalGeneral').modal({
                     keyboard: true,
@@ -133,7 +139,7 @@
                     success: function (result) {
                         if (result.success) {
                             $('#ModalGeneral').modal('hide');
-                            $('#ListaCategoria').load(result.url);
+                            $('#ListaRecordatorio').load(result.url);
                         } else {
                             $('#ModalGeneralBody').html(result);
                             bindModal(dialog);

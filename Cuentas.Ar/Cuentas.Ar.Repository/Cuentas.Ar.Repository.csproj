@@ -55,10 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\RecordatorioRepository.cs" />
     <Compile Include="Clases\SubCategoriaRepository.cs" />
     <Compile Include="Clases\CategoriaRepository.cs" />
     <Compile Include="Clases\LocalidadRepository.cs" />
     <Compile Include="Clases\ProvinciaRepository.cs" />
+    <Compile Include="Clases\EstadoRecordatorioRepository .cs" />
     <Compile Include="Clases\TipoRegistroRepository.cs" />
     <Compile Include="Clases\TipoCuentaRepository.cs" />
     <Compile Include="Clases\TipoTarjetaRepository.cs" />

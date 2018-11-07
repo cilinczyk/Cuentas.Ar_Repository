@@ -12,25 +12,17 @@ namespace Cuentas.Ar.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Categoria
+    public partial class EstadoRecordatorio
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Categoria()
+        public EstadoRecordatorio()
         {
-            this.Registro = new HashSet<Registro>();
-            this.SubCategoria = new HashSet<SubCategoria>();
             this.Recordatorio = new HashSet<Recordatorio>();
         }
     
-        public int idCategoria { get; set; }
-        public int idTipoRegistro { get; set; }
+        public int idEstadoRecordatorio { get; set; }
         public string Descripcion { get; set; }
     
-        public virtual TipoRegistro TipoRegistro { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Registro> Registro { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubCategoria> SubCategoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recordatorio> Recordatorio { get; set; }
     }
