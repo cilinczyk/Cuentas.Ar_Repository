@@ -24,7 +24,7 @@
         <AssociationConnector Association="ModeloCuentasAr.FK_Usuario_TipoCuenta" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Usuario_TipoTarjeta" />
         <EntityTypeShape EntityType="ModeloCuentasAr.EstadoRecordatorio" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="ModeloCuentasAr.Recordatorio" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="ModeloCuentasAr.Recordatorio" Width="1.5" PointX="6.125" PointY="0.5" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Recordatorio_Categoria" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Recordatorio_EstadoRecordatorio" />
         </Diagram>

@@ -23,6 +23,11 @@ namespace Cuentas.Ar.Business
             return repositorio.Obtener(idRecordatorio);
         }
 
+        public Recordatorio ObtenerCompleto(int idRecordatorio)
+        {
+            return repositorio.ObtenerCompleto(idRecordatorio);
+        }
+
         public int Guardar(Recordatorio model)
         {
             return repositorio.Guardar(model);

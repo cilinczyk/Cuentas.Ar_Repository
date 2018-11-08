@@ -55,13 +55,14 @@
                                                     colorClass = (posicion % 2 == 0) ? "even" : "odd";
 
                                                     <tr role="row" class="@colorClass">
-                                                        <td class="sorting_1">@item.Descripcion</td>
+                                                        <td class="sorting_1">@item.Titulo</td>
                                                         <td>@item.Categoria.Descripcion</td>
-                                                        <td>@item.FechaVencimiento</td>
+                                                        <td>@item.FechaVencimiento.ToShortDateString()</td>
                                                         <td>@item.EstadoRecordatorio.Descripcion</td>
                                                         <td class="text-right">
+                                                            @Html.NoEncodeActionLink("<i class='material-icons'>dvr</i>", "Detalle", "Detalle", "Recordatorio", routeValues: new { idRecordatorio = @item.idRecordatorio }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-warning btn-just-icon edit" })
                                                             @Html.NoEncodeActionLink("<i class='material-icons'>edit</i>", "Modificar", "Edicion", "Recordatorio", routeValues: new { idRecordatorio = @item.idRecordatorio }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-info btn-just-icon like" })
-                                                            @Html.NoEncodeActionLink("<i class='material-icons'>close</i>", "Eliminar", "Baja", "Recordatorio", routeValues: new { idRecordatorio = @item.idRecordatorio, descripcion = @item.Descripcion }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-danger btn-just-icon remove" })
+                                                            @Html.NoEncodeActionLink("<i class='material-icons'>close</i>", "Eliminar", "Baja", "Recordatorio", routeValues: new { idRecordatorio = @item.idRecordatorio, titulo = @item.Titulo }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-danger btn-just-icon remove" })
                                                         </td>
                                                     </tr>
                                                 }
@@ -82,6 +83,8 @@
     $(document).ready(function () {
         $('#tableRecordatorio').DataTable({
             "columns": [
+                { "orderable": true },
+                { "orderable": true },
                 { "orderable": true },
                 { "orderable": true },
                 { "orderable": false },

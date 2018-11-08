@@ -12,7 +12,7 @@ namespace Cuentas.Ar.Repository
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Recordatorio.Include("Categoria").Include("EstadoRecordatorio").OrderBy(x => x.Descripcion).ToList();
+                return context.Recordatorio.Include("Categoria").Include("EstadoRecordatorio").OrderBy(x => x.Titulo).ToList();
             }
         }
 
@@ -21,6 +21,14 @@ namespace Cuentas.Ar.Repository
             using (var context = new CuentasArEntities())
             {
                 return context.Recordatorio.FirstOrDefault(x => x.idRecordatorio == idRecordatorio);
+            }
+        }
+
+        public Recordatorio ObtenerCompleto(int idRecordatorio)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Recordatorio.Include("Categoria").Include("EstadoRecordatorio").FirstOrDefault(x => x.idRecordatorio == idRecordatorio);
             }
         }
 
@@ -51,8 +59,8 @@ namespace Cuentas.Ar.Repository
                     context.Recordatorio.Attach(model);
                     context.Entry(model).Property(x => x.idEstado).IsModified = true;
                     context.Entry(model).Property(x => x.idCategoria).IsModified = true;
+                    context.Entry(model).Property(x => x.Titulo).IsModified = true;
                     context.Entry(model).Property(x => x.Descripcion).IsModified = true;
-                    context.Entry(model).Property(x => x.Fecha).IsModified = true;
                     context.Entry(model).Property(x => x.FechaVencimiento).IsModified = true;
 
                     context.SaveChanges();

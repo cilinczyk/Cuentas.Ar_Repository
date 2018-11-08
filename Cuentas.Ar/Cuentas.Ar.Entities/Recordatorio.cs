@@ -17,8 +17,8 @@ namespace Cuentas.Ar.Entities
         public int idRecordatorio { get; set; }
         public int idEstado { get; set; }
         public int idCategoria { get; set; }
+        public string Titulo { get; set; }
         public string Descripcion { get; set; }
-        public System.DateTime Fecha { get; set; }
         public System.DateTime FechaVencimiento { get; set; }
     
         public virtual Categoria Categoria { get; set; }

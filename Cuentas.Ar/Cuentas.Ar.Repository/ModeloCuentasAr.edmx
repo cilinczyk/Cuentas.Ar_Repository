@@ -43,8 +43,8 @@
           <Property Name="idRecordatorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idEstado" Type="int" Nullable="false" />
           <Property Name="idCategoria" Type="int" Nullable="false" />
-          <Property Name="Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Titulo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="text" />
           <Property Name="FechaVencimiento" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Registro">
@@ -603,8 +603,8 @@
           <Property Name="idRecordatorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idEstado" Type="Int32" Nullable="false" />
           <Property Name="idCategoria" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Categoria" Relationship="ModeloCuentasAr.FK_Recordatorio_Categoria" FromRole="Recordatorio" ToRole="Categoria" />
           <NavigationProperty Name="EstadoRecordatorio" Relationship="ModeloCuentasAr.FK_Recordatorio_EstadoRecordatorio" FromRole="Recordatorio" ToRole="EstadoRecordatorio" />
@@ -752,8 +752,8 @@
             <EntityTypeMapping TypeName="ModeloCuentasAr.Recordatorio">
               <MappingFragment StoreEntitySet="Recordatorio">
                 <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
                 <ScalarProperty Name="idEstado" ColumnName="idEstado" />
                 <ScalarProperty Name="idRecordatorio" ColumnName="idRecordatorio" />

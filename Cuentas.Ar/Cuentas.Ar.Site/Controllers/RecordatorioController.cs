@@ -24,7 +24,7 @@ namespace Cuentas.Ar.Site.Controllers
         #region [Región: Alta de Recordatorio]
         public ActionResult Alta()
         {
-            ViewBag.ddl_Recordatorio = new SelectList(new RecordatorioBusiness().Listar(), "idRecordatorio", "Descripcion");
+            ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
             ViewBag.ddl_EstadoRecordatorio = new SelectList(new EstadoRecordatorioBusiness().Listar(), "idEstadoRecordatorio", "Descripcion");
             return PartialView("_Alta");
         }
@@ -45,7 +45,7 @@ namespace Cuentas.Ar.Site.Controllers
                 }
                 else
                 {
-                    ViewBag.ddl_Recordatorio = new SelectList(new RecordatorioBusiness().Listar(), "idRecordatorio", "Descripcion");
+                    ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
                     ViewBag.ddl_EstadoRecordatorio = new SelectList(new EstadoRecordatorioBusiness().Listar(), "idEstadoRecordatorio", "Descripcion");
                     return PartialView("_Alta", model);
                 }
@@ -62,7 +62,7 @@ namespace Cuentas.Ar.Site.Controllers
         {
             var model = new RecordatorioBusiness().Obtener(idRecordatorio);
 
-            ViewBag.ddl_Recordatorio = new SelectList(new RecordatorioBusiness().Listar(), "idRecordatorio", "Descripcion");
+            ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
             ViewBag.ddl_EstadoRecordatorio = new SelectList(new EstadoRecordatorioBusiness().Listar(), "idEstadoRecordatorio", "Descripcion");
             return PartialView("_Edicion", model);
         }
@@ -82,7 +82,7 @@ namespace Cuentas.Ar.Site.Controllers
                     return Json(new { success = true, url });
                 }
 
-                ViewBag.ddl_Recordatorio = new SelectList(new RecordatorioBusiness().Listar(), "idRecordatorio", "Descripcion");
+                ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
                 ViewBag.ddl_EstadoRecordatorio = new SelectList(new EstadoRecordatorioBusiness().Listar(), "idEstadoRecordatorio", "Descripcion");
                 return PartialView("_Edicion", model);
             }
@@ -94,10 +94,10 @@ namespace Cuentas.Ar.Site.Controllers
         #endregion
 
         #region [Región: Baja de Recordatorio]
-        public ActionResult Baja(int idRecordatorio, string descripcion)
+        public ActionResult Baja(int idRecordatorio, string titulo)
         {
             ViewBag.idRecordatorio = idRecordatorio;
-            ViewBag.Descripcion = descripcion;
+            ViewBag.Titulo = titulo;
 
             return PartialView("_Baja");
         }
@@ -118,6 +118,14 @@ namespace Cuentas.Ar.Site.Controllers
             {
                 throw ex;
             }
+        }
+        #endregion
+
+        #region [Región: Alta de Recordatorio]
+        public ActionResult Detalle(int idRecordatorio)
+        {
+            var model = new RecordatorioBusiness().ObtenerCompleto(idRecordatorio);
+            return PartialView("_Detalle", model);
         }
         #endregion
     }

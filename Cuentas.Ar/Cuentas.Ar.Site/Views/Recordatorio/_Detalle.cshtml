@@ -1,0 +1,46 @@
+﻿@model Cuentas.Ar.Entities.Recordatorio
+
+<div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">access_time</i>
+                </div>
+                <h4 class="card-title">Detalle de Recordatorio</h4>
+            </div>
+            <div class="card-body ">
+                <div class="form-horizontal col-md-12">
+                    <div class="row">
+                        <label class="col-md-4 form-control-label">Titulo</label>
+                        <label class="col-md-6 form-control-label">@Model.Titulo</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-4 form-control-label">Categoría</label>
+                        <label class="col-md-6 form-control-label">@Model.Categoria.Descripcion</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-4 form-control-label">Estado</label>
+                        <label class="col-md-6 form-control-label">@Model.EstadoRecordatorio.Descripcion</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-4 form-control-label">F. de Vencimiento</label>
+                        <label class="col-md-6 form-control-label">@Model.FechaVencimiento.ToShortDateString()</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-4 form-control-label">Descripción</label>
+                        @if (!string.IsNullOrEmpty(Model.Descripcion))
+                        {
+                            <label class="col-md-6 form-control-label">@Model.Descripcion</label>
+                        }
+                        else
+                        {
+                            <label class="col-md-6 form-control-label">-</label>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-fill btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+</div>

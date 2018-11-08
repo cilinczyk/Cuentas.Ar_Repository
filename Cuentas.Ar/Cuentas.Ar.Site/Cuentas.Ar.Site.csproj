@@ -1101,6 +1101,7 @@
     <Content Include="Views\Recordatorio\_Edicion.cshtml" />
     <Content Include="Views\Recordatorio\_ListaRecordatorio.cshtml" />
     <Content Include="Views\Recordatorio\Listado.cshtml" />
+    <Content Include="Views\Recordatorio\_Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

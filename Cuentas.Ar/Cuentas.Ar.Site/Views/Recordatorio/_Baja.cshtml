@@ -1,20 +1,20 @@
 ﻿
 <div class="col-md-12">
-    @using (Html.BeginForm("Baja", "Categoria", new { idCategoria = ViewData["idCategoria"] } , FormMethod.Post, new { id = "categoriaForm", role = "form" }))
+    @using (Html.BeginForm("Baja", "Recordatorio", new { idRecordatorio= ViewData["idRecordatorio"] } , FormMethod.Post, new { id = "recordatorioForm", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
         <div class="card">
             <div class="card-header card-header-primary card-header-icon">
                 <div class="card-icon">
-                    <i class="material-icons">check_box</i>
+                    <i class="material-icons">access_time</i>
                 </div>
-                <h4 class="card-title">Baja de Categoría</h4>
+                <h4 class="card-title">Baja de Recordatorio</h4>
             </div>
             <div class="card-body ">
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="col-form-label">¿Esta seguro que desea eliminar la Categoría: @ViewData["Descripcion"]?</label>
+                        <label class="col-form-label">¿Esta seguro que desea eliminar el Recordatorio: @ViewData["Titulo"]?</label>
                     </div>
                 </div>
             </div>

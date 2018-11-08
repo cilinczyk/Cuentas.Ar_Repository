@@ -1,4 +1,4 @@
-﻿@model Cuentas.Ar.Entities.Categoria
+﻿@model Cuentas.Ar.Entities.Recordatorio
 
 <!-- #region Estilos CSS -->
 <link href="~/Content/assets/css/material-dashboard.min.css" rel="stylesheet" />
@@ -6,34 +6,59 @@
 <!-- #endregion -->
 
 <div class="col-md-12">
-    @using (Html.BeginForm("Alta", "Categoria", FormMethod.Post, new { id = "categoriaForm", role = "form" }))
+    @using (Html.BeginForm("Alta", "Recordatorio", FormMethod.Post, new { id = "recordatorioForm", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
         <div class="card">
             <div class="card-header card-header-primary card-header-icon">
                 <div class="card-icon">
-                    <i class="material-icons">check_box</i>
+                    <i class="material-icons">access_time</i>
                 </div>
-                <h4 class="card-title">Alta de Categoría</h4>
+                <h4 class="card-title">Alta de Recordatorio</h4>
             </div>
             <div class="card-body ">
                 <div class="form-horizontal">
                     <div class="row">
-                        <label class="col-md-3 col-form-label">Tipo Registro</label>
+                        <label class="col-md-3 col-form-label">Titulo</label>
                         <div class="col-md-9">
-                            <div class="form-group has-default bmd-form-group">
-                                @*@Html.DropDownListFor(model => model.idTipoRegistro, ViewBag.ddl_TipoRegistro as SelectList, "Seleccione un tipo de registro.", new { @id = "TipoRegistro", @class = "selectpicker col-md-12", @data_style = "select-with-transition" })*@
-                                @Html.DropDownListFor(model => model.idTipoRegistro, ViewBag.ddl_TipoRegistro as SelectList, new { @id = "TipoRegistro", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione un tipo de registro" })
-                                @Html.ValidationMessageFor(model => model.idTipoRegistro)
+                            <div class="form-group bmd-form-group">
+                                @Html.TextBoxFor(model => model.Titulo, new { @id = "Titulo", @class = "form-control" })
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <label class="col-md-3 col-form-label">Categoría</label>
                         <div class="col-md-9">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "Categoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione una categoría" })
+                                @Html.ValidationMessageFor(model => model.idCategoria)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Estado</label>
+                        <div class="col-md-9">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.DropDownListFor(model => model.idEstado, ViewBag.ddl_EstadoRecordatorio as SelectList, new { @id = "EstadoRecordatorio", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione un estado" })
+                                @Html.ValidationMessageFor(model => model.idEstado)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">F. de Vencimiento</label>
+                        <div class="col-md-9">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.TextBoxFor(model => model.FechaVencimiento, new { @id = "FechaVencimiento", @class = "form-control datepicker" })
+                                @Html.ValidationMessageFor(model => model.FechaVencimiento)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Descripción</label>
+                        <div class="col-md-9">
                             <div class="form-group bmd-form-group">
-                                @Html.TextBoxFor(model => model.Descripcion, new { @id = "descCategoria", @class = "form-control" })
+                                @Html.TextAreaFor(model => model.Descripcion, new { @id = "descRecordatorio", @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.Descripcion)
                             </div>
                         </div>
@@ -51,4 +76,13 @@
 <!-- #region JavaScript -->
 <script src="~/Content/assets/js/material-dashboard.min.js"></script>
 <script src="~/Content/vendor/bootstrap/js/bootstrap-selectpicker.js"></script>
+<script>
+    $(function ($) {
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
+    });
+
+    $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
+</script>
 <!-- #endregion -->
