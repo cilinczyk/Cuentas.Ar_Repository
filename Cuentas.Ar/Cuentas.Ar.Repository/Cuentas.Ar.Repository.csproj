@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\RegistroRepository.cs" />
     <Compile Include="Clases\RecordatorioRepository.cs" />
     <Compile Include="Clases\SubCategoriaRepository.cs" />
     <Compile Include="Clases\CategoriaRepository.cs" />
