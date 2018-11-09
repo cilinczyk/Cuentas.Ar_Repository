@@ -18,6 +18,7 @@ namespace Cuentas.Ar.Entities
         public TipoRegistro()
         {
             this.Categoria = new HashSet<Categoria>();
+            this.Registro = new HashSet<Registro>();
         }
     
         public int idTipoRegistro { get; set; }
@@ -25,5 +26,7 @@ namespace Cuentas.Ar.Entities
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Categoria> Categoria { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Registro> Registro { get; set; }
     }
 }

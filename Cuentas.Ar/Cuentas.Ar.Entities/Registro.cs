@@ -19,12 +19,15 @@ namespace Cuentas.Ar.Entities
         public int idTipoRegistro { get; set; }
         public int idCategoria { get; set; }
         public int idSubCategoria { get; set; }
+        public int idMoneda { get; set; }
         public decimal Importe { get; set; }
         public string Observaciones { get; set; }
-        public System.DateTime FechaAlta { get; set; }
+        public System.DateTime Fecha { get; set; }
     
         public virtual Categoria Categoria { get; set; }
+        public virtual Moneda Moneda { get; set; }
         public virtual SubCategoria SubCategoria { get; set; }
+        public virtual TipoRegistro TipoRegistro { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
 }

@@ -17,13 +17,17 @@ namespace Cuentas.Ar.Site.Controllers
         #region [Región: Listado de Categoria]
         public ActionResult Listado()
         {
-            ViewData.Model = new CategoriaBusiness().Listar();
+            int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+            ViewData.Model = new CategoriaBusiness().Listar(idUsuario);
+
             return View("Listado");
         }
 
         public ActionResult ListaParcial()
         {
-            var listadoCategoria = new CategoriaBusiness().Listar();
+            int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+            var listadoCategoria = new CategoriaBusiness().Listar(idUsuario);
+
             return PartialView("_ListaCategoria", listadoCategoria);
         }
         #endregion
@@ -31,7 +35,7 @@ namespace Cuentas.Ar.Site.Controllers
         #region [Región: Alta de Categoria]
         public ActionResult Alta()
         {
-            ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
+            CargarCombos();
             return PartialView("_Alta");
         }
 
@@ -44,6 +48,7 @@ namespace Cuentas.Ar.Site.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    model.idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
                     new CategoriaBusiness().Guardar(model);
 
                     string url = Url.Action("ListaParcial", "Categoria");
@@ -51,7 +56,7 @@ namespace Cuentas.Ar.Site.Controllers
                 }
                 else
                 {
-                    ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
+                    CargarCombos();
                     return PartialView("_Alta", model);
                 }
             }
@@ -67,7 +72,7 @@ namespace Cuentas.Ar.Site.Controllers
         {
             var model = new CategoriaBusiness().Obtener(idCategoria);
 
-            ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
+            CargarCombos();
             return PartialView("_Edicion", model);
         }
 
@@ -86,7 +91,7 @@ namespace Cuentas.Ar.Site.Controllers
                     return Json(new { success = true, url });
                 }
 
-                ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
+                CargarCombos();
                 return PartialView("_Edicion", model);
             }
             catch (Exception ex)
@@ -123,5 +128,10 @@ namespace Cuentas.Ar.Site.Controllers
             }
         }
         #endregion
+
+        private void CargarCombos()
+        {
+            ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
+        }
     }
 }

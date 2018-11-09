@@ -8,11 +8,11 @@ namespace Cuentas.Ar.Repository
 {
     public class CategoriaRepository
     {
-        public List<Categoria> Listar()
+        public List<Categoria> Listar(int idUsuario)
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Categoria.Include("TipoRegistro").OrderBy(x => x.Descripcion).ToList();
+                return context.Categoria.Include("TipoRegistro").Where(x => x.idUsuario == null || x.idUsuario == idUsuario).OrderBy(x => x.Descripcion).ToList();
             }
         }
 

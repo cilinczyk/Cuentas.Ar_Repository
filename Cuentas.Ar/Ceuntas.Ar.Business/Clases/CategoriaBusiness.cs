@@ -13,9 +13,9 @@ namespace Cuentas.Ar.Business
             this.repositorio = new CategoriaRepository();
         }
 
-        public List<Categoria> Listar()
+        public List<Categoria> Listar(int idUsuario)
         {
-            return repositorio.Listar();
+            return repositorio.Listar(idUsuario);
         }
 
         public Categoria Obtener(int idCategoria)

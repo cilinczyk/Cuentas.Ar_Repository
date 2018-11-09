@@ -6,23 +6,23 @@ using Cuentas.Ar.Entities;
 
 namespace Cuentas.Ar.Site.Controllers
 {
-    public class RecordatorioController : Controller
+    public class RegistroController : Controller
     {
-        #region [Región: Listado de Recordatorio]
+        #region [Región: Listado de Registro]
         public ActionResult Listado()
         {
-            ViewData.Model = new RecordatorioBusiness().Listar();
+            ViewData.Model = new RegistroBusiness().Listar();
             return View("Listado");
         }
 
         public ActionResult ListaParcial()
         {
-            var listadoRecordatorio = new RecordatorioBusiness().Listar();
-            return PartialView("_ListaRecordatorio", listadoRecordatorio);
+            var listadoRegistro = new RegistroBusiness().Listar();
+            return PartialView("_ListaRegistro", listadoRegistro);
         }
         #endregion
 
-        #region [Región: Alta de Recordatorio]
+        #region [Región: Alta de Registro]
         public ActionResult Alta()
         {
             CargarCombos();
@@ -32,15 +32,15 @@ namespace Cuentas.Ar.Site.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Alta(Recordatorio model)
+        public ActionResult Alta(Registro model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    new RecordatorioBusiness().Guardar(model);
+                    new RegistroBusiness().Guardar(model);
 
-                    string url = Url.Action("ListaParcial", "Recordatorio");
+                    string url = Url.Action("ListaParcial", "Registro");
                     return Json(new { success = true, url });
                 }
                 else
@@ -56,10 +56,10 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
-        #region [Región: Edición de Recordatorio]
-        public ActionResult Edicion(int idRecordatorio)
+        #region [Región: Edición de Registro]
+        public ActionResult Edicion(int idRegistro)
         {
-            var model = new RecordatorioBusiness().Obtener(idRecordatorio);
+            var model = new RegistroBusiness().Obtener(idRegistro);
 
             CargarCombos();
             return PartialView("_Edicion", model);
@@ -68,15 +68,15 @@ namespace Cuentas.Ar.Site.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Edicion(Recordatorio model)
+        public ActionResult Edicion(Registro model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    new RecordatorioBusiness().Modificar(model);
+                    new RegistroBusiness().Modificar(model);
 
-                    string url = Url.Action("ListaParcial", "Recordatorio");
+                    string url = Url.Action("ListaParcial", "Registro");
                     return Json(new { success = true, url });
                 }
 
@@ -90,10 +90,10 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
-        #region [Región: Baja de Recordatorio]
-        public ActionResult Baja(int idRecordatorio, string titulo)
+        #region [Región: Baja de Registro]
+        public ActionResult Baja(int idRegistro, string titulo)
         {
-            ViewBag.idRecordatorio = idRecordatorio;
+            ViewBag.idRegistro = idRegistro;
             ViewBag.Titulo = titulo;
 
             return PartialView("_Baja");
@@ -102,13 +102,13 @@ namespace Cuentas.Ar.Site.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Baja(int idRecordatorio)
+        public ActionResult Baja(int idRegistro)
         {
             try
             {
-                new RecordatorioBusiness().Eliminar(idRecordatorio);
+                new RegistroBusiness().Eliminar(idRegistro);
 
-                string url = Url.Action("ListaParcial", "Recordatorio");
+                string url = Url.Action("ListaParcial", "Registro");
                 return Json(new { success = true, url });
             }
             catch (Exception ex)
@@ -118,10 +118,10 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
-        #region [Región: Detalle de Recordatorio]
-        public ActionResult Detalle(int idRecordatorio)
+        #region [Región: Detalle de Registro]
+        public ActionResult Detalle(int idRegistro)
         {
-            var model = new RecordatorioBusiness().ObtenerCompleto(idRecordatorio);
+            var model = new RegistroBusiness().ObtenerCompleto(idRegistro);
             return PartialView("_Detalle", model);
         }
         #endregion
@@ -130,7 +130,7 @@ namespace Cuentas.Ar.Site.Controllers
         {
             int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
             ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(idUsuario), "idCategoria", "Descripcion");
-            ViewBag.ddl_EstadoRecordatorio = new SelectList(new EstadoRecordatorioBusiness().Listar(), "idEstadoRecordatorio", "Descripcion");
+            ViewBag.ddl_EstadoRegistro = new SelectList(new EstadoRegistroBusiness().Listar(), "idEstadoRegistro", "Descripcion");
         }
     }
 }

@@ -12,16 +12,18 @@ namespace Cuentas.Ar.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Recordatorio
+    public partial class Moneda
     {
-        public int idRecordatorio { get; set; }
-        public int idEstado { get; set; }
-        public int idCategoria { get; set; }
-        public string Titulo { get; set; }
-        public string Descripcion { get; set; }
-        public System.DateTime FechaVencimiento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Moneda()
+        {
+            this.Registro = new HashSet<Registro>();
+        }
     
-        public virtual EstadoRecordatorio EstadoRecordatorio { get; set; }
-        public virtual Categoria Categoria { get; set; }
+        public int idMoneda { get; set; }
+        public string Descripcion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Registro> Registro { get; set; }
     }
 }

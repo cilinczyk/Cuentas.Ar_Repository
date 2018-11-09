@@ -17,6 +17,8 @@ namespace Cuentas.Ar.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
+            this.Categoria = new HashSet<Categoria>();
+            this.SubCategoria = new HashSet<SubCategoria>();
             this.Registro = new HashSet<Registro>();
         }
     
@@ -41,11 +43,15 @@ namespace Cuentas.Ar.Entities
         public bool Estado { get; set; }
         public string CodigoPostal { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Categoria> Categoria { get; set; }
         public virtual Localidad Localidad { get; set; }
         public virtual Provincia Provincia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Registro> Registro { get; set; }
+        public virtual ICollection<SubCategoria> SubCategoria { get; set; }
         public virtual TipoCuenta TipoCuenta { get; set; }
         public virtual TipoTarjeta TipoTarjeta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Registro> Registro { get; set; }
     }
 }

@@ -22,10 +22,11 @@ namespace Cuentas.Ar.Entities
     
         public int idSubCategoria { get; set; }
         public int idCategoria { get; set; }
+        public Nullable<int> idUsuario { get; set; }
         public string Descripcion { get; set; }
-        public bool DefaultValue { get; set; }
     
         public virtual Categoria Categoria { get; set; }
+        public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registro> Registro { get; set; }
     }

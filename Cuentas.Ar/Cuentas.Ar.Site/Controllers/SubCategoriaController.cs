@@ -17,13 +17,17 @@ namespace Cuentas.Ar.Site.Controllers
         #region [Región: Listado de SubCategoria]
         public ActionResult Listado()
         {
-            ViewData.Model = new SubCategoriaBusiness().Listar();
+            int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+            ViewData.Model = new SubCategoriaBusiness().Listar(idUsuario);
+
             return View("Listado");
         }
 
         public ActionResult ListaParcial()
         {
-            var listadoSubCategoria = new SubCategoriaBusiness().Listar();
+            int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+            var listadoSubCategoria = new SubCategoriaBusiness().Listar(idUsuario);
+
             return PartialView("_ListaSubCategoria", listadoSubCategoria);
         }
         #endregion
@@ -31,7 +35,7 @@ namespace Cuentas.Ar.Site.Controllers
         #region [Región: Alta de SubCategoria]
         public ActionResult Alta()
         {
-            ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
+            CargarCombos();
             return PartialView("_Alta");
         }
 
@@ -44,6 +48,7 @@ namespace Cuentas.Ar.Site.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    model.idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
                     new SubCategoriaBusiness().Guardar(model);
 
                     string url = Url.Action("ListaParcial", "SubCategoria");
@@ -51,7 +56,7 @@ namespace Cuentas.Ar.Site.Controllers
                 }
                 else
                 {
-                    ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
+                    CargarCombos();
                     return PartialView("_Alta", model);
                 }
             }
@@ -67,7 +72,7 @@ namespace Cuentas.Ar.Site.Controllers
         {
             var model = new SubCategoriaBusiness().Obtener(idCategoria);
 
-            ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
+            CargarCombos();
             return PartialView("_Edicion", model);
         }
 
@@ -86,7 +91,7 @@ namespace Cuentas.Ar.Site.Controllers
                     return Json(new { success = true, url });
                 }
 
-                ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(), "idCategoria", "Descripcion");
+                CargarCombos();
                 return PartialView("_Edicion", model);
             }
             catch (Exception ex)
@@ -123,5 +128,11 @@ namespace Cuentas.Ar.Site.Controllers
             }
         }
         #endregion
+
+        private void CargarCombos()
+        {
+            int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+            ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(idUsuario), "idCategoria", "Descripcion");
+        }
     }
 }

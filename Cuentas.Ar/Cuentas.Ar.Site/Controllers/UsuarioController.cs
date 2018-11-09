@@ -162,21 +162,7 @@ namespace Cuentas.Ar.Site.Controllers
             Usuario usuario = new UsuarioBusiness().Obtener(idUsuario);
             usuario.UsuarioActualizado = false;
 
-            #region [Región: Cargar Combos]
-            ViewBag.ddl_Provincia = new SelectList(new ProvinciaBusiness().Listar(), "idProvincia", "Descripcion");
-            ViewBag.ddl_TipoCuenta = new SelectList(new TipoCuentaBusiness().Listar(), "idTipoCuenta", "Descripcion");
-            ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
-
-            if (usuario.idProvincia.HasValue)
-            {
-                ViewBag.ddl_Localidad = new SelectList(new LocalidadBusiness().Listar(usuario.idProvincia.Value), "idLocalidad", "Descripcion");
-            }
-            else
-            {
-                ViewBag.ddl_Localidad = new SelectList( new SelectListItem[] { });
-            }
-            #endregion
-
+            CargarCombosMisDatos(usuario.idProvincia);
             return View("MisDatos", usuario);
         }
 
@@ -210,26 +196,28 @@ namespace Cuentas.Ar.Site.Controllers
                     model.UsuarioActualizado = true;
                 }
 
-                #region [Región: Cargar Combos]
-                ViewBag.ddl_Provincia = new SelectList(new ProvinciaBusiness().Listar(), "idProvincia", "Descripcion");
-                ViewBag.ddl_TipoCuenta = new SelectList(new TipoCuentaBusiness().Listar(), "idTipoCuenta", "Descripcion");
-                ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
-
-                if (model.idProvincia.HasValue)
-                {
-                    ViewBag.ddl_Localidad = new SelectList(new LocalidadBusiness().Listar(model.idProvincia.Value), "idLocalidad", "Descripcion");
-                }
-                else
-                {
-                    ViewBag.ddl_Localidad = new SelectListItem() { Text = "", Value = "" };
-                }
-                #endregion
-
+                CargarCombosMisDatos(model.idProvincia);
                 return View("MisDatos", model);
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        private void CargarCombosMisDatos(int? idProvincia = null)
+        {
+            ViewBag.ddl_Provincia = new SelectList(new ProvinciaBusiness().Listar(), "idProvincia", "Descripcion");
+            ViewBag.ddl_TipoCuenta = new SelectList(new TipoCuentaBusiness().Listar(), "idTipoCuenta", "Descripcion");
+            ViewBag.ddl_TipoTarjeta = new SelectList(new TipoTarjetaBusiness().Listar(), "idTipoTarjeta", "Descripcion");
+
+            if (idProvincia.HasValue)
+            {
+                ViewBag.ddl_Localidad = new SelectList(new LocalidadBusiness().Listar(idProvincia.Value), "idLocalidad", "Descripcion");
+            }
+            else
+            {
+                ViewBag.ddl_Localidad = new SelectListItem() { Text = "", Value = "" };
             }
         }
         #endregion

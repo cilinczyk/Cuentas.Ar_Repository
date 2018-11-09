@@ -13,9 +13,9 @@ namespace Cuentas.Ar.Business
             this.repositorio = new SubCategoriaRepository();
         }
 
-        public List<SubCategoria> Listar()
+        public List<SubCategoria> Listar(int idUsuario)
         {
-            return repositorio.Listar();
+            return repositorio.Listar(idUsuario);
         }
 
         public SubCategoria Obtener(int idSubCategoria)
