@@ -1,31 +1,103 @@
-﻿<div class="container-fluid" id="ListaRecordatorio">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header card-header-primary card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">access_time</i>
+﻿<!-- #region Estilos CSS -->
+<link href="~/Content/vendor/bootstrap/css/bootstrap-select.min.css" rel="stylesheet" />
+<!-- #endregion -->
+
+@using (Ajax.BeginForm("Buscar", "Registro", null, new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "listaRegistro",
+    OnBegin = "onBegin",
+    OnComplete = "onComplete",
+    OnSuccess = "onSuccess"
+}, new { @id = "formBusqueda" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">search</i>
+                        </div>
+                        <div class="card-title">
+                            <h4>Filtros</h4>
+                        </div>
                     </div>
-                    <div class="card-title">
-                        <h4>Filtros</h4>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="toolbar">
-                        <!-- Here you can write extra buttons/actions for the toolbar -->
-                    </div>
-                    <div class="material-datatables">
-                        <div id="datatables_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                    <div class="card-body">
+
+                        <div class="form-horizontal">
                             <div class="row">
+                                <label class="col-md-2 col-form-label">Fecha Desde:</label>
+                                <div class="col-md-3">
+                                    <div class="form-group bmd-form-group">
+                                        @Html.TextBox("filtroFechaDesde", ViewBag.FiltroFechaDesde as string, null, new { @id = "filtroFechaDesde", @class = "form-control datepicker", @maxlength = "10" })
+                                    </div>
+                                </div>
+
+                                <label class="col-md-2 col-form-label">Fecha Hasta:</label>
+                                <div class="col-md-3">
+                                    <div class="form-group has-default bmd-form-group">
+                                        @Html.TextBox("filtroFechaHasta", ViewBag.FiltroFechaHasta as string, null, new { @id = "filtroFechaHasta", @class = "form-control datepicker", @maxlength = "10" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Categoría</label>
+                                <div class="col-md-3">
+                                    <div class="form-group bmd-form-group">
+                                        3
+                                    </div>
+                                </div>
+
+                                <label class="col-md-2 col-form-label">SubCategoría</label>
+                                <div class="col-md-3">
+                                    <div class="form-group has-default bmd-form-group">
+                                        4
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Tipo de Registro:</label>
+                                <div class="col-md-3">
+                                    <div class="form-group bmd-form-group">
+                                        0
+                                    </div>
+                                </div>
+
+                                <label class="col-md-2 col-form-label">Descripción:</label>
+                                <div class="col-md-3">
+                                    <div class="form-group bmd-form-group">
+                                        10
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Moneda</label>
+                                <div class="col-md-3">
+                                    <div class="form-group bmd-form-group">
+                                        3
+                                    </div>
+                                </div>
+
+                                <label class="col-md-2 col-form-label">Importe</label>
+                                <div class="col-md-3">
+                                    <div class="form-group has-default bmd-form-group">
+                                        4
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <button type="submit" class="btn btn-primary pull-right">Buscar</button>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+}
 <script>
-
+    $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es' });
 </script>
