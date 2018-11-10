@@ -74,6 +74,7 @@
     <Compile Include="Categoria.cs">
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entidades\M_FiltroRegistro.cs" />
     <Compile Include="Entidades\M_Home.cs" />
     <Compile Include="Entidades\M_UsuarioLogin.cs" />
     <Compile Include="Entidades\Categoria.cs" />

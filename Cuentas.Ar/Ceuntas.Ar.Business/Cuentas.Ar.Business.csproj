@@ -45,6 +45,7 @@
     <Compile Include="Clases\SubCategoriaBusiness.cs" />
     <Compile Include="Clases\CategoriaBusiness.cs" />
     <Compile Include="Clases\EstadoRecordatorioBusiness .cs" />
+    <Compile Include="Clases\MonedaBusiness.cs" />
     <Compile Include="Clases\TipoRegistroBusiness.cs" />
     <Compile Include="Clases\LocalidadBusiness.cs" />
     <Compile Include="Clases\ProvinciaBusiness.cs" />

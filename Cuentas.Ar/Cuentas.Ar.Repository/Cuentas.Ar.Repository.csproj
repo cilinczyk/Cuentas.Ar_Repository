@@ -62,6 +62,7 @@
     <Compile Include="Clases\LocalidadRepository.cs" />
     <Compile Include="Clases\ProvinciaRepository.cs" />
     <Compile Include="Clases\EstadoRecordatorioRepository .cs" />
+    <Compile Include="Clases\MonedaRepository.cs" />
     <Compile Include="Clases\TipoRegistroRepository.cs" />
     <Compile Include="Clases\TipoCuentaRepository.cs" />
     <Compile Include="Clases\TipoTarjetaRepository.cs" />

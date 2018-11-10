@@ -1,4 +1,6 @@
-﻿<!-- #region Estilos CSS -->
+﻿@model Cuentas.Ar.Entities.M_FiltroRegistro
+
+<!-- #region Estilos CSS -->
 <link href="~/Content/vendor/bootstrap/css/bootstrap-select.min.css" rel="stylesheet" />
 <!-- #endregion -->
 
@@ -32,14 +34,15 @@
                                 <label class="col-md-2 col-form-label">Fecha Desde:</label>
                                 <div class="col-md-3">
                                     <div class="form-group bmd-form-group">
-                                        @Html.TextBox("filtroFechaDesde", ViewBag.FiltroFechaDesde as string, null, new { @id = "filtroFechaDesde", @class = "form-control datepicker", @maxlength = "10" })
+                                        @Html.TextBoxFor(model => model.FechaDesde, new { @id = "FechaDesde", @class = "form-control datepicker", @maxlength = "10" })
+
                                     </div>
                                 </div>
 
                                 <label class="col-md-2 col-form-label">Fecha Hasta:</label>
                                 <div class="col-md-3">
                                     <div class="form-group has-default bmd-form-group">
-                                        @Html.TextBox("filtroFechaHasta", ViewBag.FiltroFechaHasta as string, null, new { @id = "filtroFechaHasta", @class = "form-control datepicker", @maxlength = "10" })
+                                        @Html.TextBoxFor(model => model.FechaHasta, new { @id = "FechaHasta", @class = "form-control datepicker", @maxlength = "10" })
                                     </div>
                                 </div>
                             </div>
@@ -47,14 +50,14 @@
                                 <label class="col-md-2 col-form-label">Categoría</label>
                                 <div class="col-md-3">
                                     <div class="form-group bmd-form-group">
-                                        3
+                                        @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "Categoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione.." })
                                     </div>
                                 </div>
 
                                 <label class="col-md-2 col-form-label">SubCategoría</label>
                                 <div class="col-md-3">
                                     <div class="form-group has-default bmd-form-group">
-                                        4
+                                        @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "Categoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione.." })
                                     </div>
                                 </div>
                             </div>
@@ -62,14 +65,14 @@
                                 <label class="col-md-2 col-form-label">Tipo de Registro:</label>
                                 <div class="col-md-3">
                                     <div class="form-group bmd-form-group">
-                                        0
+                                        @Html.DropDownListFor(model => model.idTipoRegistro, ViewBag.ddl_TipoRegistro as SelectList, new { @id = "TipoRegistro", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione.." })
                                     </div>
                                 </div>
 
                                 <label class="col-md-2 col-form-label">Descripción:</label>
                                 <div class="col-md-3">
                                     <div class="form-group bmd-form-group">
-                                        10
+                                        @Html.TextBoxFor(model => model.Descripcion, new { @id = "Descripcion", @class = "form-control" })
                                     </div>
                                 </div>
                             </div>
@@ -77,14 +80,14 @@
                                 <label class="col-md-2 col-form-label">Moneda</label>
                                 <div class="col-md-3">
                                     <div class="form-group bmd-form-group">
-                                        3
+                                        @Html.DropDownListFor(model => model.idMoneda, ViewBag.ddl_Moneda as SelectList, new { @id = "Moneda", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione.." })
                                     </div>
                                 </div>
 
                                 <label class="col-md-2 col-form-label">Importe</label>
                                 <div class="col-md-3">
                                     <div class="form-group has-default bmd-form-group">
-                                        4
+                                        @Html.TextBoxFor(model => model.Importe, new { @id = "Importe", @class = "form-control" })
                                     </div>
                                 </div>
                             </div>
