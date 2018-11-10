@@ -18,6 +18,7 @@ namespace Cuentas.Ar.Entities
         public Usuario()
         {
             this.Categoria = new HashSet<Categoria>();
+            this.Recordatorio = new HashSet<Recordatorio>();
             this.Registro = new HashSet<Registro>();
             this.SubCategoria = new HashSet<SubCategoria>();
         }
@@ -37,16 +38,18 @@ namespace Cuentas.Ar.Entities
         public string CodSeguridad { get; set; }
         public Nullable<System.DateTime> FechaCobro { get; set; }
         public string Direccion { get; set; }
+        public string CodigoPostal { get; set; }
         public string Telefono { get; set; }
         public string Profesion { get; set; }
         public System.DateTime FechaAlta { get; set; }
         public bool Estado { get; set; }
-        public string CodigoPostal { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Categoria> Categoria { get; set; }
         public virtual Localidad Localidad { get; set; }
         public virtual Provincia Provincia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recordatorio> Recordatorio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registro> Registro { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

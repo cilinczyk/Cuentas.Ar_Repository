@@ -18,6 +18,11 @@ namespace Cuentas.Ar.Business
             return repositorio.Listar(idUsuario);
         }
 
+        public List<SubCategoria> Listar(int idUsuario, int idCategoria)
+        {
+            return repositorio.Listar(idUsuario, idCategoria);
+        }
+
         public SubCategoria Obtener(int idSubCategoria)
         {
             return repositorio.Obtener(idSubCategoria);

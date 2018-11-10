@@ -9,6 +9,7 @@
     @using (Html.BeginForm("Edicion", "SubCategoria", FormMethod.Post, new { id = "subCategoriaForm", role = "form" }))
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.idUsuario)
         @Html.HiddenFor(model => model.idCategoria)
 
         <div class="card">

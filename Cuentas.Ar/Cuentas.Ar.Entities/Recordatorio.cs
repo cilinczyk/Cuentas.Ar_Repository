@@ -15,6 +15,7 @@ namespace Cuentas.Ar.Entities
     public partial class Recordatorio
     {
         public int idRecordatorio { get; set; }
+        public int idUsuario { get; set; }
         public int idEstado { get; set; }
         public int idCategoria { get; set; }
         public string Titulo { get; set; }
@@ -23,5 +24,6 @@ namespace Cuentas.Ar.Entities
     
         public virtual Categoria Categoria { get; set; }
         public virtual EstadoRecordatorio EstadoRecordatorio { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

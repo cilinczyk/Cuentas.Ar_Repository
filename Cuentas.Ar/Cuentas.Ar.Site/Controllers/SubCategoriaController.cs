@@ -136,7 +136,8 @@ namespace Cuentas.Ar.Site.Controllers
             {
                 if (idCategoria!= 0)
                 {
-                    List<SubCategoria> ddlSubCategorias = new SubCategoriaBusiness().Listar(idCategoria);
+                    int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+                    List<SubCategoria> ddlSubCategorias = new SubCategoriaBusiness().Listar(idUsuario, idCategoria);
 
                     if (ddlSubCategorias.Count > 0)
                     {

@@ -49,6 +49,7 @@
             <PropertyRef Name="idRecordatorio" />
           </Key>
           <Property Name="idRecordatorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
           <Property Name="idEstado" Type="int" Nullable="false" />
           <Property Name="idCategoria" Type="int" Nullable="false" />
           <Property Name="Titulo" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -63,11 +64,11 @@
           <Property Name="idUsuario" Type="int" Nullable="false" />
           <Property Name="idTipoRegistro" Type="int" Nullable="false" />
           <Property Name="idCategoria" Type="int" Nullable="false" />
-          <Property Name="idSubCategoria" Type="int" Nullable="false" />
+          <Property Name="idSubCategoria" Type="int" />
           <Property Name="idMoneda" Type="int" Nullable="false" />
           <Property Name="Importe" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Descripcion" Type="varchar" MaxLength="100" />
-          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="SubCategoria">
           <Key>
@@ -109,7 +110,7 @@
           <Property Name="idProvincia" Type="int" />
           <Property Name="idLocalidad" Type="int" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FechaNacimiento" Type="datetime" />
+          <Property Name="FechaNacimiento" Type="date" />
           <Property Name="Sexo" Type="bit" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -118,11 +119,11 @@
           <Property Name="CodSeguridad" Type="nvarchar" MaxLength="5" />
           <Property Name="FechaCobro" Type="datetime" />
           <Property Name="Direccion" Type="nvarchar" MaxLength="50" />
+          <Property Name="CodigoPostal" Type="nvarchar" MaxLength="10" />
           <Property Name="Telefono" Type="nvarchar" MaxLength="20" />
           <Property Name="Profesion" Type="nvarchar" MaxLength="50" />
           <Property Name="FechaAlta" Type="datetime" Nullable="false" />
           <Property Name="Estado" Type="bit" Nullable="false" />
-          <Property Name="CodigoPostal" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <Association Name="FK_Categoria_TipoRegistro">
           <End Role="TipoRegistro" Type="Self.TipoRegistro" Multiplicity="1" />
@@ -172,6 +173,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Recordatorio_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Recordatorio" Type="Self.Recordatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Recordatorio">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Registro_Categoria">
           <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
           <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
@@ -197,7 +210,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Registro_SubCategoria">
-          <End Role="SubCategoria" Type="Self.SubCategoria" Multiplicity="1" />
+          <End Role="SubCategoria" Type="Self.SubCategoria" Multiplicity="0..1" />
           <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategoria">
@@ -335,6 +348,10 @@
             <End Role="EstadoRecordatorio" EntitySet="EstadoRecordatorio" />
             <End Role="Recordatorio" EntitySet="Recordatorio" />
           </AssociationSet>
+          <AssociationSet Name="FK_Recordatorio_Usuario" Association="Self.FK_Recordatorio_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Recordatorio" EntitySet="Recordatorio" />
+          </AssociationSet>
           <AssociationSet Name="FK_Registro_Categoria" Association="Self.FK_Registro_Categoria">
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Registro" EntitySet="Registro" />
@@ -433,6 +450,10 @@
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
+          <AssociationSet Name="FK_Recordatorio_Usuario" Association="ModeloCuentasAr.FK_Recordatorio_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Recordatorio" EntitySet="Recordatorio" />
+          </AssociationSet>
           <AssociationSet Name="FK_Registro_SubCategoria" Association="ModeloCuentasAr.FK_Registro_SubCategoria">
             <End Role="SubCategoria" EntitySet="SubCategoria" />
             <End Role="Registro" EntitySet="Registro" />
@@ -511,6 +532,7 @@
             <PropertyRef Name="idRecordatorio" />
           </Key>
           <Property Name="idRecordatorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
           <Property Name="idEstado" Type="Int32" Nullable="false" />
           <Property Name="idCategoria" Type="Int32" Nullable="false" />
           <Property Name="Titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -518,6 +540,7 @@
           <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Categoria" Relationship="ModeloCuentasAr.FK_Recordatorio_Categoria" FromRole="Recordatorio" ToRole="Categoria" />
           <NavigationProperty Name="EstadoRecordatorio" Relationship="ModeloCuentasAr.FK_Recordatorio_EstadoRecordatorio" FromRole="Recordatorio" ToRole="EstadoRecordatorio" />
+          <NavigationProperty Name="Usuario" Relationship="ModeloCuentasAr.FK_Recordatorio_Usuario" FromRole="Recordatorio" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Registro">
           <Key>
@@ -527,11 +550,11 @@
           <Property Name="idUsuario" Type="Int32" Nullable="false" />
           <Property Name="idTipoRegistro" Type="Int32" Nullable="false" />
           <Property Name="idCategoria" Type="Int32" Nullable="false" />
-          <Property Name="idSubCategoria" Type="Int32" Nullable="false" />
+          <Property Name="idSubCategoria" Type="Int32" />
           <Property Name="idMoneda" Type="Int32" Nullable="false" />
           <Property Name="Importe" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Categoria" Relationship="ModeloCuentasAr.FK_Registro_Categoria" FromRole="Registro" ToRole="Categoria" />
           <NavigationProperty Name="Moneda" Relationship="ModeloCuentasAr.FK_Registro_Moneda" FromRole="Registro" ToRole="Moneda" />
           <NavigationProperty Name="SubCategoria" Relationship="ModeloCuentasAr.FK_Registro_SubCategoria" FromRole="Registro" ToRole="SubCategoria" />
@@ -585,7 +608,7 @@
           <Property Name="idProvincia" Type="Int32" />
           <Property Name="idLocalidad" Type="Int32" />
           <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
           <Property Name="Sexo" Type="Boolean" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -594,14 +617,15 @@
           <Property Name="CodSeguridad" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
           <Property Name="FechaCobro" Type="DateTime" Precision="3" />
           <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Profesion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <Property Name="CodigoPostal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Categoria" Relationship="ModeloCuentasAr.FK_Categoria_Usuario" FromRole="Usuario" ToRole="Categoria" />
           <NavigationProperty Name="Localidad" Relationship="ModeloCuentasAr.FK_Usuario_Localidad" FromRole="Usuario" ToRole="Localidad" />
           <NavigationProperty Name="Provincia" Relationship="ModeloCuentasAr.FK_Usuario_Provincia" FromRole="Usuario" ToRole="Provincia" />
+          <NavigationProperty Name="Recordatorio" Relationship="ModeloCuentasAr.FK_Recordatorio_Usuario" FromRole="Usuario" ToRole="Recordatorio" />
           <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_Usuario" FromRole="Usuario" ToRole="Registro" />
           <NavigationProperty Name="SubCategoria" Relationship="ModeloCuentasAr.FK_SubCategoria_Usuario" FromRole="Usuario" ToRole="SubCategoria" />
           <NavigationProperty Name="TipoCuenta" Relationship="ModeloCuentasAr.FK_Usuario_TipoCuenta" FromRole="Usuario" ToRole="TipoCuenta" />
@@ -717,8 +741,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Recordatorio_Usuario">
+          <End Type="ModeloCuentasAr.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.Recordatorio" Role="Recordatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Recordatorio">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Registro_SubCategoria">
-          <End Type="ModeloCuentasAr.SubCategoria" Role="SubCategoria" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.SubCategoria" Role="SubCategoria" Multiplicity="0..1" />
           <End Type="ModeloCuentasAr.Registro" Role="Registro" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubCategoria">
@@ -847,6 +883,7 @@
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
                 <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="idRecordatorio" ColumnName="idRecordatorio" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -903,11 +940,11 @@
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="ModeloCuentasAr.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
                 <ScalarProperty Name="Profesion" ColumnName="Profesion" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
                 <ScalarProperty Name="FechaCobro" ColumnName="FechaCobro" />
                 <ScalarProperty Name="CodSeguridad" ColumnName="CodSeguridad" />

@@ -16,6 +16,14 @@ namespace Cuentas.Ar.Repository
             }
         }
 
+        public List<SubCategoria> Listar(int idUsuario, int idCategoria)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.SubCategoria.Where(x => x.idCategoria == idCategoria && (x.idUsuario == null || x.idUsuario == idUsuario)).OrderBy(x => x.Descripcion).ToList();
+            }
+        }
+
         public SubCategoria Obtener(int idSubCategoria)
         {
             using (var context = new CuentasArEntities())

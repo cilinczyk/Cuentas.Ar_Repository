@@ -53,6 +53,7 @@ namespace Cuentas.Ar.Site.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    model.idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
                     new RegistroBusiness().Guardar(model);
 
                     string url = Url.Action("ListaParcial", "Registro");

@@ -18,7 +18,7 @@ namespace Cuentas.Ar.Entities
         public int idUsuario { get; set; }
         public int idTipoRegistro { get; set; }
         public int idCategoria { get; set; }
-        public int idSubCategoria { get; set; }
+        public Nullable<int> idSubCategoria { get; set; }
         public int idMoneda { get; set; }
         public decimal Importe { get; set; }
         public string Descripcion { get; set; }
