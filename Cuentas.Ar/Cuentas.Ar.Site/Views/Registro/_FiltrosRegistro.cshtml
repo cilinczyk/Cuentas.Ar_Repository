@@ -13,8 +13,10 @@
     OnSuccess = "onSuccess"
 }, new { @id = "formBusqueda" }))
 {
+    @Html.HiddenFor(model => model.idUsuario)
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -24,18 +26,33 @@
                             <i class="material-icons">search</i>
                         </div>
                         <div class="card-title">
-                            <h4>Filtros</h4>
+                            <h4>Filtros de Búsqueda</h4>
                         </div>
                     </div>
                     <div class="card-body">
 
                         <div class="form-horizontal">
                             <div class="row">
+                                <label class="col-md-2 col-form-label">Tipo de Registro:</label>
+                                <div class="col-md-3">
+                                    <div class="form-group bmd-form-group">
+                                        @Html.DropDownListFor(model => model.idTipoRegistro, ViewBag.ddl_TipoRegistro as SelectList, new { @id = "TipoRegistro", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @data_size = "5", @title = "Seleccione.." })
+                                    </div>
+                                </div>
+
                                 <label class="col-md-2 col-form-label">Fecha Desde:</label>
                                 <div class="col-md-3">
                                     <div class="form-group bmd-form-group">
                                         @Html.TextBoxFor(model => model.FechaDesde, new { @id = "FechaDesde", @class = "form-control datepicker", @maxlength = "10" })
 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Categoría:</label>
+                                <div class="col-md-3">
+                                    <div class="form-group bmd-form-group">
+                                        @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "Categoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @data_live_search = "true", @data_size = "5", @title = "Seleccione.." })
                                     </div>
                                 </div>
 
@@ -47,47 +64,17 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <label class="col-md-2 col-form-label">Categoría</label>
-                                <div class="col-md-3">
-                                    <div class="form-group bmd-form-group">
-                                        @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "Categoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione.." })
-                                    </div>
-                                </div>
-
-                                <label class="col-md-2 col-form-label">SubCategoría</label>
-                                <div class="col-md-3">
-                                    <div class="form-group has-default bmd-form-group">
-                                        @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "Categoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione.." })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-md-2 col-form-label">Tipo de Registro:</label>
-                                <div class="col-md-3">
-                                    <div class="form-group bmd-form-group">
-                                        @Html.DropDownListFor(model => model.idTipoRegistro, ViewBag.ddl_TipoRegistro as SelectList, new { @id = "TipoRegistro", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione.." })
-                                    </div>
-                                </div>
-
-                                <label class="col-md-2 col-form-label">Descripción:</label>
-                                <div class="col-md-3">
-                                    <div class="form-group bmd-form-group">
-                                        @Html.TextBoxFor(model => model.Descripcion, new { @id = "Descripcion", @class = "form-control" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label class="col-md-2 col-form-label">Moneda</label>
+                                <label class="col-md-2 col-form-label">Moneda:</label>
                                 <div class="col-md-3">
                                     <div class="form-group bmd-form-group">
                                         @Html.DropDownListFor(model => model.idMoneda, ViewBag.ddl_Moneda as SelectList, new { @id = "Moneda", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione.." })
                                     </div>
                                 </div>
 
-                                <label class="col-md-2 col-form-label">Importe</label>
-                                <div class="col-md-3">
-                                    <div class="form-group has-default bmd-form-group">
-                                        @Html.TextBoxFor(model => model.Importe, new { @id = "Importe", @class = "form-control" })
+                                <label class="col-md-2 col-form-label">Importe:</label>
+                                <div class="col-md-3" style="text-align: left">
+                                    <div class="form-group has-default bmd-form-group" style="text-align: left">
+                                        @Html.TextBoxFor(model => model.Importe, new { @id = "Importe", @class = "form-control maskMoney", @style = "text-align: left" })
                                     </div>
                                 </div>
                             </div>
@@ -103,4 +90,5 @@
 }
 <script>
     $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es' });
+    $(".maskMoney").inputmask("currency", { prefix: "", groupSeparator: "", radixPoint: "," });
 </script>

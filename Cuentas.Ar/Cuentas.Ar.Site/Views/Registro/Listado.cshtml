@@ -1,8 +1,10 @@
-﻿@{
+﻿@model Cuentas.Ar.Entities.M_ListadoRegistro
+
+@{
     ViewBag.Title = "Listado de Registros";
 }
 
 <div class="content">
-    @Html.Partial("_FiltrosRegistro", new M_FiltroRegistro())
-    @Html.Partial("_ListaRegistro")
+    @Html.Partial("_FiltrosRegistro", Model.FiltroRegistro)
+    @Html.Partial("_ListaRegistro", Model.ListaRegistro)
 </div>

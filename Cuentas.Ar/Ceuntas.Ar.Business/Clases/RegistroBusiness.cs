@@ -13,9 +13,9 @@ namespace Cuentas.Ar.Business
             this.repositorio = new RegistroRepository();
         }
 
-        public List<Registro> Listar()
+        public List<Registro> Listar(M_FiltroRegistro filtroRegistro)
         {
-            return repositorio.Listar();
+            return repositorio.Listar(filtroRegistro);
         }
 
         public Registro Obtener(int idRegistro)

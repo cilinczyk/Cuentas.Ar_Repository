@@ -74,10 +74,12 @@
     <Compile Include="Categoria.cs">
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entidades\M_FiltroRegistro.cs" />
-    <Compile Include="Entidades\M_Home.cs" />
-    <Compile Include="Entidades\M_UsuarioLogin.cs" />
-    <Compile Include="Entidades\Categoria.cs" />
+    <Compile Include="Entidades\Clases\Registro.cs" />
+    <Compile Include="Entidades\Auxiliares\Registro\M_ListadoRegistro.cs" />
+    <Compile Include="Entidades\Auxiliares\Registro\M_FiltroRegistro.cs" />
+    <Compile Include="Entidades\Auxiliares\Home\M_Home.cs" />
+    <Compile Include="Entidades\Auxiliares\Login\M_UsuarioLogin.cs" />
+    <Compile Include="Entidades\Clases\Categoria.cs" />
     <Compile Include="Enums\eTipoTarjeta.cs" />
     <Compile Include="Enums\eTipoCuenta.cs" />
     <Compile Include="EstadoRecordatorio.cs">
@@ -92,7 +94,7 @@
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>
     <Compile Include="BotoneraTop.cs" />
-    <Compile Include="Entidades\Usuario.cs" />
+    <Compile Include="Entidades\Clases\Usuario.cs" />
     <Compile Include="Moneda.cs">
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>

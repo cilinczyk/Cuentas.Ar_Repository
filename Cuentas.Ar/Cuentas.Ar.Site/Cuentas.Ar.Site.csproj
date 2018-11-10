@@ -1106,6 +1106,7 @@
     <Content Include="Views\Registro\Listado.cshtml" />
     <Content Include="Views\Registro\_ListaRegistro.cshtml" />
     <Content Include="Views\Registro\_FiltrosRegistro.cshtml" />
+    <Content Include="Views\Registro\_Alta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

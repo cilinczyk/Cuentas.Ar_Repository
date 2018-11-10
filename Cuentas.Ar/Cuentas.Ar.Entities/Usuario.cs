@@ -18,8 +18,8 @@ namespace Cuentas.Ar.Entities
         public Usuario()
         {
             this.Categoria = new HashSet<Categoria>();
-            this.SubCategoria = new HashSet<SubCategoria>();
             this.Registro = new HashSet<Registro>();
+            this.SubCategoria = new HashSet<SubCategoria>();
         }
     
         public int idUsuario { get; set; }
@@ -48,10 +48,10 @@ namespace Cuentas.Ar.Entities
         public virtual Localidad Localidad { get; set; }
         public virtual Provincia Provincia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Registro> Registro { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubCategoria> SubCategoria { get; set; }
         public virtual TipoCuenta TipoCuenta { get; set; }
         public virtual TipoTarjeta TipoTarjeta { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Registro> Registro { get; set; }
     }
 }

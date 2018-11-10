@@ -21,7 +21,7 @@ namespace Cuentas.Ar.Entities
         public string Descripcion { get; set; }
         public System.DateTime FechaVencimiento { get; set; }
     
-        public virtual EstadoRecordatorio EstadoRecordatorio { get; set; }
         public virtual Categoria Categoria { get; set; }
+        public virtual EstadoRecordatorio EstadoRecordatorio { get; set; }
     }
 }

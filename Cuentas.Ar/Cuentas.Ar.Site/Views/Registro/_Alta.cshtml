@@ -1,0 +1,176 @@
+﻿@model Cuentas.Ar.Entities.Registro
+
+<!-- #region Estilos CSS -->
+<link href="~/Content/assets/css/material-dashboard.min.css" rel="stylesheet" />
+<link href="~/Content/vendor/bootstrap/css/bootstrap-select.min.css" rel="stylesheet" />
+<!-- #endregion -->
+
+<div class="col-md-12">
+    @using (Html.BeginForm("Alta", "Registro", FormMethod.Post, new { id = "recordatorioForm", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+                <div class="card-icon">
+                    <i class="fa fa-file-text-o"></i>
+                </div>
+                <h4 class="card-title">Alta de Recordatorio</h4>
+            </div>
+            <div class="card-body ">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Tipo de Registro</label>
+                        <div class="col-md-9">
+                            <div class="form-group bmd-form-group">
+                                @Html.DropDownListFor(model => model.idTipoRegistro, ViewBag.ddl_TipoRegistro as SelectList, new { @id = "TipoRegistro", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione un tipo de registro" })
+                                @Html.ValidationMessageFor(model => model.idTipoRegistro)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Categoría</label>
+                        <div class="col-md-9">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "idCategoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @data_live_search = "true", @data_size = "5", @title = "Seleccione una categoría", disabled = "disabled" })
+                                @Html.ValidationMessageFor(model => model.idCategoria)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">SubCategoría</label>
+                        <div class="col-md-9">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.DropDownListFor(model => model.idSubCategoria, ViewBag.ddl_SubCategoria as SelectList, new { @id = "idSubCategoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", data_width = "100%", @data_live_search = "true", @data_size = "5", @title = "Seleccione una subcategoría", disabled = "disabled" })
+                                @Html.ValidationMessageFor(model => model.idSubCategoria)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Moneda</label>
+                        <div class="col-md-9">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.DropDownListFor(model => model.idMoneda, ViewBag.ddl_Moneda as SelectList, new { @id = "Moneda", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", data_width = "100%", @data_live_search = "true", @data_size = "5", @title = "Seleccione una moneda" })
+                                @Html.ValidationMessageFor(model => model.idMoneda)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Importe</label>
+                        <div class="col-md-9">
+                            <div class="form-group bmd-form-group">
+                                @Html.TextBoxFor(model => model.Importe, new { @id = "Importe", @class = "form-control maskMoney" })
+                                @Html.ValidationMessageFor(model => model.Importe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Fecha</label>
+                        <div class="col-md-9">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.TextBoxFor(model => model.Fecha, new { @id = "FechaVencimiento", @class = "form-control datepicker" })
+                                @Html.ValidationMessageFor(model => model.Fecha)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Descripción</label>
+                        <div class="col-md-9">
+                            <div class="form-group bmd-form-group">
+                                @Html.TextBoxFor(model => model.Descripcion, new { @id = "descRegistro", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Descripcion)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-fill btn-primary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-fill btn-primary">Guardar</button>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- #region JavaScript -->
+<script src="~/Content/assets/js/material-dashboard.min.js"></script>
+<script src="~/Content/vendor/bootstrap/js/bootstrap-selectpicker.js"></script>
+<script>
+    $(function ($) {
+        $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
+        $(".maskMoney").inputmask("currency", { prefix: "", groupSeparator: "", radixPoint: "," });
+
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
+    });
+
+    /*Se cargan las Categorias dependiendo del Tipo de Registro seleccionado*/
+    $('#idTipoRegistro').change(function () {
+    var idTipoRegistro = $(this).val();
+
+        if (idTipoRegistro != null && idTipoRegistro != "")
+        {
+            $.getJSON('@Url.Action("ListarCategorias", "Categoria")', {
+                idTipoRegistro: idTipoRegistro
+            })
+            .done(function (data) {
+                if (data.Estado == 1) {
+                    $('#idCategoria').empty();
+                    $('#idCategoria').children().remove();
+                    $('#idCategoria')[0].options.length = 0;
+                    var items = "";
+
+                    $.each(data.Combo, function (i, Loca) {
+                        items += "<option value='" + Loca.Value + "'>" + Loca.Text + "</option>";
+                    });
+
+                    $('#idCategoria').append(items);
+                    $('#idCategoria').removeAttr("disabled");
+                    $('#idCategoria').selectpicker('refresh')
+                }
+            })
+            .fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+            });
+        }
+        return false;
+    });
+    /*Se cargan las Categorias dependiendo del Tipo de Registro seleccionado*/
+
+    /*Se cargan las Subcategorias dependiendo de la Categoria seleccionada*/
+    $('#idCategoria').change(function () {
+    var idCategoria = $(this).val();
+
+    if (idCategoria != null && idCategoria != "")
+        {
+            $.getJSON('@Url.Action("ListarSubCategorias", "SubCategoria")', {
+                idCategoria: idCategoria
+            })
+            .done(function (data) {
+                if (data.Estado == 1) {
+                    $('#idSubCategoria').empty();
+                    $('#idSubCategoria').children().remove();
+                    $('#idSubCategoria')[0].options.length = 0;
+                    var items = "";
+
+                    $.each(data.Combo, function (i, Loca) {
+                        items += "<option value='" + Loca.Value + "'>" + Loca.Text + "</option>";
+                    });
+
+                    $('#idSubCategoria').append(items);
+                    $('#idSubCategoria').removeAttr("disabled");
+                    $('#idSubCategoria').selectpicker('refresh')
+                }
+            })
+            .fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+            });
+        }
+        return false;
+    });
+    /*Se cargan las Subcategorias dependiendo de la Categoria seleccionada*/
+</script>
+<!-- #endregion -->

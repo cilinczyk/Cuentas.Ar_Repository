@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using Cuentas.Ar.Entities;
+using LinqKit;
 
 namespace Cuentas.Ar.Repository
 {
     public class RegistroRepository
     {
-        public List<Registro> Listar()
+        public List<Registro> Listar(M_FiltroRegistro filtroRegistro)
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Registro.Include("TipoRegistro").Include("Categoria").Include("SubCategoria").Include("Moneda").OrderBy(x => x.Fecha).ToList();
+                var predicado = CrearPredicado(filtroRegistro);
+                return context.Registro.Include("TipoRegistro").Include("Categoria").Include("SubCategoria").Include("Moneda").Where(predicado).OrderBy(x => x.Fecha).ToList();
             }
         }
 
@@ -62,7 +65,7 @@ namespace Cuentas.Ar.Repository
                     context.Entry(model).Property(x => x.idSubCategoria).IsModified = true;
                     context.Entry(model).Property(x => x.idMoneda).IsModified = true;
                     context.Entry(model).Property(x => x.Importe).IsModified = true;
-                    context.Entry(model).Property(x => x.Observaciones).IsModified = true;
+                    context.Entry(model).Property(x => x.Descripcion).IsModified = true;
                     context.Entry(model).Property(x => x.Fecha).IsModified = true;
 
                     context.SaveChanges();
@@ -90,6 +93,44 @@ namespace Cuentas.Ar.Repository
             {
                 throw new Exception("No se puede eliminar el registro.", ex);
             }
+        }
+
+        public Expression<Func<Registro, bool>> CrearPredicado(M_FiltroRegistro filtroRegistro)
+        {
+            var predicado = PredicateBuilder.New<Registro>(true);
+            predicado = predicado.And(x => x.idUsuario == filtroRegistro.idUsuario);
+
+            if (filtroRegistro.idTipoRegistro.HasValue)
+            {
+                predicado = predicado.And(x => x.idTipoRegistro == filtroRegistro.idTipoRegistro.Value);
+            }
+
+            if (filtroRegistro.idCategoria.HasValue)
+            {
+                predicado = predicado.And(x => x.idCategoria == filtroRegistro.idCategoria.Value);
+            }
+
+            if (filtroRegistro.idMoneda.HasValue)
+            {
+                predicado = predicado.And(x => x.idMoneda == filtroRegistro.idMoneda.Value);
+            }
+
+            if (filtroRegistro.FechaDesde.HasValue)
+            {
+                predicado = predicado.And(x => x.Fecha >= filtroRegistro.FechaDesde.Value);
+            }
+
+            if (filtroRegistro.FechaHasta.HasValue)
+            {
+                predicado = predicado.And(x => x.Fecha <= filtroRegistro.FechaHasta.Value);
+            }
+
+            if (filtroRegistro.Importe.HasValue)
+            {
+                predicado = predicado.And(x => x.Importe == filtroRegistro.Importe.Value);
+            }
+
+            return predicado;
         }
     }
 }

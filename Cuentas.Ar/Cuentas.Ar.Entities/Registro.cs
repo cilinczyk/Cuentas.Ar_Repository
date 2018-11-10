@@ -21,7 +21,7 @@ namespace Cuentas.Ar.Entities
         public int idSubCategoria { get; set; }
         public int idMoneda { get; set; }
         public decimal Importe { get; set; }
-        public string Observaciones { get; set; }
+        public string Descripcion { get; set; }
         public System.DateTime Fecha { get; set; }
     
         public virtual Categoria Categoria { get; set; }

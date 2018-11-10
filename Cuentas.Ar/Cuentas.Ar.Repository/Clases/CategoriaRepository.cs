@@ -16,6 +16,14 @@ namespace Cuentas.Ar.Repository
             }
         }
 
+        public List<Categoria> Listar(int idUsuario, int idTipoRegistro)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Categoria.Where(x => x.idTipoRegistro == idTipoRegistro && (x.idUsuario == null || x.idUsuario == idUsuario)).OrderBy(x => x.Descripcion).ToList();
+            }
+        }
+
         public Categoria Obtener(int idCategoria)
         {
             using (var context = new CuentasArEntities())

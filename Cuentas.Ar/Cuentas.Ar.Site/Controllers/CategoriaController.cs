@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using Cuentas.Ar.Business;
 using Cuentas.Ar.Entities;
-using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 
 namespace Cuentas.Ar.Site.Controllers
 {
@@ -129,9 +124,40 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
+        #region [Región: Auxiliares]
+        public JsonResult ListarCategorias(int idtipoRegistro)
+        {
+            try
+            {
+                if (idtipoRegistro != 0)
+                {
+                    int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+                    List<Categoria> ddlCategorias = new CategoriaBusiness().Listar(idUsuario, idtipoRegistro);
+
+                    if (ddlCategorias.Count > 0)
+                    {
+                        return this.Json(new { Estado = 1, Combo = new SelectList(ddlCategorias.ToArray(), "idCategoria", "Descripcion") }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return this.Json(new { Estado = 0, Mensaje = "No se han encontrado categorías para la categoría seleccionada." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return this.Json(new { Estado = 0, Mensaje = "No se ha enviado un tipo de registro." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                return this.Json(new { Estado = 0, Mensaje = "Se ha encontrado un error al cargar el listado de categorias." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private void CargarCombos()
         {
             ViewBag.ddl_TipoRegistro = new SelectList(new TipoRegistroBusiness().Listar(), "idTipoRegistro", "Descripcion");
         }
+        #endregion
     }
 }

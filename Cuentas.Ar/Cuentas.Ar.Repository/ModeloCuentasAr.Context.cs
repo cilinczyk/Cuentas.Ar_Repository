@@ -26,17 +26,17 @@
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Categoria> Categoria { get; set; }
+        public virtual DbSet<EstadoRecordatorio> EstadoRecordatorio { get; set; }
+        public virtual DbSet<Localidad> Localidad { get; set; }
+        public virtual DbSet<Moneda> Moneda { get; set; }
+        public virtual DbSet<Provincia> Provincia { get; set; }
+        public virtual DbSet<Recordatorio> Recordatorio { get; set; }
+        public virtual DbSet<Registro> Registro { get; set; }
+        public virtual DbSet<SubCategoria> SubCategoria { get; set; }
         public virtual DbSet<TipoCuenta> TipoCuenta { get; set; }
         public virtual DbSet<TipoRegistro> TipoRegistro { get; set; }
         public virtual DbSet<TipoTarjeta> TipoTarjeta { get; set; }
-        public virtual DbSet<Localidad> Localidad { get; set; }
-        public virtual DbSet<Provincia> Provincia { get; set; }
-        public virtual DbSet<EstadoRecordatorio> EstadoRecordatorio { get; set; }
-        public virtual DbSet<Recordatorio> Recordatorio { get; set; }
-        public virtual DbSet<Categoria> Categoria { get; set; }
-        public virtual DbSet<SubCategoria> SubCategoria { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
-        public virtual DbSet<Moneda> Moneda { get; set; }
-        public virtual DbSet<Registro> Registro { get; set; }
     }
 }

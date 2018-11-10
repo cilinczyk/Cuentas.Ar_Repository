@@ -129,10 +129,40 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
+        #region [Región: Auxiliares]
+        public JsonResult ListarSubCategorias(int idCategoria)
+        {
+            try
+            {
+                if (idCategoria!= 0)
+                {
+                    List<SubCategoria> ddlSubCategorias = new SubCategoriaBusiness().Listar(idCategoria);
+
+                    if (ddlSubCategorias.Count > 0)
+                    {
+                        return this.Json(new { Estado = 1, Combo = new SelectList(ddlSubCategorias.ToArray(), "idSubCategoria", "Descripcion") }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return this.Json(new { Estado = 0, Mensaje = "No se han encontrado subCategorias para la categoría seleccionada." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return this.Json(new { Estado = 0, Mensaje = "No se ha enviado una categoría." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                return this.Json(new { Estado = 0, Mensaje = "Se ha encontrado un error al cargar el listado de subCategorias." }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         private void CargarCombos()
         {
             int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
             ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(idUsuario), "idCategoria", "Descripcion");
         }
+        #endregion
     }
 }
