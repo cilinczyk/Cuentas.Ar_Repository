@@ -37,7 +37,7 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
-        #region [Región: Alta de Recordatorio]
+        #region [Región: Alta de Registro]
         public ActionResult Alta()
         {
             CargarCombos();
@@ -61,7 +61,7 @@ namespace Cuentas.Ar.Site.Controllers
                 }
                 else
                 {
-                    CargarCombos(model.idCategoria);
+                    CargarCombos(model.idTipoRegistro, model.idCategoria);
                     return PartialView("_Alta", model);
                 }
             }
@@ -72,6 +72,78 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
+        #region [Región: Edición de Registro]
+        public ActionResult Edicion(int idRegistro)
+        {
+            var model = new RegistroBusiness().Obtener(idRegistro);
+
+            CargarCombos(model.idTipoRegistro, model.idCategoria);
+            return PartialView("_Edicion", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public ActionResult Edicion(Registro model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    new RegistroBusiness().Modificar(model);
+
+                    string url = Url.Action("ListaParcial", "Registro");
+                    return Json(new { success = true, url });
+                }
+
+                CargarCombos(model.idTipoRegistro, model.idCategoria);
+                return PartialView("_Edicion", model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region [Región: Baja de Registro]
+        public ActionResult Baja(int idRegistro, string tipoRegistro, decimal importe)
+        {
+            ViewBag.idRegistro = idRegistro;
+            ViewBag.TipoRegistro = tipoRegistro;
+            ViewBag.Importe = importe;
+
+            return PartialView("_Baja");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public ActionResult Baja(int idRegistro)
+        {
+            try
+            {
+                new RegistroBusiness().Eliminar(idRegistro);
+
+                string url = Url.Action("ListaParcial", "Registro");
+                return Json(new { success = true, url });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region [Región: Detalle de Registro]
+        public ActionResult Detalle(int idRegistro)
+        {
+            var model = new RegistroBusiness().ObtenerCompleto(idRegistro);
+            return PartialView("_Detalle", model);
+        }
+        #endregion
+
+        #region [Región: Auxiliares]
         private void CargarCombosListado(int idUsuario)
         {
             ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(idUsuario), "idCategoria", "Descripcion");
@@ -113,5 +185,6 @@ namespace Cuentas.Ar.Site.Controllers
                 ViewBag.ddl_Categoria = new SelectList(listaVacia);
             }
         }
+        #endregion
     }
 }

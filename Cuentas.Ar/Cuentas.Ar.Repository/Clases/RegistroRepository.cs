@@ -23,7 +23,7 @@ namespace Cuentas.Ar.Repository
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Registro.FirstOrDefault(x => x.idRegistro == idRegistro);
+                return context.Registro.Include("TipoRegistro").Include("Categoria").Include("SubCategoria").Include("Moneda").FirstOrDefault(x => x.idRegistro == idRegistro);
             }
         }
 

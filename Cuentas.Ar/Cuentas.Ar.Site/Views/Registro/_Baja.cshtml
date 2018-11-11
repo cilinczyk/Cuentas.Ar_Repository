@@ -1,0 +1,27 @@
+﻿
+<div class="col-md-12">
+    @using (Html.BeginForm("Baja", "Recordatorio", new { idRecordatorio= ViewData["idRegistro"] } , FormMethod.Post, new { id = "registroForm", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+                <div class="card-icon">
+                    <i class="fa fa-file-text-o"></i>
+                </div>
+                <h4 class="card-title">Baja de Registro</h4>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-form-label">¿Esta seguro que desea eliminar el Registro: @ViewData["TipoRegistro"] ($ @ViewData["Importe"])?</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-fill btn-primary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-fill btn-primary">Aceptar</button>
+            </div>
+        </div>
+    }
+</div>

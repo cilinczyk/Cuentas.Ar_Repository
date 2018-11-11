@@ -39,6 +39,15 @@
                         </div>
                     </div>
                     <div class="row">
+                        <label class="col-md-3 col-form-label">SubCategoría</label>
+                        <div class="col-md-9">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.DropDownListFor(model => model.idSubCategoria, ViewBag.ddl_SubCategoria as SelectList, new { @id = "SubCategoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione una subcategoría" })
+                                @Html.ValidationMessageFor(model => model.idSubCategoria)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <label class="col-md-3 col-form-label">Estado</label>
                         <div class="col-md-9">
                             <div class="form-group has-default bmd-form-group">
@@ -79,11 +88,50 @@
 <script src="~/Content/vendor/bootstrap/js/bootstrap-selectpicker.js"></script>
 <script>
     $(function ($) {
+        $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
+
         $.validator.methods.date = function (value, element) {
             return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
         }
+
+        if ($("#idSubCategoria").val() != null && $("#idSubCategoria").val() != "") {
+            $('#idSubCategoria').removeAttr("disabled");
+            $('#idSubCategoria').selectpicker('refresh')
+        }
     });
 
-    $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
+    /*Se cargan las Subcategorias dependiendo de la Categoria seleccionada*/
+    $('#idCategoria').change(function () {
+    var idCategoria = $(this).val();
+
+    if (idCategoria != null && idCategoria != "")
+        {
+            $.getJSON('@Url.Action("ListarSubCategorias", "SubCategoria")', {
+                idCategoria: idCategoria
+            })
+            .done(function (data) {
+                if (data.Estado == 1) {
+                    $('#idSubCategoria').empty();
+                    $('#idSubCategoria').children().remove();
+                    $('#idSubCategoria')[0].options.length = 0;
+                    var items = "";
+
+                    $.each(data.Combo, function (i, Loca) {
+                        items += "<option value='" + Loca.Value + "'>" + Loca.Text + "</option>";
+                    });
+
+                    $('#idSubCategoria').append(items);
+                    $('#idSubCategoria').removeAttr("disabled");
+                    $('#idSubCategoria').selectpicker('refresh')
+                }
+            })
+            .fail(function (jqxhr, textStatus, error) {
+                var err = textStatus + ", " + error;
+                console.log("Request Failed: " + err);
+            });
+        }
+        return false;
+    });
+    /*Se cargan las Subcategorias dependiendo de la Categoria seleccionada*/
 </script>
 <!-- #endregion -->

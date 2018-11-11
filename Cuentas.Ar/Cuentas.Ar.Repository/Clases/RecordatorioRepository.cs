@@ -59,6 +59,7 @@ namespace Cuentas.Ar.Repository
                     context.Recordatorio.Attach(model);
                     context.Entry(model).Property(x => x.idEstado).IsModified = true;
                     context.Entry(model).Property(x => x.idCategoria).IsModified = true;
+                    context.Entry(model).Property(x => x.idSubCategoria).IsModified = true;
                     context.Entry(model).Property(x => x.Titulo).IsModified = true;
                     context.Entry(model).Property(x => x.Descripcion).IsModified = true;
                     context.Entry(model).Property(x => x.FechaVencimiento).IsModified = true;

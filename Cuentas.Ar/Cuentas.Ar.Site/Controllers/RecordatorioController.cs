@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Web.Mvc;
 using Cuentas.Ar.Business;
@@ -45,7 +46,7 @@ namespace Cuentas.Ar.Site.Controllers
                 }
                 else
                 {
-                    CargarCombos();
+                    CargarCombos(model.idCategoria);
                     return PartialView("_Alta", model);
                 }
             }
@@ -61,7 +62,7 @@ namespace Cuentas.Ar.Site.Controllers
         {
             var model = new RecordatorioBusiness().Obtener(idRecordatorio);
 
-            CargarCombos();
+            CargarCombos(model.idCategoria);
             return PartialView("_Edicion", model);
         }
 
@@ -80,7 +81,7 @@ namespace Cuentas.Ar.Site.Controllers
                     return Json(new { success = true, url });
                 }
 
-                CargarCombos();
+                CargarCombos(model.idCategoria);
                 return PartialView("_Edicion", model);
             }
             catch (Exception ex)
@@ -126,11 +127,27 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
-        private void CargarCombos()
+        #region [Región: Auxiliares]
+        private void CargarCombos(int? idCategoria = null)
         {
             int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
             ViewBag.ddl_Categoria = new SelectList(new CategoriaBusiness().Listar(idUsuario), "idCategoria", "Descripcion");
             ViewBag.ddl_EstadoRecordatorio = new SelectList(new EstadoRecordatorioBusiness().Listar(), "idEstadoRecordatorio", "Descripcion");
+
+            if (idCategoria.HasValue)
+            {
+                ViewBag.ddl_SubCategoria = new SelectList(new SubCategoriaBusiness().Listar(idCategoria.Value), "idSubCategoria", "Descripcion");
+            }
+            else
+            {
+                List<SelectListItem> listaVacia = new List<SelectListItem>
+                {
+                    new SelectListItem() { Text = string.Empty, Value = string.Empty }
+                };
+
+                ViewBag.ddl_SubCategoria = new SelectList(listaVacia);
+            }
         }
+        #endregion
     }
 }

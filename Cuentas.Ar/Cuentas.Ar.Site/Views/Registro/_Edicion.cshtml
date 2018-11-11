@@ -6,7 +6,7 @@
 <!-- #endregion -->
 
 <div class="col-md-12">
-    @using (Html.BeginForm("Alta", "Registro", FormMethod.Post, new { id = "recordatorioForm", role = "form" }))
+    @using (Html.BeginForm("Edicion", "Registro", FormMethod.Post, new { id = "registroForm", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
@@ -15,7 +15,7 @@
                 <div class="card-icon">
                     <i class="fa fa-file-text-o"></i>
                 </div>
-                <h4 class="card-title">Alta de Recordatorio</h4>
+                <h4 class="card-title">Edición de Registro</h4>
             </div>
             <div class="card-body ">
                 <div class="form-horizontal">
@@ -93,6 +93,16 @@
         $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
         $(".maskMoney").inputmask("currency", { prefix: "", groupSeparator: "", radixPoint: "," });
 
+        if ($('#idCategoria').val() != null && $('#idCategoria').val() != "") {
+            $('#idCategoria').removeAttr("disabled");
+            $('#idCategoria').selectpicker('refresh')
+        }
+
+        if ($('#idSubCategoria').val() != null && $('#idSubCategoria').val() != "") {
+            $('#idSubCategoria').removeAttr("disabled");
+            $('#idSubCategoria').selectpicker('refresh')
+        }
+
         $.validator.methods.date = function (value, element) {
             return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
         }
@@ -100,7 +110,7 @@
 
     /*Se cargan las Categorias dependiendo del Tipo de Registro seleccionado*/
     $('#idTipoRegistro').change(function () {
-    var idTipoRegistro = $(this).val();
+        var idTipoRegistro = $(this).val();
 
         if (idTipoRegistro != null && idTipoRegistro != "")
         {

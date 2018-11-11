@@ -18,12 +18,14 @@ namespace Cuentas.Ar.Entities
         public int idUsuario { get; set; }
         public int idEstado { get; set; }
         public int idCategoria { get; set; }
+        public Nullable<int> idSubCategoria { get; set; }
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
         public System.DateTime FechaVencimiento { get; set; }
     
         public virtual Categoria Categoria { get; set; }
         public virtual EstadoRecordatorio EstadoRecordatorio { get; set; }
+        public virtual SubCategoria SubCategoria { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
 }
