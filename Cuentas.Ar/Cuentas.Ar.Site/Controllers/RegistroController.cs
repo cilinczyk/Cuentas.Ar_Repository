@@ -25,15 +25,18 @@ namespace Cuentas.Ar.Site.Controllers
 
         public ActionResult ListaParcial()
         {
-            M_FiltroRegistro filtroRegistro = TempData["FiltroRegistro"] as M_FiltroRegistro;
+            M_FiltroRegistro filtroRegistro = Session["FiltroRegistro"] as M_FiltroRegistro;
             var listadoRegistro = new RegistroBusiness().Listar(filtroRegistro);
+
             return PartialView("_ListaRegistro", listadoRegistro);
         }
+        #endregion
 
+        #region [Región: Búsqueda]
         public ActionResult Buscar(M_FiltroRegistro filtroRegistro)
         {
-            TempData["FiltroRegistro"] = filtroRegistro;
-            return RedirectToAction("_ListaRegistro");
+            Session["FiltroRegistro"] = filtroRegistro;
+            return RedirectToAction("ListaParcial", "Registro");
         }
         #endregion
 

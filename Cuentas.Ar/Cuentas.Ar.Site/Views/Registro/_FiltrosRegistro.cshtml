@@ -7,10 +7,7 @@
 @using (Ajax.BeginForm("Buscar", "Registro", null, new AjaxOptions
 {
     InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "listaRegistro",
-    OnBegin = "onBegin",
-    OnComplete = "onComplete",
-    OnSuccess = "onSuccess"
+    UpdateTargetId = "listaRegistro"
 }, new { @id = "formBusqueda" }))
 {
     @Html.HiddenFor(model => model.idUsuario)
