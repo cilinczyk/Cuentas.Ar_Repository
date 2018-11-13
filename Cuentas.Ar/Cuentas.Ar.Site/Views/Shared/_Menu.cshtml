@@ -12,15 +12,17 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
 
-            @Html.MenuActionLinkMenu("Resumen de Cuentas", "Index", "Home", "home")
+            @Html.MenuActionLinkMenu("Resumen de cuentas", "Index", "Home", "home")
 
-            @Html.MenuActionLinkMenu("Mis Registros", "Listado", "Registro", "file-text-o")
+            @Html.MenuActionLinkMenu("Registros", "Listado", "Registro", "file-text-o")
 
-            @Html.MenuActionLinkMenu("Mis Estadisticas", "Index", "Home4", "bar-chart")
+            @Html.MenuActionLinkMenu("Objetivos", "Listado", "Objetivo", "child")
 
-            @Html.MenuActionLinkMenu("Mis Recordatorios", "Listado", "Recordatorio", "clock-o")
+            @Html.MenuActionLinkMenu("Recordatorios", "Listado", "Recordatorio", "clock-o")
 
-            @Html.MenuActionLinkMenu("Mis Datos", "MisDatos", "Usuario", "user")
+            @Html.MenuActionLinkMenu("Reportes", "Listado", "Reporte", "table")
+
+            @Html.MenuActionLinkMenu("Perfil", "MisDatos", "Usuario", "user")
 
             <li class="@MenuHelper.EstadoMenu(Controlador) nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#tablesExamples" aria-expanded="false">
