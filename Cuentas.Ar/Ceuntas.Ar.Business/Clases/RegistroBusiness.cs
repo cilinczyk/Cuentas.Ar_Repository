@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cuentas.Ar.Entities;
 using Cuentas.Ar.Repository;
 
@@ -21,6 +22,16 @@ namespace Cuentas.Ar.Business
         public Registro Obtener(int idRegistro)
         {
             return repositorio.Obtener(idRegistro);
+        }
+
+        public List<Registro> ListarRegistros(int idUsuario, DateTime desde, DateTime hasta)
+        {
+            return repositorio.ListarRegistros(idUsuario, desde, hasta);
+        }
+
+        public decimal ObtenerAhorros(int idUsuario, int idMoneda, DateTime desde, DateTime hasta)
+        {
+            return repositorio.ObtenerAhorros(idUsuario, idMoneda, desde, hasta);
         }
 
         public Registro ObtenerCompleto(int idRegistro)

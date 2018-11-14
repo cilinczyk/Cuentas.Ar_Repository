@@ -132,5 +132,24 @@ namespace Cuentas.Ar.Repository
                 throw new Exception("No se puede modificar el registro.", ex);
             }
         }
+
+        public void ActualizarCapacidadAhorro(Usuario model)
+        {
+            try
+            {
+                using (var context = new CuentasArEntities())
+                {
+                    context.Usuario.Attach(model);
+                    context.Entry(model).Property(x => x.CapacidadAhorroPesos).IsModified = true;
+                    context.Entry(model).Property(x => x.CapacidadAhorroDolares).IsModified = true;
+
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("No se puede modificar el registro.", ex);
+            }
+        }
     }
 }

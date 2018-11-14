@@ -80,8 +80,13 @@
     <Compile Include="Entidades\Auxiliares\Home\M_Home.cs" />
     <Compile Include="Entidades\Auxiliares\Login\M_UsuarioLogin.cs" />
     <Compile Include="Entidades\Clases\Categoria.cs" />
+    <Compile Include="Enums\eTipoMoneda.cs" />
+    <Compile Include="Enums\eTipoRegistro.cs" />
     <Compile Include="Enums\eTipoTarjeta.cs" />
     <Compile Include="Enums\eTipoCuenta.cs" />
+    <Compile Include="EstadoObjetivo.cs">
+      <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
+    </Compile>
     <Compile Include="EstadoRecordatorio.cs">
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>
@@ -99,6 +104,9 @@
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>
     <Compile Include="M_Usuario.cs" />
+    <Compile Include="Objetivo.cs">
+      <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provincia.cs">
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
@@ -113,6 +121,9 @@
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoCuenta.cs">
+      <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoCuentaBancaria.cs">
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoRegistro.cs">

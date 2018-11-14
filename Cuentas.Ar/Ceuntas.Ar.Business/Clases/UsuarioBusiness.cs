@@ -13,6 +13,11 @@ namespace Cuentas.Ar.Business
             this.repositorio = new UsuarioRepository();
         }
 
+        public Usuario Obtener(int idUsuario)
+        {
+            return repositorio.Obtener(idUsuario);
+        }
+
         public List<Usuario> Listar()
         {
             return repositorio.Listar();
@@ -38,9 +43,9 @@ namespace Cuentas.Ar.Business
             repositorio.Modificar(model);
         }
 
-        public Usuario Obtener(int idUsuario)
+        public void ActualizarCapacidadAhorro(Usuario model)
         {
-            return repositorio.Obtener(idUsuario);
+            repositorio.ActualizarCapacidadAhorro(model);
         }
     }
 }

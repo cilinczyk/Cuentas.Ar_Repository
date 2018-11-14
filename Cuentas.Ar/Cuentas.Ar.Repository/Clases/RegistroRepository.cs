@@ -23,7 +23,23 @@ namespace Cuentas.Ar.Repository
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Registro.Include("TipoRegistro").Include("Categoria").Include("SubCategoria").Include("Moneda").FirstOrDefault(x => x.idRegistro == idRegistro);
+                return context.Registro.FirstOrDefault(x => x.idRegistro == idRegistro);
+            }
+        }
+
+        public List<Registro> ListarRegistros(int idUsuario, DateTime desde, DateTime hasta)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Registro.Where(x => x.idUsuario == idUsuario && x.Fecha >= desde && x.Fecha <= hasta).ToList();
+            }
+        }
+
+        public decimal ObtenerAhorros(int idUsuario, int idMoneda, DateTime desde, DateTime hasta)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Registro.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.Fecha >= desde && x.Fecha <= hasta).Sum(x => x.Importe);
             }
         }
 

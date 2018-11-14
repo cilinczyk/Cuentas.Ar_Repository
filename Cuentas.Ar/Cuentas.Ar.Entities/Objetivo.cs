@@ -12,24 +12,18 @@ namespace Cuentas.Ar.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Registro
+    public partial class Objetivo
     {
-        public int idRegistro { get; set; }
+        public int idObjetivo { get; set; }
         public int idUsuario { get; set; }
-        public int idTipoRegistro { get; set; }
-        public int idTipoCuentaBancaria { get; set; }
-        public int idCategoria { get; set; }
-        public Nullable<int> idSubCategoria { get; set; }
+        public int idEstadoObjetivo { get; set; }
         public int idMoneda { get; set; }
         public decimal Importe { get; set; }
         public string Descripcion { get; set; }
         public System.DateTime Fecha { get; set; }
     
-        public virtual Categoria Categoria { get; set; }
+        public virtual EstadoObjetivo EstadoObjetivo { get; set; }
         public virtual Moneda Moneda { get; set; }
-        public virtual SubCategoria SubCategoria { get; set; }
-        public virtual TipoCuentaBancaria TipoCuentaBancaria { get; set; }
-        public virtual TipoRegistro TipoRegistro { get; set; }
         public virtual Usuario Usuario { get; set; }
     }
 }

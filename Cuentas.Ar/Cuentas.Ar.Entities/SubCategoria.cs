@@ -17,8 +17,8 @@ namespace Cuentas.Ar.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SubCategoria()
         {
-            this.Registro = new HashSet<Registro>();
             this.Recordatorio = new HashSet<Recordatorio>();
+            this.Registro = new HashSet<Registro>();
         }
     
         public int idSubCategoria { get; set; }
@@ -28,9 +28,9 @@ namespace Cuentas.Ar.Entities
     
         public virtual Categoria Categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recordatorio> Recordatorio { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registro> Registro { get; set; }
         public virtual Usuario Usuario { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Recordatorio> Recordatorio { get; set; }
     }
 }

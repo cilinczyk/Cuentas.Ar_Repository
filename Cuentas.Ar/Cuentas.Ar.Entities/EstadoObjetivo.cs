@@ -12,21 +12,19 @@ namespace Cuentas.Ar.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Moneda
+    public partial class EstadoObjetivo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Moneda()
+        public EstadoObjetivo()
         {
             this.Objetivo = new HashSet<Objetivo>();
-            this.Registro = new HashSet<Registro>();
         }
     
-        public int idMoneda { get; set; }
+        public int idEstadoObjetivo { get; set; }
         public string Descripcion { get; set; }
+        public string Mensaje { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Objetivo> Objetivo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Registro> Registro { get; set; }
     }
 }
