@@ -40,12 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\ObjetivoBusiness.cs" />
     <Compile Include="Clases\RegistroBusiness.cs" />
     <Compile Include="Clases\RecordatorioBusiness.cs" />
     <Compile Include="Clases\SubCategoriaBusiness.cs" />
     <Compile Include="Clases\CategoriaBusiness.cs" />
     <Compile Include="Clases\EstadoRecordatorioBusiness .cs" />
     <Compile Include="Clases\MonedaBusiness.cs" />
+    <Compile Include="Clases\EstadoObjetivoBusiness.cs" />
     <Compile Include="Clases\TipoRegistroBusiness.cs" />
     <Compile Include="Clases\LocalidadBusiness.cs" />
     <Compile Include="Clases\ProvinciaBusiness.cs" />

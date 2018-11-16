@@ -1,0 +1,85 @@
+﻿@model Cuentas.Ar.Entities.Objetivo
+
+<!-- #region Estilos CSS -->
+<link href="~/Content/assets/css/material-dashboard.min.css" rel="stylesheet" />
+<link href="~/Content/vendor/bootstrap/css/bootstrap-select.min.css" rel="stylesheet" />
+<!-- #endregion -->
+
+<div class="col-md-12">
+    @using (Html.BeginForm("Alta", "Objetivo", FormMethod.Post, new { id = "objetivoForm", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">accessibility_new</i>
+                </div>
+                <h4 class="card-title">Alta de Objetivo</h4>
+            </div>
+            <div class="card-body ">
+                <div class="form-horizontal">
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Titulo</label>
+                        <div class="col-md-9">
+                            <div class="form-group bmd-form-group">
+                                @Html.TextBoxFor(model => model.Motivo, new { @id = "Motivo", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Moneda</label>
+                        <div class="col-md-9">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.DropDownListFor(model => model.idMoneda, ViewBag.ddl_Moneda as SelectList, new { @id = "Moneda", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", data_width = "100%", @title = "Seleccione una moneda" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Importe</label>
+                        <div class="col-md-3">
+                            <div class="form-group bmd-form-group">
+                                @Html.TextBoxFor(model => model.Importe, new { @id = "Importe", @class = "form-control maskMoney" })
+                            </div>
+                        </div>
+
+                        <label class="col-md-2 col-form-label">Fecha</label>
+                        <div class="col-md-4">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.TextBoxFor(model => model.Fecha, new { @id = "FechaVencimiento", @class = "form-control datepicker" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 col-form-label">Descripción</label>
+                        <div class="col-md-9">
+                            <div class="form-group bmd-form-group">
+                                @Html.TextAreaFor(model => model.Descripcion, new { @id = "descObjetivo", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    @Html.ValidationSummary(false, string.Empty, new { @class = "alert alert-danger mgBottom0" })
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-fill btn-primary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-fill btn-primary">Guardar</button>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- #region JavaScript -->
+<script src="~/Content/assets/js/material-dashboard.min.js"></script>
+<script src="~/Content/vendor/bootstrap/js/bootstrap-selectpicker.js"></script>
+<script>
+    $(function ($) {
+        $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
+        $(".maskMoney").inputmask("currency", { prefix: "", groupSeparator: "", radixPoint: "," });
+
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
+    });
+</script>
+<!-- #endregion -->

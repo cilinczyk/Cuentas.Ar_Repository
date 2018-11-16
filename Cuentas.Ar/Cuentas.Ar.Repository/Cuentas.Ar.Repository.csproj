@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\ObjetivoRepository.cs" />
     <Compile Include="Clases\RegistroRepository.cs" />
     <Compile Include="Clases\RecordatorioRepository.cs" />
     <Compile Include="Clases\SubCategoriaRepository.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Clases\ProvinciaRepository.cs" />
     <Compile Include="Clases\EstadoRecordatorioRepository .cs" />
     <Compile Include="Clases\MonedaRepository.cs" />
+    <Compile Include="Clases\EstadoObjetivoRepository.cs" />
     <Compile Include="Clases\TipoRegistroRepository.cs" />
     <Compile Include="Clases\TipoCuentaRepository.cs" />
     <Compile Include="Clases\TipoTarjetaRepository.cs" />

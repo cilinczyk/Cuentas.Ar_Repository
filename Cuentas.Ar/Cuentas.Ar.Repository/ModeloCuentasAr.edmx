@@ -53,8 +53,9 @@
           <Property Name="idUsuario" Type="int" Nullable="false" />
           <Property Name="idEstadoObjetivo" Type="int" Nullable="false" />
           <Property Name="idMoneda" Type="int" Nullable="false" />
+          <Property Name="Motivo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Importe" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="text" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Provincia">
@@ -521,7 +522,6 @@
           <EntitySet Name="EstadoRecordatorio" EntityType="ModeloCuentasAr.EstadoRecordatorio" />
           <EntitySet Name="Localidad" EntityType="ModeloCuentasAr.Localidad" />
           <EntitySet Name="Moneda" EntityType="ModeloCuentasAr.Moneda" />
-          <EntitySet Name="Objetivo" EntityType="ModeloCuentasAr.Objetivo" />
           <EntitySet Name="Provincia" EntityType="ModeloCuentasAr.Provincia" />
           <EntitySet Name="Recordatorio" EntityType="ModeloCuentasAr.Recordatorio" />
           <EntitySet Name="SubCategoria" EntityType="ModeloCuentasAr.SubCategoria" />
@@ -541,17 +541,9 @@
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="SubCategoria" EntitySet="SubCategoria" />
           </AssociationSet>
-          <AssociationSet Name="FK_Objetivo_EstadoObjetivo" Association="ModeloCuentasAr.FK_Objetivo_EstadoObjetivo">
-            <End Role="EstadoObjetivo" EntitySet="EstadoObjetivo" />
-            <End Role="Objetivo" EntitySet="Objetivo" />
-          </AssociationSet>
           <AssociationSet Name="FK_Recordatorio_EstadoRecordatorio" Association="ModeloCuentasAr.FK_Recordatorio_EstadoRecordatorio">
             <End Role="EstadoRecordatorio" EntitySet="EstadoRecordatorio" />
             <End Role="Recordatorio" EntitySet="Recordatorio" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Objetivo_Moneda" Association="ModeloCuentasAr.FK_Objetivo_Moneda">
-            <End Role="Moneda" EntitySet="Moneda" />
-            <End Role="Objetivo" EntitySet="Objetivo" />
           </AssociationSet>
           <AssociationSet Name="FK_Recordatorio_SubCategoria" Association="ModeloCuentasAr.FK_Recordatorio_SubCategoria">
             <End Role="SubCategoria" EntitySet="SubCategoria" />
@@ -587,10 +579,6 @@
             <End Role="Localidad" EntitySet="Localidad" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
-          <AssociationSet Name="FK_Objetivo_Usuario" Association="ModeloCuentasAr.FK_Objetivo_Usuario">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Objetivo" EntitySet="Objetivo" />
-          </AssociationSet>
           <AssociationSet Name="FK_Usuario_Provincia" Association="ModeloCuentasAr.FK_Usuario_Provincia">
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Usuario" EntitySet="Usuario" />
@@ -614,6 +602,19 @@
           <AssociationSet Name="FK_Usuario_TipoTarjeta" Association="ModeloCuentasAr.FK_Usuario_TipoTarjeta">
             <End Role="TipoTarjeta" EntitySet="TipoTarjeta" />
             <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <EntitySet Name="Objetivo" EntityType="ModeloCuentasAr.Objetivo" />
+          <AssociationSet Name="FK_Objetivo_EstadoObjetivo" Association="ModeloCuentasAr.FK_Objetivo_EstadoObjetivo">
+            <End Role="EstadoObjetivo" EntitySet="EstadoObjetivo" />
+            <End Role="Objetivo" EntitySet="Objetivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Objetivo_Moneda" Association="ModeloCuentasAr.FK_Objetivo_Moneda">
+            <End Role="Moneda" EntitySet="Moneda" />
+            <End Role="Objetivo" EntitySet="Objetivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Objetivo_Usuario" Association="ModeloCuentasAr.FK_Objetivo_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Objetivo" EntitySet="Objetivo" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Categoria">
@@ -663,23 +664,8 @@
           </Key>
           <Property Name="idMoneda" Type="Int32" Nullable="false" />
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Objetivo" Relationship="ModeloCuentasAr.FK_Objetivo_Moneda" FromRole="Moneda" ToRole="Objetivo" />
           <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_Moneda" FromRole="Moneda" ToRole="Registro" />
-        </EntityType>
-        <EntityType Name="Objetivo">
-          <Key>
-            <PropertyRef Name="idObjetivo" />
-          </Key>
-          <Property Name="idObjetivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idUsuario" Type="Int32" Nullable="false" />
-          <Property Name="idEstadoObjetivo" Type="Int32" Nullable="false" />
-          <Property Name="idMoneda" Type="Int32" Nullable="false" />
-          <Property Name="Importe" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="EstadoObjetivo" Relationship="ModeloCuentasAr.FK_Objetivo_EstadoObjetivo" FromRole="Objetivo" ToRole="EstadoObjetivo" />
-          <NavigationProperty Name="Moneda" Relationship="ModeloCuentasAr.FK_Objetivo_Moneda" FromRole="Objetivo" ToRole="Moneda" />
-          <NavigationProperty Name="Usuario" Relationship="ModeloCuentasAr.FK_Objetivo_Usuario" FromRole="Objetivo" ToRole="Usuario" />
+          <NavigationProperty Name="Objetivo" Relationship="ModeloCuentasAr.FK_Objetivo_Moneda" FromRole="Moneda" ToRole="Objetivo" />
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
@@ -790,18 +776,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Objetivo_EstadoObjetivo">
-          <End Type="ModeloCuentasAr.EstadoObjetivo" Role="EstadoObjetivo" Multiplicity="1" />
-          <End Type="ModeloCuentasAr.Objetivo" Role="Objetivo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EstadoObjetivo">
-              <PropertyRef Name="idEstadoObjetivo" />
-            </Principal>
-            <Dependent Role="Objetivo">
-              <PropertyRef Name="idEstadoObjetivo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Recordatorio_EstadoRecordatorio">
           <End Type="ModeloCuentasAr.EstadoRecordatorio" Role="EstadoRecordatorio" Multiplicity="1" />
           <End Type="ModeloCuentasAr.Recordatorio" Role="Recordatorio" Multiplicity="*" />
@@ -811,18 +785,6 @@
             </Principal>
             <Dependent Role="Recordatorio">
               <PropertyRef Name="idEstado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Objetivo_Moneda">
-          <End Type="ModeloCuentasAr.Moneda" Role="Moneda" Multiplicity="1" />
-          <End Type="ModeloCuentasAr.Objetivo" Role="Objetivo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Moneda">
-              <PropertyRef Name="idMoneda" />
-            </Principal>
-            <Dependent Role="Objetivo">
-              <PropertyRef Name="idMoneda" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -947,13 +909,13 @@
           <Property Name="Estado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Categoria" Relationship="ModeloCuentasAr.FK_Categoria_Usuario" FromRole="Usuario" ToRole="Categoria" />
           <NavigationProperty Name="Localidad" Relationship="ModeloCuentasAr.FK_Usuario_Localidad" FromRole="Usuario" ToRole="Localidad" />
-          <NavigationProperty Name="Objetivo" Relationship="ModeloCuentasAr.FK_Objetivo_Usuario" FromRole="Usuario" ToRole="Objetivo" />
           <NavigationProperty Name="Provincia" Relationship="ModeloCuentasAr.FK_Usuario_Provincia" FromRole="Usuario" ToRole="Provincia" />
           <NavigationProperty Name="Recordatorio" Relationship="ModeloCuentasAr.FK_Recordatorio_Usuario" FromRole="Usuario" ToRole="Recordatorio" />
           <NavigationProperty Name="Registro" Relationship="ModeloCuentasAr.FK_Registro_Usuario" FromRole="Usuario" ToRole="Registro" />
           <NavigationProperty Name="SubCategoria" Relationship="ModeloCuentasAr.FK_SubCategoria_Usuario" FromRole="Usuario" ToRole="SubCategoria" />
           <NavigationProperty Name="TipoCuenta" Relationship="ModeloCuentasAr.FK_Usuario_TipoCuenta" FromRole="Usuario" ToRole="TipoCuenta" />
           <NavigationProperty Name="TipoTarjeta" Relationship="ModeloCuentasAr.FK_Usuario_TipoTarjeta" FromRole="Usuario" ToRole="TipoTarjeta" />
+          <NavigationProperty Name="Objetivo" Relationship="ModeloCuentasAr.FK_Objetivo_Usuario" FromRole="Usuario" ToRole="Objetivo" />
         </EntityType>
         <Association Name="FK_Categoria_Usuario">
           <End Type="ModeloCuentasAr.Usuario" Role="Usuario" Multiplicity="0..1" />
@@ -976,18 +938,6 @@
             </Principal>
             <Dependent Role="Usuario">
               <PropertyRef Name="idLocalidad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Objetivo_Usuario">
-          <End Type="ModeloCuentasAr.Usuario" Role="Usuario" Multiplicity="1" />
-          <End Type="ModeloCuentasAr.Objetivo" Role="Objetivo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="idUsuario" />
-            </Principal>
-            <Dependent Role="Objetivo">
-              <PropertyRef Name="idUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1063,6 +1013,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Objetivo">
+          <Key>
+            <PropertyRef Name="idObjetivo" />
+          </Key>
+          <Property Name="idObjetivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idEstadoObjetivo" Type="Int32" Nullable="false" />
+          <Property Name="idMoneda" Type="Int32" Nullable="false" />
+          <Property Name="Motivo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Importe" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="EstadoObjetivo" Relationship="ModeloCuentasAr.FK_Objetivo_EstadoObjetivo" FromRole="Objetivo" ToRole="EstadoObjetivo" />
+          <NavigationProperty Name="Moneda" Relationship="ModeloCuentasAr.FK_Objetivo_Moneda" FromRole="Objetivo" ToRole="Moneda" />
+          <NavigationProperty Name="Usuario" Relationship="ModeloCuentasAr.FK_Objetivo_Usuario" FromRole="Objetivo" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_Objetivo_EstadoObjetivo">
+          <End Type="ModeloCuentasAr.EstadoObjetivo" Role="EstadoObjetivo" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.Objetivo" Role="Objetivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoObjetivo">
+              <PropertyRef Name="idEstadoObjetivo" />
+            </Principal>
+            <Dependent Role="Objetivo">
+              <PropertyRef Name="idEstadoObjetivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Objetivo_Moneda">
+          <End Type="ModeloCuentasAr.Moneda" Role="Moneda" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.Objetivo" Role="Objetivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Moneda">
+              <PropertyRef Name="idMoneda" />
+            </Principal>
+            <Dependent Role="Objetivo">
+              <PropertyRef Name="idMoneda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Objetivo_Usuario">
+          <End Type="ModeloCuentasAr.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="ModeloCuentasAr.Objetivo" Role="Objetivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Objetivo">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1111,19 +1113,6 @@
               <MappingFragment StoreEntitySet="Moneda">
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="idMoneda" ColumnName="idMoneda" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Objetivo">
-            <EntityTypeMapping TypeName="ModeloCuentasAr.Objetivo">
-              <MappingFragment StoreEntitySet="Objetivo">
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Importe" ColumnName="Importe" />
-                <ScalarProperty Name="idMoneda" ColumnName="idMoneda" />
-                <ScalarProperty Name="idEstadoObjetivo" ColumnName="idEstadoObjetivo" />
-                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-                <ScalarProperty Name="idObjetivo" ColumnName="idObjetivo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1232,6 +1221,20 @@
                 <ScalarProperty Name="idTipoTarjeta" ColumnName="idTipoTarjeta" />
                 <ScalarProperty Name="idTipoCuenta" ColumnName="idTipoCuenta" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Objetivo">
+            <EntityTypeMapping TypeName="ModeloCuentasAr.Objetivo">
+              <MappingFragment StoreEntitySet="Objetivo">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="idMoneda" ColumnName="idMoneda" />
+                <ScalarProperty Name="idEstadoObjetivo" ColumnName="idEstadoObjetivo" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idObjetivo" ColumnName="idObjetivo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

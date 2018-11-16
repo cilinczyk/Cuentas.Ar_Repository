@@ -1,0 +1,27 @@
+﻿
+<div class="col-md-12">
+    @using (Html.BeginForm("Baja", "Objetivo", new { idRegistro= ViewData["idObjetivo"] } , FormMethod.Post, new { id = "objetivoForm", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">accessibility_new</i>
+                </div>
+                <h4 class="card-title">Baja de Objetivo</h4>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-form-label">¿Esta seguro que desea eliminar el Objetivo: @ViewData["Motivo"] ($ @ViewData["Importe"])?</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-fill btn-primary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-fill btn-primary">Aceptar</button>
+            </div>
+        </div>
+    }
+</div>

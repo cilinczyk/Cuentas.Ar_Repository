@@ -1,0 +1,10 @@
+﻿@model Cuentas.Ar.Entities.M_ListadoObjetivo
+
+@{
+    ViewBag.Title = "Listado de Objetivos";
+}
+
+<div class="content">
+    @Html.Partial("_FiltrosObjetivo", Model.FiltroObjetivo)
+    @Html.Partial("_ListaObjetivo", Model.ListaObjetivo)
+</div>

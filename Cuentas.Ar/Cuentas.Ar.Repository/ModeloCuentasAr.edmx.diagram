@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="ModeloCuentasAr.EstadoRecordatorio" Width="1.5" PointX="10.5" PointY="5.375" />
         <EntityTypeShape EntityType="ModeloCuentasAr.Localidad" Width="1.5" PointX="0.75" PointY="8.125" />
         <EntityTypeShape EntityType="ModeloCuentasAr.Moneda" Width="1.5" PointX="13.5" PointY="12.5" />
-        <EntityTypeShape EntityType="ModeloCuentasAr.Objetivo" Width="1.5" PointX="8.25" PointY="7.75" />
         <EntityTypeShape EntityType="ModeloCuentasAr.Provincia" Width="1.5" PointX="0.75" PointY="5" />
         <EntityTypeShape EntityType="ModeloCuentasAr.Recordatorio" Width="1.5" PointX="12.75" PointY="7.5" />
         <EntityTypeShape EntityType="ModeloCuentasAr.SubCategoria" Width="1.5" PointX="10.5" PointY="7.875" />
@@ -21,9 +20,7 @@
         <AssociationConnector Association="ModeloCuentasAr.FK_Categoria_TipoRegistro" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Recordatorio_Categoria" />
         <AssociationConnector Association="ModeloCuentasAr.FK_SubCategoria_Categoria" />
-        <AssociationConnector Association="ModeloCuentasAr.FK_Objetivo_EstadoObjetivo" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Recordatorio_EstadoRecordatorio" />
-        <AssociationConnector Association="ModeloCuentasAr.FK_Objetivo_Moneda" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Recordatorio_SubCategoria" />
         <EntityTypeShape EntityType="ModeloCuentasAr.Registro" Width="1.5" PointX="16.125" PointY="7.5" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Registro_Categoria" />
@@ -34,13 +31,16 @@
         <EntityTypeShape EntityType="ModeloCuentasAr.Usuario" Width="1.5" PointX="3" PointY="6.625" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Categoria_Usuario" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Usuario_Localidad" />
-        <AssociationConnector Association="ModeloCuentasAr.FK_Objetivo_Usuario" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Usuario_Provincia" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Recordatorio_Usuario" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Registro_Usuario" />
         <AssociationConnector Association="ModeloCuentasAr.FK_SubCategoria_Usuario" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Usuario_TipoCuenta" />
         <AssociationConnector Association="ModeloCuentasAr.FK_Usuario_TipoTarjeta" />
+        <EntityTypeShape EntityType="ModeloCuentasAr.Objetivo" Width="1.5" PointX="8.25" PointY="8" />
+        <AssociationConnector Association="ModeloCuentasAr.FK_Objetivo_EstadoObjetivo" />
+        <AssociationConnector Association="ModeloCuentasAr.FK_Objetivo_Moneda" />
+        <AssociationConnector Association="ModeloCuentasAr.FK_Objetivo_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

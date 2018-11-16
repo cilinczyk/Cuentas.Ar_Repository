@@ -19,6 +19,7 @@ namespace Cuentas.Ar.Site.Controllers
             model.FiltroRegistro.FechaHasta = DateTime.Now;
             model.ListaRegistro = new RegistroBusiness().Listar(model.FiltroRegistro);
 
+            Session["FiltroRegistro"] = model.FiltroRegistro;
             CargarCombosListado(idUsuario);
             return View("Listado", model);
         }

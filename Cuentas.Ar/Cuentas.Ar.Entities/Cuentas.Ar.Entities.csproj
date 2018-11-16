@@ -74,14 +74,18 @@
     <Compile Include="Categoria.cs">
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entidades\Auxiliares\Objetivo\M_FiltroObjetivo.cs" />
+    <Compile Include="Entidades\Auxiliares\Objetivo\M_ListadoRegistro.cs" />
     <Compile Include="Entidades\Clases\Registro.cs" />
     <Compile Include="Entidades\Auxiliares\Registro\M_ListadoRegistro.cs" />
     <Compile Include="Entidades\Auxiliares\Registro\M_FiltroRegistro.cs" />
     <Compile Include="Entidades\Auxiliares\Home\M_Home.cs" />
     <Compile Include="Entidades\Auxiliares\Login\M_UsuarioLogin.cs" />
     <Compile Include="Entidades\Clases\Categoria.cs" />
+    <Compile Include="Enums\eEstadoRecordatorio.cs" />
     <Compile Include="Enums\eTipoMoneda.cs" />
     <Compile Include="Enums\eTipoRegistro.cs" />
+    <Compile Include="Enums\eEstadoObjetivo.cs" />
     <Compile Include="Enums\eTipoTarjeta.cs" />
     <Compile Include="Enums\eTipoCuenta.cs" />
     <Compile Include="EstadoObjetivo.cs">

@@ -18,6 +18,7 @@ namespace Cuentas.Ar.Entities
         public int idUsuario { get; set; }
         public int idEstadoObjetivo { get; set; }
         public int idMoneda { get; set; }
+        public string Motivo { get; set; }
         public decimal Importe { get; set; }
         public string Descripcion { get; set; }
         public System.DateTime Fecha { get; set; }

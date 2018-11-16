@@ -1,0 +1,50 @@
+﻿@model Cuentas.Ar.Entities.Objetivo
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+                <i class="material-icons">accessibility_new</i>
+            </div>
+            <h4 class="card-title">Detalle de Objetivo</h4>
+        </div>
+        <div class="card-body ">
+            <div class="form-horizontal col-md-12">
+                <div class="row">
+                    <label class="col-md-4 form-control-label">Motivo</label>
+                    <label class="col-md-6 form-control-label">@Model.Motivo</label>
+                </div>
+                <div class="row">
+                    <label class="col-md-4 form-control-label">Moneda</label>
+                    <label class="col-md-6 form-control-label">@Model.Moneda.Descripcion</label>
+                </div>
+                <div class="row">
+                    <label class="col-md-4 form-control-label">Importe</label>
+                    <label class="col-md-6 form-control-label">@string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", Model.Importe)</label>
+                </div>
+                <div class="row">
+                    <label class="col-md-4 form-control-label">Fecha</label>
+                    <label class="col-md-6 form-control-label">@Model.Fecha.ToShortDateString()</label>
+                </div>
+                <div class="row">
+                    <label class="col-md-4 form-control-label">Estado</label>
+                    <label class="col-md-6 form-control-label">@Model.EstadoObjetivo.Mensaje</label>
+                </div>
+                <div class="row">
+                    <label class="col-md-4 form-control-label">Descripción</label>
+                    @if (!string.IsNullOrEmpty(Model.Descripcion))
+                    {
+                        <label class="col-md-6 form-control-label">@Model.Descripcion</label>
+                    }
+                    else
+                    {
+                        <label class="col-md-6 form-control-label">-</label>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-fill btn-primary" data-dismiss="modal">Cerrar</button>
+        </div>
+    </div>
+</div>
