@@ -23,11 +23,11 @@ namespace Cuentas.Ar.Site
             #endregion
 
             #region [Región: Sistema]
-             bundles.Add(new StyleBundle("~/bundles/css").Include(
-                    "~/Content/CuentasArStyleSheet.css",
-                    "~/Content/vendor/bootstrap/css/bootstrap.min.css",
-                    "~/Content/assets/css/material-dashboard.min.css",
-                    "~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css"));
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
+                   "~/Content/CuentasArStyleSheet.css",
+                   "~/Content/vendor/bootstrap/css/bootstrap.min.css",
+                   "~/Content/assets/css/material-dashboard.min.css",
+                   "~/Content/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
                     "~/Scripts/jquery-ui.min.js",
@@ -48,14 +48,14 @@ namespace Cuentas.Ar.Site
                     "~/Scripts/inputmask/inputmask.date.extensions.min.js",
                     "~/Scripts/inputmask/inputmask.numeric.extensions.min.js"));
 
-                bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                    "~/Scripts/jquery-3.3.1.min.js",
-                    "~/Scripts/moment.min.js",
-                    "~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js",
-                    "~/Scripts/jquery.validate*",
-                    "~/Scripts/jquery.unobtrusive-ajax.min.js",
-                    "~/Scripts/mvcfoolproof.unobtrusive.min.js",
-                    "~/Scripts/MvcFoolproofJQueryValidation.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                "~/Scripts/jquery-3.3.1.min.js",
+                "~/Scripts/moment.min.js",
+                "~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js",
+                "~/Scripts/jquery.validate*",
+                "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                "~/Scripts/mvcfoolproof.unobtrusive.min.js",
+                "~/Scripts/MvcFoolproofJQueryValidation.min.js"));
             #endregion
         }
     }

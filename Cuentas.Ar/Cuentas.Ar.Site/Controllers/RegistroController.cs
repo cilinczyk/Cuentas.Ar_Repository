@@ -64,26 +64,6 @@ namespace Cuentas.Ar.Site.Controllers
                     registroBusiness.Guardar(model);
                     #endregion
 
-                    #region [Región: Actualizar capacidad de ahorro]
-                    if (model.idTipoRegistro == eTipoRegistro.Ahorro)
-                    {
-                        var usuarioBusiness = new UsuarioBusiness();
-                        Usuario usuario = usuarioBusiness.Obtener(model.idUsuario);
-                        decimal ahorrosActualizados = registroBusiness.ObtenerAhorros(model.idUsuario, model.idMoneda, DateTime.Now, DateTime.Now.AddYears(-1));
-
-                        if (model.idMoneda == eMoneda.Pesos)
-                        {
-                            usuario.CapacidadAhorroPesos = ahorrosActualizados;
-                        }
-                        else
-                        {
-                            usuario.CapacidadAhorroDolares = ahorrosActualizados;
-                        }
-
-                        usuarioBusiness.ActualizarCapacidadAhorro(usuario);
-                    }
-                    #endregion
-
                     string url = Url.Action("ListaParcial", "Registro");
                     return Json(new { success = true, url });
                 }

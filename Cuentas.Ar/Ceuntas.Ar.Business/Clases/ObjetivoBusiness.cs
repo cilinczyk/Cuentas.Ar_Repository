@@ -53,5 +53,10 @@ namespace Cuentas.Ar.Business
         {
             repositorio.Eliminar(idObjetivo);
         }
+
+        public void ActualizarEstados(int idUsuario)
+        {
+            repositorio.ActualizarEstados(idUsuario);
+        }
     }
 }

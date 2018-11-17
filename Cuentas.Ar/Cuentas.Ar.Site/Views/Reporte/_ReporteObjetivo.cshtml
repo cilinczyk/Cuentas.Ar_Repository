@@ -1,0 +1,47 @@
+﻿@model Cuentas.Ar.Entities.M_FiltroReporte
+
+@using (Html.BeginForm("Objetivo", "Reporte", FormMethod.Post, new { id = "reporteObjetivoForm", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">accessibility_new</i>
+                        </div>
+                        <div class="card-title">
+                            <h4>Reporte de Objetivos</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <label class="col-md-2 col-form-label">Fecha Desde:</label>
+                                <div class="col-md-2">
+                                    <div class="form-group bmd-form-group">
+                                        @Html.TextBoxFor(model => model.FechaDesde, new { @id = "FechaDesdeRegistro", @class = "form-control datepicker", @maxlength = "10" })
+
+                                    </div>
+                                </div>
+
+                                <label class="col-md-2 col-form-label">Fecha Hasta:</label>
+                                <div class="col-md-2">
+                                    <div class="form-group has-default bmd-form-group">
+                                        @Html.TextBoxFor(model => model.FechaHasta, new { @id = "FechaHastaRegistro", @class = "form-control datepicker", @maxlength = "10" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary pull-right">Exportar</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

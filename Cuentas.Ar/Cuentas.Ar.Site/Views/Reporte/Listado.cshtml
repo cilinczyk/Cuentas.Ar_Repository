@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Reportes";
+}
+
+<div class="content">
+    @Html.Partial("_ReporteRegistro", new M_FiltroReporte())
+    @Html.Partial("_ReporteObjetivo", new M_FiltroReporte())
+    @Html.Partial("_ReporteRecordatorio", new M_FiltroReporte())
+</div>
+
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $(function ($) {
+        $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
+
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
+    });
+</script>

@@ -76,6 +76,10 @@
     </Compile>
     <Compile Include="Entidades\Auxiliares\Objetivo\M_FiltroObjetivo.cs" />
     <Compile Include="Entidades\Auxiliares\Objetivo\M_ListadoRegistro.cs" />
+    <Compile Include="Entidades\Auxiliares\Reporte\M_FiltroReporte.cs" />
+    <Compile Include="Entidades\Clases\Objetivo.cs" />
+    <Compile Include="Entidades\Clases\Recordatorio.cs" />
+    <Compile Include="Entidades\Clases\SubCategoria.cs" />
     <Compile Include="Entidades\Clases\Registro.cs" />
     <Compile Include="Entidades\Auxiliares\Registro\M_ListadoRegistro.cs" />
     <Compile Include="Entidades\Auxiliares\Registro\M_FiltroRegistro.cs" />

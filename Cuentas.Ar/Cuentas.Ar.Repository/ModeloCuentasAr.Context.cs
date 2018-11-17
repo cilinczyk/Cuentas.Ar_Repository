@@ -39,7 +39,7 @@
         public virtual DbSet<TipoRegistro> TipoRegistro { get; set; }
         public virtual DbSet<TipoTarjeta> TipoTarjeta { get; set; }
         public virtual DbSet<Registro> Registro { get; set; }
-        public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Objetivo> Objetivo { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

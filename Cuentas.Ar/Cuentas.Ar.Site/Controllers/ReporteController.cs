@@ -8,18 +8,18 @@ using Cuentas.Ar.Business;
 
 namespace Cuentas.Ar.Site.Controllers
 {
-    public class HomeController : Controller
+    public class ReporteController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Listado()
         {
-            int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
-
             #region [Región: Actualizar Estados Objetivo
             var objetivoBusiness = new ObjetivoBusiness();
+
+            int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
             objetivoBusiness.ActualizarEstados(idUsuario);
             #endregion
 
-            return View();
+            return View("Listado");
         }
     }
 }

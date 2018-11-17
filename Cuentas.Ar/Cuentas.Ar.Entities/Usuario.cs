@@ -18,10 +18,10 @@ namespace Cuentas.Ar.Entities
         public Usuario()
         {
             this.Categoria = new HashSet<Categoria>();
+            this.Objetivo = new HashSet<Objetivo>();
             this.Recordatorio = new HashSet<Recordatorio>();
             this.Registro = new HashSet<Registro>();
             this.SubCategoria = new HashSet<SubCategoria>();
-            this.Objetivo = new HashSet<Objetivo>();
         }
     
         public int idUsuario { get; set; }
@@ -29,8 +29,6 @@ namespace Cuentas.Ar.Entities
         public Nullable<int> idTipoTarjeta { get; set; }
         public Nullable<int> idProvincia { get; set; }
         public Nullable<int> idLocalidad { get; set; }
-        public decimal CapacidadAhorroPesos { get; set; }
-        public decimal CapacidadAhorroDolares { get; set; }
         public string Nombre { get; set; }
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
         public Nullable<bool> Sexo { get; set; }
@@ -50,6 +48,8 @@ namespace Cuentas.Ar.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Categoria> Categoria { get; set; }
         public virtual Localidad Localidad { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Objetivo> Objetivo { get; set; }
         public virtual Provincia Provincia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recordatorio> Recordatorio { get; set; }
@@ -59,7 +59,5 @@ namespace Cuentas.Ar.Entities
         public virtual ICollection<SubCategoria> SubCategoria { get; set; }
         public virtual TipoCuenta TipoCuenta { get; set; }
         public virtual TipoTarjeta TipoTarjeta { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Objetivo> Objetivo { get; set; }
     }
 }

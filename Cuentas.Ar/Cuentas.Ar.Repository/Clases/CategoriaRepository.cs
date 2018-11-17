@@ -56,10 +56,6 @@ namespace Cuentas.Ar.Repository
             {
                 using (var context = new CuentasArEntities())
                 {
-                    // Ejemplo Opcion 1:
-                    //context.Categoria.Where(t => t.idCategoria == model.idCategoria).Update(x => new Categoria() { idTipoRegistro = model.idTipoRegistro, Descripcion = model.Descripcion });
-
-                    // Ejemplo Opcion 2:
                     context.Categoria.Attach(model);
                     context.Entry(model).Property(x => x.idTipoRegistro).IsModified = true;
                     context.Entry(model).Property(x => x.Descripcion).IsModified = true;

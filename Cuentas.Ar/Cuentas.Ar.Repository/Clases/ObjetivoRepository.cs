@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using Cuentas.Ar.Entities;
+using EntityFramework.Extensions;
 using LinqKit;
 
 namespace Cuentas.Ar.Repository
@@ -144,6 +145,22 @@ namespace Cuentas.Ar.Repository
             }
 
             return predicado;
+        }
+
+        public void ActualizarEstados(int idUsuario)
+        {
+            try
+            {
+                using (var context = new CuentasArEntities())
+                {
+                    context.Objetivo.Where(x => x.idObjetivo == idUsuario && x.Fecha < DateTime.Now && x.idEstadoObjetivo != eEstadoObjetivo.Finalizado).Update(x => new Objetivo() { idEstadoObjetivo = eEstadoObjetivo.Finalizado });
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("No se puede actualizar el registro.", ex);
+            }
         }
     }
 }

@@ -70,17 +70,6 @@ namespace Cuentas.Ar.Site.Controllers
 
                             #endregion
 
-                            #region [Región: Actualizar capacidad de ahorro]
-                            var registroBusiness = new RegistroBusiness();
-                            decimal capacidadAhorroPesos = registroBusiness.ListarRegistros(usuario.idUsuario, DateTime.Now, DateTime.Now.AddYears(-1))?.Where(x => x.idMoneda == eMoneda.Pesos).Sum(x => x.Importe) ?? 0;
-                            decimal capacidadAhorroDolares = registroBusiness.ListarRegistros(usuario.idUsuario, DateTime.Now, DateTime.Now.AddYears(-1))?.Where(x => x.idMoneda == eMoneda.Dolares).Sum(x => x.Importe) ?? 0;
-
-                            usuario.CapacidadAhorroPesos = capacidadAhorroPesos;
-                            usuario.CapacidadAhorroDolares = capacidadAhorroDolares;
-
-                            usuarioBusiness.ActualizarCapacidadAhorro(usuario);
-                            #endregion
-
                             return RedirectToLocal(returnUrl);
                             #endregion
                         }
@@ -99,7 +88,7 @@ namespace Cuentas.Ar.Site.Controllers
                     }
                 }
 
-                // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+                //Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
                 return View(model);
             }
             catch (Exception ex)

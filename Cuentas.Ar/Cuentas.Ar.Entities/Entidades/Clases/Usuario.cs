@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Foolproof;
 
 namespace Cuentas.Ar.Entities
@@ -8,6 +9,20 @@ namespace Cuentas.Ar.Entities
     public partial class Usuario
     {
         public bool UsuarioActualizado { get; set; }
+        public decimal CapacidadAhorroPesos
+        {
+            get
+            {
+                return Registro?.Where(x => x.Fecha >= DateTime.Now.AddMonths(-12) && x.idMoneda == eMoneda.Pesos)?.Sum(x => x.Importe) ?? 0;
+            }
+        }
+        public decimal CapacidadAhorroDolares
+        {
+            get
+            {
+                return Registro?.Where(x => x.Fecha >= DateTime.Now.AddMonths(-12) && x.idMoneda == eMoneda.Dolares)?.Sum(x => x.Importe) ?? 0;
+            }
+        }
     }
 
     public class UsuarioMetadata

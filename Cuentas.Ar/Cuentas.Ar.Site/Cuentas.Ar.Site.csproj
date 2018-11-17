@@ -187,6 +187,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\BotoneraController.cs" />
+    <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\ObjetivoController.cs" />
     <Compile Include="Controllers\RegistroController.cs" />
     <Compile Include="Controllers\RecordatorioController.cs" />
@@ -1118,6 +1119,10 @@
     <Content Include="Views\Objetivo\_Edicion.cshtml" />
     <Content Include="Views\Objetivo\_Baja.cshtml" />
     <Content Include="Views\Objetivo\_Detalle.cshtml" />
+    <Content Include="Views\Reporte\Listado.cshtml" />
+    <Content Include="Views\Reporte\_ReporteRegistro.cshtml" />
+    <Content Include="Views\Reporte\_ReporteRecordatorio.cshtml" />
+    <Content Include="Views\Reporte\_ReporteObjetivo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,11 +14,17 @@ namespace Cuentas.Ar.Site.Controllers
         public ActionResult Listado()
         {
             int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+            var objetivoBusiness = new ObjetivoBusiness();
+
+            #region [Región: Actualizar Estados]
+            objetivoBusiness.ActualizarEstados(idUsuario);
+            #endregion
+
             M_ListadoObjetivo model = new M_ListadoObjetivo();
             model.FiltroObjetivo.idUsuario = idUsuario;
             model.FiltroObjetivo.FechaDesde = DateTime.Now.AddYears(-1);
             model.FiltroObjetivo.FechaHasta = DateTime.Now.AddYears(1);
-            model.ListaObjetivo = new ObjetivoBusiness().Listar(model.FiltroObjetivo);
+            model.ListaObjetivo = objetivoBusiness.Listar(model.FiltroObjetivo);
 
             Session["FiltroObjetivo"] = model.FiltroObjetivo;
             CargarCombos();
@@ -56,17 +62,11 @@ namespace Cuentas.Ar.Site.Controllers
         {
             try
             {
-                var idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
-                var objetivoBusiness = new ObjetivoBusiness();
-
-                #region [Región: Validaciones]
-                if (objetivoBusiness.ListarObjetivos(idUsuario, model.idMoneda).Any(x => x.Fecha >= model.Fecha && x.idEstadoObjetivo != eEstadoObjetivo.Pendiente && x.idEstadoObjetivo != eEstadoObjetivo.Finalizado))
-                {
-                    ModelState.AddModelError("Objetivo", "Ya contiene un objetivo activo dentro de la fecha seleccionada.");
-                }
-                #endregion
                 if (ModelState.IsValid)
                 {
+                    var idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+                    var objetivoBusiness = new ObjetivoBusiness();
+
                     #region [Región: Alta de Objetivo]
                     model.idUsuario = idUsuario;
                     model.idEstadoObjetivo = ObtenerEstadoObjetivo(model);
@@ -88,47 +88,6 @@ namespace Cuentas.Ar.Site.Controllers
                 throw ex;
             }
         }
-
-        private int ObtenerEstadoObjetivo(Objetivo objetivo)
-        {
-            var objetivoBusiness = new ObjetivoBusiness();
-
-            #region [Región: Estado]
-            var usuarioBusiness = new UsuarioBusiness();
-            decimal capAhorro = 0;
-            int mesesRestantes = (int)MonthDifference(objetivo.Fecha, DateTime.Now);
-
-            decimal unCuarto = (objetivo.Importe * 25 / 100);
-            decimal dosCuartos = (objetivo.Importe * 50 / 100);
-            decimal tresCuartos = (objetivo.Importe * 75 / 100);
-
-            if (objetivo.idMoneda == eMoneda.Pesos)
-            {
-                capAhorro = usuarioBusiness.Obtener(objetivo.idUsuario).CapacidadAhorroPesos * mesesRestantes;
-            }
-            else
-            {
-                capAhorro = usuarioBusiness.Obtener(objetivo.idUsuario).CapacidadAhorroDolares * mesesRestantes;
-            }
-
-            if (capAhorro >= 0 && capAhorro <= unCuarto)
-            {
-                return eEstadoObjetivo.Imposible;
-            }
-            else if (capAhorro > unCuarto && capAhorro <= dosCuartos)
-            {
-                return eEstadoObjetivo.Complicado;
-            }
-            else if (capAhorro > dosCuartos && capAhorro <= tresCuartos)
-            {
-                return eEstadoObjetivo.Posible;
-            }
-            else
-            {
-                return eEstadoObjetivo.Excelente;
-            }
-            #endregion
-        }
         #endregion
 
         #region [Región: Edición de Objetivo]
@@ -147,19 +106,12 @@ namespace Cuentas.Ar.Site.Controllers
         {
             try
             {
-                var objetivoBusiness = new ObjetivoBusiness();
-
-                #region [Región: Validaciones]
-                if (objetivoBusiness.ListarObjetivos(model.idUsuario, model.idMoneda).Any(x => x.Fecha >= model.Fecha && x.idEstadoObjetivo != eEstadoObjetivo.Pendiente && x.idEstadoObjetivo != eEstadoObjetivo.Finalizado && x.idObjetivo != model.idObjetivo))
-                {
-                    ModelState.AddModelError("Objetivo", "Ya contiene un objetivo activo dentro de la fecha seleccionada.");
-                }
-                #endregion
-
                 if (ModelState.IsValid)
                 {
                     #region [Región: Edición de Objetivo]
+                    var objetivoBusiness = new ObjetivoBusiness();
                     model.idEstadoObjetivo = ObtenerEstadoObjetivo(model);
+
                     objetivoBusiness.Modificar(model);
                     #endregion
 
@@ -215,10 +167,51 @@ namespace Cuentas.Ar.Site.Controllers
         #endregion
 
         #region [Región: Auxiliares]
-        public static decimal MonthDifference(DateTime FechaFin, DateTime FechaInicio)
+        private decimal MonthDifference(DateTime FechaFin, DateTime FechaInicio)
         {
             return Math.Abs((FechaFin.Month - FechaInicio.Month) + 12 * (FechaFin.Year - FechaInicio.Year));
 
+        }
+
+        private int ObtenerEstadoObjetivo(Objetivo objetivo)
+        {
+            var objetivoBusiness = new ObjetivoBusiness();
+
+            #region [Región: Estado]
+            var usuarioBusiness = new UsuarioBusiness();
+            decimal capAhorro = 0;
+            int mesesRestantes = (int)MonthDifference(objetivo.Fecha, DateTime.Now);
+
+            decimal unCuarto = (objetivo.Importe * 25 / 100);
+            decimal dosCuartos = (objetivo.Importe * 50 / 100);
+            decimal tresCuartos = (objetivo.Importe * 75 / 100);
+
+            if (objetivo.idMoneda == eMoneda.Pesos)
+            {
+                capAhorro = usuarioBusiness.Obtener(objetivo.idUsuario).CapacidadAhorroPesos * mesesRestantes;
+            }
+            else
+            {
+                capAhorro = usuarioBusiness.Obtener(objetivo.idUsuario).CapacidadAhorroDolares * mesesRestantes;
+            }
+
+            if (capAhorro >= 0 && capAhorro <= unCuarto)
+            {
+                return eEstadoObjetivo.Imposible;
+            }
+            else if (capAhorro > unCuarto && capAhorro <= dosCuartos)
+            {
+                return eEstadoObjetivo.Complicado;
+            }
+            else if (capAhorro > dosCuartos && capAhorro <= tresCuartos)
+            {
+                return eEstadoObjetivo.Posible;
+            }
+            else
+            {
+                return eEstadoObjetivo.Excelente;
+            }
+            #endregion
         }
 
         private void CargarCombos()
