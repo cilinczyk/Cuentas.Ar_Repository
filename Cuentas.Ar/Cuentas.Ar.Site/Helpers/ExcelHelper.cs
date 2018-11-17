@@ -112,7 +112,7 @@ namespace Cuentas.Ar.Site.Helpers
                             r.Style.Font.Color.SetColor(System.Drawing.Color.White);
                             r.Style.Font.Bold = true;
                             r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                            r.Style.Fill.BackgroundColor.SetColor(System.Drawing.ColorTranslator.FromHtml("#58819e"));
+                            r.Style.Fill.BackgroundColor.SetColor(System.Drawing.ColorTranslator.FromHtml("#9c26b2"));
                         }
                     }
                     #endregion

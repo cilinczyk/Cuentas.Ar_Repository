@@ -24,14 +24,9 @@ namespace Cuentas.Ar.Business
             return repositorio.Obtener(idObjetivo);
         }
 
-        public List<Objetivo> ListarObjetivos(int idUsuario, int idMoneda)
+        public List<Objetivo> Listar(int idUsuario, DateTime desde, DateTime hasta)
         {
-            return repositorio.ListarObjetivos(idUsuario, idMoneda);
-        }
-
-        public List<Objetivo> ListarObjetivos(int idUsuario, DateTime desde, DateTime hasta)
-        {
-            return repositorio.ListarObjetivos(idUsuario, desde, hasta);
+            return repositorio.Listar(idUsuario, desde, hasta);
         }
 
         public Objetivo ObtenerCompleto(int idObjetivo)

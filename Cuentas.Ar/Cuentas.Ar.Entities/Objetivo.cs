@@ -21,7 +21,7 @@ namespace Cuentas.Ar.Entities
         public string Motivo { get; set; }
         public decimal Importe { get; set; }
         public string Descripcion { get; set; }
-        public System.DateTime Fecha { get; set; }
+        public System.DateTime FechaVencimiento { get; set; }
     
         public virtual EstadoObjetivo EstadoObjetivo { get; set; }
         public virtual Moneda Moneda { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Cuentas.Ar.Entities;
 using Cuentas.Ar.Repository;
 
@@ -16,6 +17,11 @@ namespace Cuentas.Ar.Business
         public List<Recordatorio> Listar()
         {
             return repositorio.Listar();
+        }
+
+        public List<Recordatorio> Listar(int idUsuario, DateTime desde, DateTime hasta)
+        {
+            return repositorio.Listar(idUsuario, desde, hasta);
         }
 
         public Recordatorio Obtener(int idRecordatorio)

@@ -16,7 +16,15 @@ namespace Cuentas.Ar.Repository
             using (var context = new CuentasArEntities())
             {
                 var predicado = CrearPredicado(filtroObjetivo);
-                return context.Objetivo.Include("EstadoObjetivo").Include("Moneda").Where(predicado).OrderBy(x => x.Fecha).ToList();
+                return context.Objetivo.Include("EstadoObjetivo").Include("Moneda").Where(predicado).OrderBy(x => x.FechaVencimiento).ToList();
+            }
+        }
+
+        public List<Objetivo> Listar(int idUsuario, DateTime desde, DateTime hasta)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Objetivo.Include("EstadoObjetivo").Include("Moneda").Where(x => x.idUsuario == idUsuario && x.FechaVencimiento >= desde && x.FechaVencimiento <= hasta).ToList();
             }
         }
 
@@ -28,27 +36,11 @@ namespace Cuentas.Ar.Repository
             }
         }
 
-        public List<Objetivo> ListarObjetivos(int idUsuario, int idMoneda)
-        {
-            using (var context = new CuentasArEntities())
-            {
-                return context.Objetivo.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda).ToList();
-            }
-        }
-
-        public List<Objetivo> ListarObjetivos(int idUsuario, DateTime desde, DateTime hasta)
-        {
-            using (var context = new CuentasArEntities())
-            {
-                return context.Objetivo.Where(x => x.idUsuario == idUsuario && x.Fecha >= desde && x.Fecha <= hasta).ToList();
-            }
-        }
-
         public decimal ObtenerAhorros(int idUsuario, int idMoneda, DateTime desde, DateTime hasta)
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Objetivo.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.Fecha >= desde && x.Fecha <= hasta).Sum(x => x.Importe);
+                return context.Objetivo.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.FechaVencimiento >= desde && x.FechaVencimiento <= hasta).Sum(x => x.Importe);
             }
         }
 
@@ -90,7 +82,7 @@ namespace Cuentas.Ar.Repository
                     context.Entry(model).Property(x => x.Importe).IsModified = true;
                     context.Entry(model).Property(x => x.Motivo).IsModified = true;
                     context.Entry(model).Property(x => x.Descripcion).IsModified = true;
-                    context.Entry(model).Property(x => x.Fecha).IsModified = true;
+                    context.Entry(model).Property(x => x.FechaVencimiento).IsModified = true;
 
                     context.SaveChanges();
                 }
@@ -136,12 +128,12 @@ namespace Cuentas.Ar.Repository
 
             if (filtroObjetivo.FechaDesde.HasValue)
             {
-                predicado = predicado.And(x => x.Fecha >= filtroObjetivo.FechaDesde.Value);
+                predicado = predicado.And(x => x.FechaVencimiento >= filtroObjetivo.FechaDesde.Value);
             }
 
             if (filtroObjetivo.FechaHasta.HasValue)
             {
-                predicado = predicado.And(x => x.Fecha <= filtroObjetivo.FechaHasta.Value);
+                predicado = predicado.And(x => x.FechaVencimiento <= filtroObjetivo.FechaHasta.Value);
             }
 
             return predicado;
@@ -153,7 +145,7 @@ namespace Cuentas.Ar.Repository
             {
                 using (var context = new CuentasArEntities())
                 {
-                    context.Objetivo.Where(x => x.idObjetivo == idUsuario && x.Fecha < DateTime.Now && x.idEstadoObjetivo != eEstadoObjetivo.Finalizado).Update(x => new Objetivo() { idEstadoObjetivo = eEstadoObjetivo.Finalizado });
+                    context.Objetivo.Where(x => x.idObjetivo == idUsuario && x.FechaVencimiento < DateTime.Now && x.idEstadoObjetivo != eEstadoObjetivo.Finalizado).Update(x => new Objetivo() { idEstadoObjetivo = eEstadoObjetivo.Finalizado });
                     context.SaveChanges();
                 }
             }

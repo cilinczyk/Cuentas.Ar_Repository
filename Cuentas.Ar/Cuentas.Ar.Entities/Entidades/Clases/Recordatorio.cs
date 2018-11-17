@@ -17,6 +17,12 @@ namespace Cuentas.Ar.Entities
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar una categoría.")]
         public int idCategoria { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar una moneda.")]
+        public int idMoneda { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar un importe.")]
+        public decimal Importe { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar un titulo.")]
         public string Titulo { get; set; }
 

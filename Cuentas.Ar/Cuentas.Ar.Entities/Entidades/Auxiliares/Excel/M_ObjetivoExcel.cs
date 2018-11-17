@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace Cuentas.Ar.Entities
 {
-    public class M_RegistroExcel
+    public class M_ObjetivoExcel
     {
-        public string TipoRegistro { get; set; }
-        public string Categoria { get; set; }
-        public string SubCategoria { get; set; }
+        public string EstadoObjetivo { get; set; }
+        public string Motivo { get; set; }
         public string Moneda { get; set; }
         public string Importe { get; set; }
-        public string Fecha { get; set; }
         public string Descripcion { get; set; }
+        public string FechaVencimiento { get; set; }
     }
 }

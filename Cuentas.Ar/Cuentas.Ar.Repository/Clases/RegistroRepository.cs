@@ -19,19 +19,19 @@ namespace Cuentas.Ar.Repository
             }
         }
 
+        public List<Registro> Listar(int idUsuario, DateTime desde, DateTime hasta)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Registro.Include("TipoRegistro").Include("Categoria").Include("SubCategoria").Include("Moneda").Where(x => x.idUsuario == idUsuario && x.Fecha >= desde && x.Fecha <= hasta).ToList();
+            }
+        }
+
         public Registro Obtener(int idRegistro)
         {
             using (var context = new CuentasArEntities())
             {
                 return context.Registro.FirstOrDefault(x => x.idRegistro == idRegistro);
-            }
-        }
-
-        public List<Registro> ListarRegistros(int idUsuario, DateTime desde, DateTime hasta)
-        {
-            using (var context = new CuentasArEntities())
-            {
-                return context.Registro.Where(x => x.idUsuario == idUsuario && x.Fecha >= desde && x.Fecha <= hasta).ToList();
             }
         }
 

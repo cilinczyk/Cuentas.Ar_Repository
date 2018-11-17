@@ -19,8 +19,27 @@
                         <label class="col-md-6 form-control-label">@Model.Categoria.Descripcion</label>
                     </div>
                     <div class="row">
+                        <label class="col-md-4 form-control-label">SubCategoría</label>
+                        @if (Model.idSubCategoria.HasValue)
+                        {
+                            <label class="col-md-6 form-control-label">@Model.SubCategoria.Descripcion</label>
+                        }
+                        else
+                        {
+                            <label class="col-md-6 form-control-label">-</label>
+                        }
+                    </div>
+                    <div class="row">
                         <label class="col-md-4 form-control-label">Estado</label>
                         <label class="col-md-6 form-control-label">@Model.EstadoRecordatorio.Descripcion</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-4 form-control-label">Moneda</label>
+                        <label class="col-md-6 form-control-label">@Model.Moneda.Descripcion</label>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-4 form-control-label">Importe</label>
+                        <label class="col-md-6 form-control-label">@string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", Model.Importe)</label>
                     </div>
                     <div class="row">
                         <label class="col-md-4 form-control-label">F. de Vencimiento</label>

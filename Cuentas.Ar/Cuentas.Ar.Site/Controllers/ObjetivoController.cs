@@ -180,7 +180,7 @@ namespace Cuentas.Ar.Site.Controllers
             #region [Región: Estado]
             var usuarioBusiness = new UsuarioBusiness();
             decimal capAhorro = 0;
-            int mesesRestantes = (int)MonthDifference(objetivo.Fecha, DateTime.Now);
+            int mesesRestantes = (int)MonthDifference(objetivo.FechaVencimiento, DateTime.Now);
 
             decimal unCuarto = (objetivo.Importe * 25 / 100);
             decimal dosCuartos = (objetivo.Importe * 50 / 100);

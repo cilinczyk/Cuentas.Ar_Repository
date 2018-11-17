@@ -19,14 +19,14 @@ namespace Cuentas.Ar.Business
             return repositorio.Listar(filtroRegistro);
         }
 
+        public List<Registro> Listar(int idUsuario, DateTime desde, DateTime hasta)
+        {
+            return repositorio.Listar(idUsuario, desde, hasta);
+        }
+
         public Registro Obtener(int idRegistro)
         {
             return repositorio.Obtener(idRegistro);
-        }
-
-        public List<Registro> ListarRegistros(int idUsuario, DateTime desde, DateTime hasta)
-        {
-            return repositorio.ListarRegistros(idUsuario, desde, hasta);
         }
 
         public decimal ObtenerAhorros(int idUsuario, int idMoneda, DateTime desde, DateTime hasta)

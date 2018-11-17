@@ -12,7 +12,15 @@ namespace Cuentas.Ar.Repository
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Recordatorio.Include("Categoria").Include("EstadoRecordatorio").OrderBy(x => x.Titulo).ToList();
+                return context.Recordatorio.Include("Categoria").Include("EstadoRecordatorio").Include("Moneda").OrderBy(x => x.Titulo).ToList();
+            }
+        }
+
+        public List<Recordatorio> Listar(int idUsuario, DateTime desde, DateTime hasta)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Recordatorio.Include("Categoria").Include("EstadoRecordatorio").Include("Moneda").Where(x => x.idUsuario == idUsuario && x.FechaVencimiento >= desde && x.FechaVencimiento <= hasta).ToList();
             }
         }
 

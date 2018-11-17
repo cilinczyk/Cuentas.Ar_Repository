@@ -32,7 +32,6 @@
                         <div class="col-md-9">
                             <div class="form-group has-default bmd-form-group">
                                 @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "Categoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione una categoría" })
-                                @Html.ValidationMessageFor(model => model.idCategoria)
                             </div>
                         </div>
                     </div>
@@ -41,25 +40,29 @@
                         <div class="col-md-9">
                             <div class="form-group has-default bmd-form-group">
                                 @Html.DropDownListFor(model => model.idSubCategoria, ViewBag.ddl_SubCategoria as SelectList, new { @id = "SubCategoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione una subcategoría" })
-                                @Html.ValidationMessageFor(model => model.idSubCategoria)
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <label class="col-md-3 col-form-label">Estado</label>
+                        <label class="col-md-3 col-form-label">Moneda</label>
                         <div class="col-md-9">
                             <div class="form-group has-default bmd-form-group">
-                                @Html.DropDownListFor(model => model.idEstado, ViewBag.ddl_EstadoRecordatorio as SelectList, new { @id = "EstadoRecordatorio", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione un estado" })
-                                @Html.ValidationMessageFor(model => model.idEstado)
+                                @Html.DropDownListFor(model => model.idMoneda, ViewBag.ddl_Moneda as SelectList, new { @id = "Moneda", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", data_width = "100%", @title = "Seleccione una moneda" })
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <label class="col-md-3 col-form-label">F. de Vencimiento</label>
-                        <div class="col-md-9">
+                        <label class="col-md-3 col-form-label">Importe</label>
+                        <div class="col-md-3">
+                            <div class="form-group bmd-form-group">
+                                @Html.TextBoxFor(model => model.Importe, new { @id = "Importe", @class = "form-control maskMoney" })
+                            </div>
+                        </div>
+
+                        <label class="col-md-2 col-form-label">Fecha</label>
+                        <div class="col-md-4">
                             <div class="form-group has-default bmd-form-group">
                                 @Html.TextBoxFor(model => model.FechaVencimiento, new { @id = "FechaVencimiento", @class = "form-control datepicker" })
-                                @Html.ValidationMessageFor(model => model.FechaVencimiento)
                             </div>
                         </div>
                     </div>
@@ -68,10 +71,10 @@
                         <div class="col-md-9">
                             <div class="form-group bmd-form-group">
                                 @Html.TextAreaFor(model => model.Descripcion, new { @id = "descRecordatorio", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.Descripcion)
                             </div>
                         </div>
                     </div>
+                    @Html.ValidationSummary(false, string.Empty, new { @class = "alert alert-danger mgBottom0" })
                 </div>
             </div>
             <div class="card-footer">
@@ -88,6 +91,7 @@
 <script>
     $(function ($) {
         $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
+        $(".maskMoney").inputmask("currency", { prefix: "", groupSeparator: "", radixPoint: "," });
 
         $.validator.methods.date = function (value, element) {
             return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
