@@ -74,6 +74,7 @@
     <Compile Include="Categoria.cs">
       <DependentUpon>ModeloCuentasAr.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entidades\Auxiliares\Excel\M_Excel.cs" />
     <Compile Include="Entidades\Auxiliares\Objetivo\M_FiltroObjetivo.cs" />
     <Compile Include="Entidades\Auxiliares\Objetivo\M_ListadoRegistro.cs" />
     <Compile Include="Entidades\Auxiliares\Reporte\M_FiltroReporte.cs" />
