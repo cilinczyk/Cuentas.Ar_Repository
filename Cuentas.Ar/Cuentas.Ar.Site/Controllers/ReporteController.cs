@@ -24,6 +24,7 @@ namespace Cuentas.Ar.Site.Controllers
             return View("Listado");
         }
 
+        #region [Región: Reporte Registro]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public FileContentResult Registro(M_FiltroReporte filtroReporte, int idTipoReporte = 1)
@@ -61,6 +62,37 @@ namespace Cuentas.Ar.Site.Controllers
             #endregion
         }
 
+        private byte[] ReporteRegistro(List<M_RegistroExcel> reporte)
+        {
+            try
+            {
+                M_Excel excelNew = new M_Excel();
+                M_Worksheet workSheet = new M_Worksheet
+                {
+                    Header = "Reporte de Registros",
+                    Data = DTHelper.ToDataTable(reporte),
+                };
+
+                workSheet.Columns.Add(new M_Column(0, "TipoRegistro", "Tipo de Registro"));
+                workSheet.Columns.Add(new M_Column(1, "Categoria", "Categoría"));
+                workSheet.Columns.Add(new M_Column(2, "SubCategoria", "SubCategoría"));
+                workSheet.Columns.Add(new M_Column(3, "Moneda", "Moneda"));
+                workSheet.Columns.Add(new M_Column(4, "Importe", "Importe"));
+                workSheet.Columns.Add(new M_Column(5, "Fecha", "Fecha", typeof(DateTime)));
+                workSheet.Columns.Add(new M_Column(6, "Descripcion", "Descripción"));
+
+                excelNew.WorksheetList.Add(workSheet);
+
+                return ExcelExportHelper.ExportExcel(excelNew);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        #region [Región: Reporte Objetivo]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public FileContentResult Objetivo(M_FiltroReporte filtroReporte, int idTipoReporte = 1)
@@ -97,6 +129,37 @@ namespace Cuentas.Ar.Site.Controllers
             #endregion
         }
 
+        private byte[] ReporteObjetivo(List<M_ObjetivoExcel> reporte)
+        {
+            try
+            {
+                M_Excel excelNew = new M_Excel();
+                M_Worksheet workSheet = new M_Worksheet
+                {
+                    Header = "Reporte de Objetivos",
+                    Data = DTHelper.ToDataTable(reporte),
+                };
+
+                workSheet.Columns.Add(new M_Column(0, "Motivo", "Motivo"));
+                workSheet.Columns.Add(new M_Column(1, "EstadoObjetivo", "Estado"));
+                workSheet.Columns.Add(new M_Column(4, "Moneda", "Moneda"));
+                workSheet.Columns.Add(new M_Column(5, "Importe", "Importe"));
+                workSheet.Columns.Add(new M_Column(6, "FechaVencimiento", "Fecha de Vencimiento", typeof(DateTime)));
+                workSheet.Columns.Add(new M_Column(7, "Descripcion", "Descripción"));
+
+                excelNew.WorksheetList.Add(workSheet);
+
+                return ExcelExportHelper.ExportExcel(excelNew);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
+        #region [Región: Reporte Recordatorio]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public FileContentResult Recordatorio(M_FiltroReporte filtroReporte, int idTipoReporte = 1)
@@ -135,63 +198,6 @@ namespace Cuentas.Ar.Site.Controllers
             #endregion
         }
 
-        private byte[] ReporteRegistro(List<M_RegistroExcel> reporte)
-        {
-            try
-            {
-                M_Excel excelNew = new M_Excel();
-                M_Worksheet workSheet = new M_Worksheet
-                {
-                    Header = "Reporte de Registros",
-                    Data = DTHelper.ToDataTable(reporte),
-                };
-
-                workSheet.Columns.Add(new M_Column(0, "TipoRegistro", "Tipo de Registro"));
-                workSheet.Columns.Add(new M_Column(1, "Categoria", "Categoría"));
-                workSheet.Columns.Add(new M_Column(2, "SubCategoria", "SubCategoría"));
-                workSheet.Columns.Add(new M_Column(3, "Moneda", "Moneda"));
-                workSheet.Columns.Add(new M_Column(4, "Importe", "Importe"));
-                workSheet.Columns.Add(new M_Column(5, "Fecha", "Fecha", typeof(DateTime)));
-                workSheet.Columns.Add(new M_Column(6, "Descripcion", "Descripción"));
-
-                excelNew.WorksheetList.Add(workSheet);
-
-                return ExcelExportHelper.ExportExcel(excelNew);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        private byte[] ReporteObjetivo(List<M_ObjetivoExcel> reporte)
-        {
-            try
-            {
-                M_Excel excelNew = new M_Excel();
-                M_Worksheet workSheet = new M_Worksheet
-                {
-                    Header = "Reporte de Objetivos",
-                    Data = DTHelper.ToDataTable(reporte),
-                };
-
-                workSheet.Columns.Add(new M_Column(0, "Motivo", "Motivo"));
-                workSheet.Columns.Add(new M_Column(1, "EstadoObjetivo", "Estado"));
-                workSheet.Columns.Add(new M_Column(4, "Moneda", "Moneda"));
-                workSheet.Columns.Add(new M_Column(5, "Importe", "Importe"));
-                workSheet.Columns.Add(new M_Column(6, "FechaVencimiento", "Fecha de Vencimiento", typeof(DateTime)));
-                workSheet.Columns.Add(new M_Column(7, "Descripcion", "Descripción"));
-
-                excelNew.WorksheetList.Add(workSheet);
-
-                return ExcelExportHelper.ExportExcel(excelNew);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
         private byte[] ReporteRecordatorio(List<M_RecordatorioExcel> reporte)
         {
             try
@@ -221,5 +227,6 @@ namespace Cuentas.Ar.Site.Controllers
                 throw ex;
             }
         }
+        #endregion
     }
 }
