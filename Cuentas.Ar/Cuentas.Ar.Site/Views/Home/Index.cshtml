@@ -6,31 +6,33 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="card ">
-                <div class="card-header card-header-rose card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">contacts</i>
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">account_balance</i>
+                        </div>
+                        <h4 class="card-title">Resumen de Cuentas</h4>
                     </div>
-                    <h4 class="card-title">Resumen</h4>
-                </div>
-                <div class="card-body ">
-                    <div class="row col-md-12">
-                        <div class="col-md-3">
-                            <label class="col-form-label">Usuario: Cristian Ilincyk</label>
-                            <br />
-                            <label class="col-form-label">Saldo Actual: $ 10.000</label>
-                        </div>
+                    <div class="card-body ">
+                        <div class="row col-md-12">
+                            <div class="col-md-3">
+                                <label class="col-form-label">Usuario: Cristian Ilincyk</label>
+                                <br />
+                                <label class="col-form-label">Saldo Actual: $ 10.000</label>
+                            </div>
 
-                        <div class="col-md-3">
-                            <label class="col-form-label">Cuenta: Premium</label>
-                            <br />
-                            <label class="col-form-label">Ingresos: $ 50.000</label>
-                        </div>
+                            <div class="col-md-3">
+                                <label class="col-form-label">Cuenta: Premium</label>
+                                <br />
+                                <label class="col-form-label">Ingresos: $ 50.000</label>
+                            </div>
 
-                        <div class="col-md-3">
-                            <label class="col-form-label">Estado: Muy Bueno</label>
-                            <br />
-                            <label class="col-form-label">Egresos: $ 40.000</label>
+                            <div class="col-md-3">
+                                <label class="col-form-label">Estado: Muy Bueno</label>
+                                <br />
+                                <label class="col-form-label">Egresos: $ 40.000</label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,48 +40,40 @@
         </div>
 
         <div class="row">
-            <div class="card ">
-                <div class="card-header card-header-rose card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">contacts</i>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">insert_chart</i>
+                        </div>
+                        <h4 class="card-title">Flujo de Dinero</h4>
                     </div>
-                    <h4 class="card-title">Búsqueda</h4>
-                </div>
-                <div class="card-body ">
-                    <form class="form-horizontal">
-                        <div class="row">
-                            <div class="col-md-4">
-
-                            </div>
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <label class="col-md-3 col-form-label">Fecha Desde</label>
-                                    <div class="col-md-9">
-                                        <div class="form-group has-default bmd-form-group">
-                                            @Html.TextBoxFor(model => model.FechaDesde, new { @id = "fechaDesde", @class = "form-control datepicker" })
-                                            @Html.ValidationMessageFor(model => model.FechaDesde)
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-md-3 col-form-label">Fecha Hasta</label>
-                                    <div class="col-md-9">
-                                        <div class="form-group has-default bmd-form-group">
-                                            @Html.TextBoxFor(model => model.FechaHasta, new { @id = "fechaHasta", @class = "form-control datepicker" })
-                                            @Html.ValidationMessageFor(model => model.FechaHasta)
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-
+                    <div class="card-body ">
+                        <div id="GraficoPolizasHome" style="display:none;">
+                            <div class="">
+                                <div class="loadingCenter"></div>
+                                <canvas id="ChartPolizas" height="200"></canvas>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <div class="pull-center">
-                        <button type="submit" class="btn btn-fill btn-primary">Guardar</button>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">insert_chart</i>
+                        </div>
+                        <h4 class="card-title">Flujo del Mes</h4>
+                    </div>
+                    <div class="card-body ">
+                        <div id="GraficoFlujo" style="display:none;">
+                            <div class="">
+                                <div class="loadingCenter"></div>
+                                <canvas id="ChartFlujo" height="200"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,14 +81,105 @@
     </div>
 </div>
 
+<script src="~/Scripts/Chart.min.js"></script>
 <script src="~/Scripts/moment.js"></script>
 <script src="~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
 <script>
     $(function ($) {
+        $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
+
         $.validator.methods.date = function (value, element) {
             return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
         }
-    });
 
-    $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
+        $.ajax({
+            url: "/Home/RefrescarGraficoRegistros",
+            type: "POST",
+            success: function (result) {
+                if (result.data.success) {
+                    $("#GraficoPolizasHome").fadeIn();
+                    $("#GraficoPolizasHome .loadingCenter").hide();
+                    var ctx2 = document.getElementById("ChartPolizas").getContext('2d');
+                    var myChart2 = new Chart(ctx2, {
+                        type: 'horizontalBar',
+                        options:
+                            {
+                                legend: {
+                                    display: false,
+                                },
+                                "scales":
+                                    {
+                                        "xAxes": [
+                                            {
+                                                gridLines: { display: false },
+                                                "ticks": {
+                                                    "beginAtZero": true
+                                                }
+                                            }],
+                                        "yAxes": [
+                                            {
+                                                gridLines: { display: false }
+                                            }]
+                                    }
+                            },
+                        data:
+                            {
+                                labels: result.data.labels,
+                                datasets: [{
+                                    //label: "Pólizas",
+                                    data: result.data.data,
+                                    backgroundColor: [
+                                        'rgb(40,203,124)',
+                                        'rgb(244, 67, 54)',
+                                        'rgb(255, 167, 38)'
+
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            }
+                    });
+                }
+                else {
+                    $("#GraficoPolizasHome").hide();
+                }
+            }
+        });
+
+        $.ajax({
+            url: "/Home/RefrescarGraficoFlujo",
+            type: "POST",
+            success: function (result) {
+                if (result.data.success) {
+                    $("#GraficoFlujo").fadeIn();
+                    $("#GraficoFlujo .loadingCenter").hide();
+                    var ctx2 = document.getElementById("ChartFlujo").getContext('2d');
+                    var myChart3 = new Chart(ctx2, {
+                        type: 'line',
+                        options:
+                            {
+                                legend: {
+                                    display: false,
+                                },
+                            },
+                        data:
+                            {
+                                labels: result.data.labels,
+                                datasets: [{
+                                    data: result.data.data,
+                                    backgroundColor: [
+                                        'rgb(40,203,124)',
+                                        'rgb(244, 67, 54)',
+                                        'rgb(255, 167, 38)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            }
+                    });
+                }
+                else {
+                    $("#GraficoFlujo").hide();
+                }
+            }
+        });
+    });
 </script>
