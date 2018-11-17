@@ -68,6 +68,8 @@ namespace Cuentas.Ar.Repository
                     context.Entry(model).Property(x => x.idEstado).IsModified = true;
                     context.Entry(model).Property(x => x.idCategoria).IsModified = true;
                     context.Entry(model).Property(x => x.idSubCategoria).IsModified = true;
+                    context.Entry(model).Property(x => x.idMoneda).IsModified = true;
+                    context.Entry(model).Property(x => x.Importe).IsModified = true;
                     context.Entry(model).Property(x => x.Titulo).IsModified = true;
                     context.Entry(model).Property(x => x.Descripcion).IsModified = true;
                     context.Entry(model).Property(x => x.FechaVencimiento).IsModified = true;

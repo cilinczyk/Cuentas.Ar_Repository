@@ -7,6 +7,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using Cuentas.Ar.Business;
 using Cuentas.Ar.Entities;
+using Cuentas.Ar.Site.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -47,6 +48,7 @@ namespace Cuentas.Ar.Site.Controllers
                     {
                         //Si el usuario existe, cargo los datos en sesion.
                         Usuario usuario = usuarioBusiness.IniciarSesion(model.Mail, Crypto.SHA1(model.Password));
+
                         if (usuario != null)
                         {
                             #region [Región: Usuario existente]
@@ -70,15 +72,17 @@ namespace Cuentas.Ar.Site.Controllers
 
                             #endregion
 
+                            #region [Región: Actualizar Objetivos]
+                            ObjetivoHelper.ActualizarObjetivos(usuario.idUsuario);
+                            #endregion
+
                             return RedirectToLocal(returnUrl);
                             #endregion
                         }
                         else
                         {
                             #region [Región: Usuario incorrecto]
-
                             ModelState.AddModelError("EstadoLogin", "La contraseña ingresada es incorrecta.");
-
                             #endregion
                         }
                     }

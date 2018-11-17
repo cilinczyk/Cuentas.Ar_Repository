@@ -68,7 +68,7 @@
                                                 <td class="text-right">
                                                     @Html.NoEncodeActionLink("<i class='material-icons'>dvr</i>", "Detalle", "Detalle", "Registro", routeValues: new { idRegistro = @item.idRegistro }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-warning btn-just-icon edit" })
                                                     @Html.NoEncodeActionLink("<i class='material-icons'>edit</i>", "Modificar", "Edicion", "Registro", routeValues: new { idRegistro = @item.idRegistro }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-info btn-just-icon like" })
-                                                    @Html.NoEncodeActionLink("<i class='material-icons'>close</i>", "Eliminar", "Baja", "Registro", routeValues: new { idRegistro = @item.idRegistro, tipoRegistro = @item.TipoRegistro.Descripcion, importe = @item.Importe  }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-danger btn-just-icon remove" })
+                                                    @Html.NoEncodeActionLink("<i class='material-icons'>close</i>", "Eliminar", "Baja", "Registro", routeValues: new { idRegistro = @item.idRegistro, idCategoria = @item.idCategoria, tipoRegistro = @item.TipoRegistro.Descripcion, importe = @item.Importe  }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-danger btn-just-icon remove" })
                                                 </td>
                                             </tr>
                                                 }

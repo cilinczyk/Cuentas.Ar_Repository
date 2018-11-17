@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Web.Mvc;
 using Cuentas.Ar.Business;
 using Cuentas.Ar.Entities;
+using Cuentas.Ar.Site.Helpers;
 
 namespace Cuentas.Ar.Site.Controllers
 {
@@ -61,8 +62,16 @@ namespace Cuentas.Ar.Site.Controllers
 
                     #region [Región: Alta de Registro]
                     model.idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+
                     registroBusiness.Guardar(model);
                     #endregion
+
+                    if (model.idCategoria == eCategoria.Ahorros)
+                    {
+                        #region [Región: Actualizar Objetivos]
+                        ObjetivoHelper.ActualizarObjetivos(model.idUsuario);
+                        #endregion
+                    }
 
                     string url = Url.Action("ListaParcial", "Registro");
                     return Json(new { success = true, url });
@@ -98,7 +107,13 @@ namespace Cuentas.Ar.Site.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    #region [Región: Edición de Registro]
                     new RegistroBusiness().Modificar(model);
+                    #endregion
+
+                    #region [Región: Actualizar Objetivos]
+                    ObjetivoHelper.ActualizarObjetivos(model.idUsuario);
+                    #endregion
 
                     string url = Url.Action("ListaParcial", "Registro");
                     return Json(new { success = true, url });
@@ -115,9 +130,10 @@ namespace Cuentas.Ar.Site.Controllers
         #endregion
 
         #region [Región: Baja de Registro]
-        public ActionResult Baja(int idRegistro, string tipoRegistro, decimal importe)
+        public ActionResult Baja(int idRegistro, int idCategoria, string tipoRegistro, decimal importe)
         {
             ViewBag.idRegistro = idRegistro;
+            ViewBag.idCategoria = idCategoria;
             ViewBag.TipoRegistro = tipoRegistro;
             ViewBag.Importe = importe;
 
@@ -127,11 +143,19 @@ namespace Cuentas.Ar.Site.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public ActionResult Baja(int idRegistro)
+        public ActionResult Baja(int idRegistro, int idCategoria)
         {
             try
             {
                 new RegistroBusiness().Eliminar(idRegistro);
+
+                if (idCategoria == eCategoria.Ahorros)
+                {
+                    #region [Región: Actualizar Objetivos]
+                    var idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+                    ObjetivoHelper.ActualizarObjetivos(idUsuario);
+                    #endregion
+                }
 
                 string url = Url.Action("ListaParcial", "Registro");
                 return Json(new { success = true, url });

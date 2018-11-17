@@ -29,6 +29,11 @@ namespace Cuentas.Ar.Business
             return repositorio.Listar(idUsuario, desde, hasta);
         }
 
+        public List<Objetivo> ListarEnCurso(int idUsuario)
+        {
+            return repositorio.ListarEnCurso(idUsuario);
+        }
+
         public Objetivo ObtenerCompleto(int idObjetivo)
         {
             return repositorio.ObtenerCompleto(idObjetivo);
@@ -52,6 +57,11 @@ namespace Cuentas.Ar.Business
         public void ActualizarEstados(int idUsuario)
         {
             repositorio.ActualizarEstados(idUsuario);
+        }
+
+        public void ActualizarEstado(Objetivo model)
+        {
+            repositorio.ActualizarEstado(model);
         }
     }
 }

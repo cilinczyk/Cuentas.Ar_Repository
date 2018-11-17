@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Web.Mvc;
 using Cuentas.Ar.Business;
 using Cuentas.Ar.Entities;
+using Cuentas.Ar.Site.Helpers;
 
 namespace Cuentas.Ar.Site.Controllers
 {
@@ -69,7 +70,7 @@ namespace Cuentas.Ar.Site.Controllers
 
                     #region [Región: Alta de Objetivo]
                     model.idUsuario = idUsuario;
-                    model.idEstadoObjetivo = ObtenerEstadoObjetivo(model);
+                    model.idEstadoObjetivo = ObjetivoHelper.ObtenerEstadoObjetivo(model);
 
                     objetivoBusiness.Guardar(model);
                     #endregion
@@ -110,7 +111,7 @@ namespace Cuentas.Ar.Site.Controllers
                 {
                     #region [Región: Edición de Objetivo]
                     var objetivoBusiness = new ObjetivoBusiness();
-                    model.idEstadoObjetivo = ObtenerEstadoObjetivo(model);
+                    model.idEstadoObjetivo = ObjetivoHelper.ObtenerEstadoObjetivo(model);
 
                     objetivoBusiness.Modificar(model);
                     #endregion
@@ -167,53 +168,6 @@ namespace Cuentas.Ar.Site.Controllers
         #endregion
 
         #region [Región: Auxiliares]
-        private decimal MonthDifference(DateTime FechaFin, DateTime FechaInicio)
-        {
-            return Math.Abs((FechaFin.Month - FechaInicio.Month) + 12 * (FechaFin.Year - FechaInicio.Year));
-
-        }
-
-        private int ObtenerEstadoObjetivo(Objetivo objetivo)
-        {
-            var objetivoBusiness = new ObjetivoBusiness();
-
-            #region [Región: Estado]
-            var usuarioBusiness = new UsuarioBusiness();
-            decimal capAhorro = 0;
-            int mesesRestantes = (int)MonthDifference(objetivo.FechaVencimiento, DateTime.Now);
-
-            decimal unCuarto = (objetivo.Importe * 25 / 100);
-            decimal dosCuartos = (objetivo.Importe * 50 / 100);
-            decimal tresCuartos = (objetivo.Importe * 75 / 100);
-
-            if (objetivo.idMoneda == eMoneda.Pesos)
-            {
-                capAhorro = usuarioBusiness.Obtener(objetivo.idUsuario).CapacidadAhorroPesos * mesesRestantes;
-            }
-            else
-            {
-                capAhorro = usuarioBusiness.Obtener(objetivo.idUsuario).CapacidadAhorroDolares * mesesRestantes;
-            }
-
-            if (capAhorro >= 0 && capAhorro <= unCuarto)
-            {
-                return eEstadoObjetivo.Imposible;
-            }
-            else if (capAhorro > unCuarto && capAhorro <= dosCuartos)
-            {
-                return eEstadoObjetivo.Complicado;
-            }
-            else if (capAhorro > dosCuartos && capAhorro <= tresCuartos)
-            {
-                return eEstadoObjetivo.Posible;
-            }
-            else
-            {
-                return eEstadoObjetivo.Excelente;
-            }
-            #endregion
-        }
-
         private void CargarCombos()
         {
             ViewBag.ddl_EstadoObjetivo = new SelectList(new EstadoObjetivoBusiness().Listar(), "idEstadoObjetivo", "Descripcion");

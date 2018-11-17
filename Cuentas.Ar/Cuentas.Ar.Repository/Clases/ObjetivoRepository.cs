@@ -28,6 +28,14 @@ namespace Cuentas.Ar.Repository
             }
         }
 
+        public List<Objetivo> ListarEnCurso(int idUsuario)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Objetivo.Where(x => x.idUsuario == idUsuario && x.idEstadoObjetivo != eEstadoObjetivo.Finalizado).ToList();
+            }
+        }
+
         public Objetivo Obtener(int idObjetivo)
         {
             using (var context = new CuentasArEntities())
@@ -145,7 +153,23 @@ namespace Cuentas.Ar.Repository
             {
                 using (var context = new CuentasArEntities())
                 {
-                    context.Objetivo.Where(x => x.idObjetivo == idUsuario && x.FechaVencimiento < DateTime.Now && x.idEstadoObjetivo != eEstadoObjetivo.Finalizado).Update(x => new Objetivo() { idEstadoObjetivo = eEstadoObjetivo.Finalizado });
+                    context.Objetivo.Where(x => x.idUsuario == idUsuario && x.FechaVencimiento < DateTime.Now && x.idEstadoObjetivo != eEstadoObjetivo.Finalizado).Update(x => new Objetivo() { idEstadoObjetivo = eEstadoObjetivo.Finalizado });
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("No se puede actualizar el registro.", ex);
+            }
+        }
+
+        public void ActualizarEstado(Objetivo model)
+        {
+            try
+            {
+                using (var context = new CuentasArEntities())
+                {
+                    context.Objetivo.Where(x => x.idObjetivo == model.idObjetivo).Update(x => new Objetivo() { idEstadoObjetivo = model.idEstadoObjetivo });
                     context.SaveChanges();
                 }
             }
