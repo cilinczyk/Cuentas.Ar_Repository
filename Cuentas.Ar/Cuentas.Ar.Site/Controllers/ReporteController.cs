@@ -24,65 +24,52 @@ namespace Cuentas.Ar.Site.Controllers
             return View("Listado");
         }
 
-        public FileContentResult Registro()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public FileContentResult Registro(M_FiltroReporte filtroReporte, int idTipoReporte = 1)
         {
             #region [Región: Obtener Reporte]
-            RPT_Reportes report = TempData["Reporte"] as RPT_Reportes;
-            report.ReporteBase.idOrganizador = UsuarioLogin.GetOrganizadorID();
-            RPT_Reporte rptReporte = _reporteBusiness.ObtenerPorId(report.ReporteBase.id_Reporte);
+            var registroBusiness = new RegistroBusiness();
 
-            Type tipo = typeof(RPT_ReporteBusiness);
-            object classInstance = Activator.CreateInstance(tipo, null);
-            object[] parametersArray = new object[] { report };
-            dynamic reporteResultado = tipo.GetMethod(rptReporte.NombreReporte).Invoke(classInstance, parametersArray);
+            int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+            var reporte = registroBusiness.ListarRegistros(idUsuario, filtroReporte.FechaDesde ?? DateTime.Now.AddYears(-10), DateTime.Now.AddYears(10));
             #endregion
 
-            rptReporte.Titulo = this.ComponerTitulo(rptReporte, report);
-
-            if (report.ReporteBase.id_TipoExport == 1)
+            //if (idTipoReporte == 1)
+            //{
+            #region [Región: Parsear Registro - Excel]
+            List<M_RegistroExcel> listaRegistroExcel = new List<M_RegistroExcel>();
+            foreach (var item in reporte)
             {
-                #region [Región: Exportar Excel]
-                Type tipoExcel = typeof(ExportarReporteExcel);
-                object classInstanceExcel = Activator.CreateInstance(tipoExcel, null);
-                object[] parametersArrayExcel = new object[] { reporteResultado, rptReporte.Titulo };
-                byte[] filecontent = (byte[])tipoExcel.GetMethod(rptReporte.NombreReporte).Invoke(classInstanceExcel, parametersArrayExcel);
-
-                stopWatch.Stop();
-                tiempoTranscurrido = stopWatch.Elapsed;
-
-                #region [Región: Logueo el movimiento en la bitacora]
-                string observacionesReporte = string.Empty;
-                RPT_ReporteSerializable reporteDetalleFiltro = this.ComponerMensaje(rptReporte.NombreReporte, report);
-
-                if (reporteDetalleFiltro != null)
+                M_RegistroExcel registroExcel = new M_RegistroExcel
                 {
-                    reporteDetalleFiltro.NombreReporte = rptReporte.NombreReporte;
-                    reporteDetalleFiltro.TituloReporte = rptReporte.Titulo;
-                    observacionesReporte = ClasesHelper.Serialize(reporteDetalleFiltro);
-                }
+                    Importe = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", item.Importe),
+                    Fecha = item.Fecha.ToShortDateString()
+                };
 
-                _logBitacoraBusiness.Guardar(
-                _builderBitacora.Build()
-                    .With(x => x.Descripcion = "Se descargo el Excel " + rptReporte.Titulo + " (" + rptReporte.NombreReporte + "). Tiempo: " + tiempoTranscurrido.ToString(@"mm\:ss\.ff"))
-                    .With(x => x.id_TipoMovimiento = 315)
-                    .With(x => x.Observacion = observacionesReporte)
-                    .Create());
-                #endregion
-
-                return File(filecontent, ExcelExportHelper.ExcelContentType, string.Format("{0}.xlsx", FormatoStringHelper.CleanString(rptReporte.Titulo)));
-                #endregion
+                listaRegistroExcel.Add(registroExcel);
             }
+            #endregion
+
+            #region [Región: Exportar Excel]
+            byte[] filecontent = ReporteRegistro(listaRegistroExcel);
+
+                return File(filecontent, ExcelExportHelper.ExcelContentType, string.Format("{0}.xlsx", "MisCuentasReporte_Registros"));
+                #endregion
+            //}
         }
 
-        public byte[] ReporteRegistro(List<Registro> reporte)
+        private byte[] ReporteRegistro(List<M_RegistroExcel> reporte)
         {
             try
             {
                 M_Excel excelNew = new M_Excel();
-                M_Worksheet workSheet = new M_Worksheet();
+                M_Worksheet workSheet = new M_Worksheet
+                {
+                    Header = "Reporte de Registros",
+                    Data = DTHelper.ToDataTable(reporte),
+                };
 
-                workSheet.Header = "Registros";
-                workSheet.Data = DTHelper.ToDataTable(reporte);
                 workSheet.Columns.Add(new M_Column(0, "Importe", "Importe"));
                 workSheet.Columns.Add(new M_Column(1, "Fecha", "Fecha", typeof(DateTime)));
 

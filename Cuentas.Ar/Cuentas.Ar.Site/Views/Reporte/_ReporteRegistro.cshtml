@@ -1,6 +1,6 @@
 ﻿@model Cuentas.Ar.Entities.M_FiltroReporte
 
-@using (Html.BeginForm("Regristro", "Reporte", FormMethod.Post, new { id = "reporteRegistroForm", role = "form" }))
+@using (Html.BeginForm("Registro", "Reporte", FormMethod.Post, new { id = "reporteRegistroForm", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

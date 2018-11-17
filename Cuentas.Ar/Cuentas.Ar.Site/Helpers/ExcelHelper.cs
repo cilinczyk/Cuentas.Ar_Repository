@@ -60,8 +60,6 @@ namespace Cuentas.Ar.Site.Helpers
 
                         if (column != null)
                         {
-                            ////Se utiliza un metodo optimo(burbujeo) para el ordenamiento, no sort porque no esta permitido en DataTablesColumns. Ver en la siguiente sentencia
-                            ////clonedtable.Columns[columna].SetOrdinal(column.Position);
                             clonedtable.Columns[columna].ColumnName = column.NewName;
                         }
                         else
@@ -96,7 +94,6 @@ namespace Cuentas.Ar.Site.Helpers
                                 clonedtable.Rows[row].SetField(col, item.Columns.FirstOrDefault(x => x.Position == col).EmptyValue);
                             }
 
-                            ////Linea que convierte toda celda a texto plano, ya que podemos recibir formato HTML
                             if (!string.IsNullOrEmpty(clonedtable.Rows[row].ItemArray[col].ToString()) && clonedtable.Columns[col].DataType.Name == "String")
                             {
                                 clonedtable.Rows[row].SetField(col, HtmlToPlainText(clonedtable.Rows[row].ItemArray[col].ToString()));
@@ -105,7 +102,6 @@ namespace Cuentas.Ar.Site.Helpers
                     }
                     #endregion
 
-                    // add the content into the Excel file  
                     workSheet.Cells["A" + startRowFrom].LoadFromDataTable(clonedtable, true);
 
                     #region [Región: Format Header]
