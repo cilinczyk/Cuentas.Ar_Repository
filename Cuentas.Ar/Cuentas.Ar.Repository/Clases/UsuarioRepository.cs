@@ -96,7 +96,7 @@ namespace Cuentas.Ar.Repository
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Usuario.FirstOrDefault(x => x.idUsuario == idUsuario);
+                return context.Usuario.Include("Registro").FirstOrDefault(x => x.idUsuario == idUsuario);
             }
         }
 

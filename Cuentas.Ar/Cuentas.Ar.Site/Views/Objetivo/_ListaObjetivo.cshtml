@@ -61,7 +61,7 @@
                                                 <td class="sorting_1">@item.EstadoObjetivo.Descripcion</td>
                                                 <td>@string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", item.Importe)</td>
                                                 <td>@item.Moneda.Descripcion</td>
-                                                <td>@item.Fecha.ToShortDateString()</td>
+                                                <td>@item.FechaVencimiento.ToShortDateString()</td>
                                                 <td class="text-right">
                                                     @Html.NoEncodeActionLink("<i class='material-icons'>dvr</i>", "Detalle", "Detalle", "Objetivo", routeValues: new { idObjetivo = @item.idObjetivo }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-warning btn-just-icon edit" })
                                                     @Html.NoEncodeActionLink("<i class='material-icons'>edit</i>", "Modificar", "Edicion", "Objetivo", routeValues: new { idObjetivo = @item.idObjetivo }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-info btn-just-icon like" })
