@@ -19,6 +19,14 @@ namespace Cuentas.Ar.Repository
             }
         }
 
+        public List<Registro> Listar(int idUsuario)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Registro.Where(x => x.idUsuario == idUsuario).ToList();
+            }
+        }
+
         public List<Registro> Listar(int idUsuario, DateTime desde, DateTime hasta)
         {
             using (var context = new CuentasArEntities())

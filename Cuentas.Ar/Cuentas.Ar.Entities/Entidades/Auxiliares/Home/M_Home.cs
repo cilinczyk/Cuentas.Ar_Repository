@@ -9,17 +9,20 @@ namespace Cuentas.Ar.Entities
 {
     public class M_Home
     {
-        public decimal SaldoActual { get; set; }
-        public decimal Ingresos { get; set; }
-        public decimal Egresos { get; set; }
-        public decimal Ahorros { get; set; }
+        public string Usuario { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public string TipoCuenta { get; set; }
+
+        public string SaldoPesos { get; set; }
+
+        public string SaldoDolares { get; set; }
+
+        public string AhorrosPesos { get; set; }
+
+        public string AhorrosDolares { get; set; }
+
         public DateTime FechaDesde { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FechaHasta { get; set; }
     }
 }

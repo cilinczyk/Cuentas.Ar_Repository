@@ -19,6 +19,11 @@ namespace Cuentas.Ar.Business
             return repositorio.Listar(filtroRegistro);
         }
 
+        public List<Registro> Listar(int idUsuario)
+        {
+            return repositorio.Listar(idUsuario);
+        }
+
         public List<Registro> Listar(int idUsuario, DateTime desde, DateTime hasta)
         {
             return repositorio.Listar(idUsuario, desde, hasta);
