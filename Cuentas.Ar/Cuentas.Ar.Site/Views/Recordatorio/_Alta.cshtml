@@ -31,7 +31,7 @@
                         <label class="col-md-3 col-form-label">Categoría</label>
                         <div class="col-md-9">
                             <div class="form-group has-default bmd-form-group">
-                                @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "Categoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione una categoría" })
+                                @Html.DropDownListFor(model => model.idCategoria, ViewBag.ddl_Categoria as SelectList, new { @id = "idCategoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione una categoría" })
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <label class="col-md-3 col-form-label">SubCategoría</label>
                         <div class="col-md-9">
                             <div class="form-group has-default bmd-form-group">
-                                @Html.DropDownListFor(model => model.idSubCategoria, ViewBag.ddl_SubCategoria as SelectList, new { @id = "SubCategoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", @title = "Seleccione una subcategoría" })
+                                @Html.DropDownListFor(model => model.idSubCategoria, ViewBag.ddl_SubCategoria as SelectList, new { @id = "idSubCategoria", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", data_width = "100%", @data_live_search = "true", @data_size = "5", @title = "Seleccione una subcategoría", disabled = "disabled" })
                             </div>
                         </div>
                     </div>

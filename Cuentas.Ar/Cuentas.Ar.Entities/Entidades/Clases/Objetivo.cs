@@ -24,6 +24,6 @@ namespace Cuentas.Ar.Entities
         public decimal Importe { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar una fecha.")]
-        public System.DateTime Fecha { get; set; }
+        public System.DateTime FechaVencimiento { get; set; }
     }
 }
