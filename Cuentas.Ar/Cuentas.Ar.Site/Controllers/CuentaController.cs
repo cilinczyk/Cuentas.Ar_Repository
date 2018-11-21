@@ -83,6 +83,11 @@ namespace Cuentas.Ar.Site.Controllers
                             foreach (var item in listaRecordatorios)
                             {
                                 item.idEstado = eEstadoRecordatorio.Vencido;
+                                item.Moneda = null;
+                                item.Categoria = null;
+                                item.SubCategoria = null;
+                                item.Usuario = null;
+                                item.EstadoRecordatorio = null;
 
                                 recordatorioBusiness.Modificar(item);
                             }
