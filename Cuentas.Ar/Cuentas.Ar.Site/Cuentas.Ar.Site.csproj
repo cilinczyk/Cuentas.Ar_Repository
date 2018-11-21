@@ -993,6 +993,7 @@
     <Content Include="Content\DataTables\Buttons-1.5.4\css\common.scss" />
     <Content Include="Content\DataTables\Buttons-1.5.4\css\mixins.scss" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-select.css.map" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\inputmask.dependencyLib.jquery.js" />
     <Content Include="Scripts\inputmask\bindings\inputmask.binding.js" />

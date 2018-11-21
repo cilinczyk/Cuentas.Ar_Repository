@@ -1,6 +1,6 @@
 ﻿
 <div class="col-md-12">
-    @using (Html.BeginForm("Baja", "SubCategoria", new { idCategoria = ViewData["idSubCategoria"] } , FormMethod.Post, new { id = "subCategoriaForm", role = "form" }))
+    @using (Html.BeginForm("Baja", "SubCategoria", new { idSubCategoria = ViewData["idSubCategoria"] } , FormMethod.Post, new { id = "subCategoriaForm", role = "form" }))
     {
         @Html.AntiForgeryToken()
 

@@ -20,7 +20,7 @@ namespace Cuentas.Ar.Repository
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Recordatorio.Include("Categoria").Include("EstadoRecordatorio").Include("Moneda").Where(x => x.idUsuario == idUsuario && x.FechaVencimiento >= desde && x.FechaVencimiento <= hasta).ToList();
+                return context.Recordatorio.Include("Categoria").Include("SubCategoria").Include("EstadoRecordatorio").Include("Moneda").Where(x => x.idUsuario == idUsuario && x.FechaVencimiento >= desde && x.FechaVencimiento <= hasta).ToList();
             }
         }
 
@@ -36,7 +36,7 @@ namespace Cuentas.Ar.Repository
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Recordatorio.Include("Categoria").Include("EstadoRecordatorio").FirstOrDefault(x => x.idRecordatorio == idRecordatorio);
+                return context.Recordatorio.Include("Categoria").Include("SubCategoria").Include("EstadoRecordatorio").Include("Moneda").FirstOrDefault(x => x.idRecordatorio == idRecordatorio);
             }
         }
 

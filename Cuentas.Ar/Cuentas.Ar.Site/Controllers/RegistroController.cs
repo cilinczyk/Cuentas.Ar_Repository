@@ -63,6 +63,15 @@ namespace Cuentas.Ar.Site.Controllers
                     #region [Región: Alta de Registro]
                     model.idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
 
+                    if (model.idCategoria != eCategoria.Ahorros)
+                    {
+                        model.idTipoCuentaBancaria = 1; // Virtual
+                    }
+                    else
+                    {
+                        model.idTipoCuentaBancaria = 2; // Cuenta Corriente
+                    }
+
                     registroBusiness.Guardar(model);
                     #endregion
 
@@ -108,12 +117,24 @@ namespace Cuentas.Ar.Site.Controllers
                 if (ModelState.IsValid)
                 {
                     #region [Región: Edición de Registro]
+                    if (model.idCategoria != eCategoria.Ahorros)
+                    {
+                        model.idTipoCuentaBancaria = 1; // Virtual
+                    }
+                    else
+                    {
+                        model.idTipoCuentaBancaria = 2; // Cuenta Corriente
+                    }
+
                     new RegistroBusiness().Modificar(model);
                     #endregion
 
-                    #region [Región: Actualizar Objetivos]
-                    ObjetivoHelper.ActualizarObjetivos(model.idUsuario);
-                    #endregion
+                    if (model.idCategoria == eCategoria.Ahorros)
+                    {
+                        #region [Región: Actualizar Objetivos]
+                        ObjetivoHelper.ActualizarObjetivos(model.idUsuario);
+                        #endregion
+                    }
 
                     string url = Url.Action("ListaParcial", "Registro");
                     return Json(new { success = true, url });

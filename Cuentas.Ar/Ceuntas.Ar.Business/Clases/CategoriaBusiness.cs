@@ -13,6 +13,14 @@ namespace Cuentas.Ar.Business
             this.repositorio = new CategoriaRepository();
         }
 
+        public CategoriaRepository CategoriaRepository
+        {
+            get => default(CategoriaRepository);
+            set
+            {
+            }
+        }
+
         public List<Categoria> Listar(int idUsuario)
         {
             return repositorio.Listar(idUsuario);

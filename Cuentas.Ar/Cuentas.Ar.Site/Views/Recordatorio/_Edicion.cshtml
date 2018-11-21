@@ -54,6 +54,14 @@
                         </div>
                     </div>
                     <div class="row">
+                        <label class="col-md-3 col-form-label">Moneda</label>
+                        <div class="col-md-9">
+                            <div class="form-group has-default bmd-form-group">
+                                @Html.DropDownListFor(model => model.idMoneda, ViewBag.ddl_Moneda as SelectList, new { @id = "Moneda", @class = "selectpicker col-md-12", @data_style = "btn btn-primary btn-sm", data_width = "100%", @title = "Seleccione una moneda" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <label class="col-md-3 col-form-label">Importe</label>
                         <div class="col-md-3">
                             <div class="form-group bmd-form-group">

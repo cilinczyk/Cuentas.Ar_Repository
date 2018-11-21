@@ -68,9 +68,9 @@ namespace Cuentas.Ar.Site.Controllers
         #endregion
 
         #region [Región: Edición de SubCategoria]
-        public ActionResult Edicion(int idCategoria)
+        public ActionResult Edicion(int idSubCategoria)
         {
-            var model = new SubCategoriaBusiness().Obtener(idCategoria);
+            var model = new SubCategoriaBusiness().Obtener(idSubCategoria);
 
             CargarCombos();
             return PartialView("_Edicion", model);
@@ -119,7 +119,7 @@ namespace Cuentas.Ar.Site.Controllers
             {
                 new SubCategoriaBusiness().Eliminar(idSubCategoria);
 
-                string url = Url.Action("ListaParcial", "Categoria");
+                string url = Url.Action("ListaParcial", "SubCategoria");
                 return Json(new { success = true, url });
             }
             catch (Exception ex)

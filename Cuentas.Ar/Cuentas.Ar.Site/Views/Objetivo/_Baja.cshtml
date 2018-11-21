@@ -1,6 +1,6 @@
 ﻿
 <div class="col-md-12">
-    @using (Html.BeginForm("Baja", "Objetivo", new { idRegistro= ViewData["idObjetivo"] } , FormMethod.Post, new { id = "objetivoForm", role = "form" }))
+    @using (Html.BeginForm("Baja", "Objetivo", new { idObjetivo= ViewData["idObjetivo"] } , FormMethod.Post, new { id = "objetivoForm", role = "form" }))
     {
         @Html.AntiForgeryToken()
 
@@ -14,7 +14,7 @@
             <div class="card-body ">
                 <div class="row">
                     <div class="col-md-12">
-                        <label class="col-form-label">¿Esta seguro que desea eliminar el Objetivo: @ViewData["Motivo"] ($ @ViewData["Importe"])?</label>
+                        <label class="col-form-label">¿Esta seguro que desea eliminar el Objetivo: @ViewData["Motivo"]?</label>
                     </div>
                 </div>
             </div>

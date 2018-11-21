@@ -187,11 +187,6 @@ namespace Cuentas.Ar.Site.Controllers
                         model.Password = usuarioOriginal.Password;
                     }
 
-                    if (usuarioOriginal.idTipoCuenta == eTipoCuenta.Free)
-                    {
-                        model.FechaCobro = DateTime.Now.AddMonths(1);
-                    }
-
                     usuarioBusiness.Modificar(model);
                     model.UsuarioActualizado = true;
                 }

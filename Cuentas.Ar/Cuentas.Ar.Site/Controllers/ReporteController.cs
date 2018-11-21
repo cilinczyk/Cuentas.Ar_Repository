@@ -33,7 +33,7 @@ namespace Cuentas.Ar.Site.Controllers
             var registroBusiness = new RegistroBusiness();
 
             int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
-            var reporte = registroBusiness.Listar(idUsuario, filtroReporte.FechaDesde ?? DateTime.Now.AddYears(-10), DateTime.Now.AddYears(10));
+            var reporte = registroBusiness.Listar(idUsuario, filtroReporte.FechaDesde ?? DateTime.Now.AddYears(-10), filtroReporte.FechaHasta ?? DateTime.Now.AddYears(10));
             #endregion
 
             #region [Región: Parsear Registro - Excel]

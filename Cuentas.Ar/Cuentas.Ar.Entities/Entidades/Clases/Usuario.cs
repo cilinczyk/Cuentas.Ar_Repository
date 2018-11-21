@@ -13,14 +13,14 @@ namespace Cuentas.Ar.Entities
         {
             get
             {
-                return Registro?.Where(x => x.Fecha >= DateTime.Now.AddMonths(-12) && x.idMoneda == eMoneda.Pesos)?.Sum(x => x.Importe) ?? 0;
+                return Registro?.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idCategoria != eCategoria.Ahorros && x.Fecha >= DateTime.Now.AddMonths(-12) && x.idMoneda == eMoneda.Pesos)?.Sum(x => x.Importe) ?? 0;
             }
         }
         public decimal CapacidadAhorroDolares
         {
             get
             {
-                return Registro?.Where(x => x.Fecha >= DateTime.Now.AddMonths(-12) && x.idMoneda == eMoneda.Dolares)?.Sum(x => x.Importe) ?? 0;
+                return Registro?.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idCategoria != eCategoria.Ahorros && x.Fecha >= DateTime.Now.AddMonths(-12) && x.idMoneda == eMoneda.Dolares)?.Sum(x => x.Importe) ?? 0;
             }
         }
     }
