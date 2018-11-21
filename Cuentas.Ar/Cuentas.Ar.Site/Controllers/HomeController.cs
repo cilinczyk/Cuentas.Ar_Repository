@@ -23,12 +23,12 @@ namespace Cuentas.Ar.Site.Controllers
             decimal ahorrosPesos = 0;
             decimal ahorrosDolares = 0;
 
-            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos)?.Sum(x => x.Importe) ?? 0;
-            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos)?.Sum(x => x.Importe) ?? 0;
+            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
             netoPesos = ingresos - gastos;
 
-            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Dolares)?.Sum(x => x.Importe) ?? 0;
-            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares)?.Sum(x => x.Importe) ?? 0;
+            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Dolares && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
             netoDolares = ingresos - gastos;
 
             ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos && x.idCategoria == eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
@@ -158,7 +158,7 @@ namespace Cuentas.Ar.Site.Controllers
                 var fechaHasta = fechaDesde.AddMonths(1).AddDays(-1);
 
                 var listaRegistros = registroBusiness.Listar(idUsuario, fechaDesde, fechaHasta);
-                ingresos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso).Sum(x => x.Importe);
+                ingresos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idCategoria != eCategoria.Ahorros).Sum(x => x.Importe);
                 gastos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto).Sum(x => x.Importe);
                 ahorros = listaRegistros.Where(x => x.idCategoria == eCategoria.Ahorros).Sum(x => x.Importe);
 
@@ -259,6 +259,7 @@ namespace Cuentas.Ar.Site.Controllers
             }
         }
 
+        [HttpPost]
         public JsonResult RefrescarGraficoGastosCategoria()
         {
             try
@@ -306,10 +307,10 @@ namespace Cuentas.Ar.Site.Controllers
 
                 foreach (var categoria in listaCategoriasPesos)
                 {
-                    labels.Add(string.Format("{0} USD", categoria.Value));
+                    labels.Add(string.Format("{0} ARS", categoria.Value));
 
                     gastosCategoria = listaRegistros.Where(x => x.idCategoria == categoria.Key).Sum(x => x.Importe);
-                    data.Add(string.Format("ARS: {0}", gastosCategoria.ToString().Replace(',', '.')));
+                    data.Add(gastosCategoria.ToString().Replace(',', '.'));
                 }
 
                 foreach (var categoria in listaCategoriasDolares)

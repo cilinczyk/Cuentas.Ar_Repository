@@ -75,7 +75,7 @@ namespace Cuentas.Ar.Site.Controllers
 
                 workSheet.Columns.Add(new M_Column(0, "TipoRegistro", "Tipo de Registro"));
                 workSheet.Columns.Add(new M_Column(1, "Categoria", "Categoría"));
-                workSheet.Columns.Add(new M_Column(2, "SubCategoria", "SubCategoría"));
+                workSheet.Columns.Add(new M_Column(2, "SubCategoria", "Subcategoría"));
                 workSheet.Columns.Add(new M_Column(3, "Moneda", "Moneda"));
                 workSheet.Columns.Add(new M_Column(4, "Importe", "Importe"));
                 workSheet.Columns.Add(new M_Column(5, "Fecha", "Fecha", typeof(DateTime)));
@@ -212,7 +212,7 @@ namespace Cuentas.Ar.Site.Controllers
                 workSheet.Columns.Add(new M_Column(0, "Titulo", "Titulo"));
                 workSheet.Columns.Add(new M_Column(1, "EstadoRecordatorio", "Estado"));
                 workSheet.Columns.Add(new M_Column(2, "Categoria", "Categoría"));
-                workSheet.Columns.Add(new M_Column(3, "SubCategoria", "SubCategoría"));
+                workSheet.Columns.Add(new M_Column(3, "SubCategoria", "Subcategoría"));
                 workSheet.Columns.Add(new M_Column(4, "Moneda", "Moneda"));
                 workSheet.Columns.Add(new M_Column(5, "Importe", "Importe"));
                 workSheet.Columns.Add(new M_Column(6, "Fecha", "Fecha de Vencimiento", typeof(DateTime)));

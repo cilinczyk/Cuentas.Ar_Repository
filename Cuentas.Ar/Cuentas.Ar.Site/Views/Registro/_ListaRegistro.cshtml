@@ -31,7 +31,7 @@
                                             <tr role="row">
                                                 <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Tipo Reg.</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Categoría</th>
-                                                <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">SubCategoría</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Subcategoría</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Importe</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Moneda</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1">Fecha</th>
@@ -42,7 +42,7 @@
                                             <tr>
                                                 <th rowspan="1" colspan="1">Tipo Reg.</th>
                                                 <th rowspan="1" colspan="1">Categoría</th>
-                                                <th rowspan="1" colspan="1">SubCategoría</th>
+                                                <th rowspan="1" colspan="1">Subcategoría</th>
                                                 <th rowspan="1" colspan="1">Importe</th>
                                                 <th rowspan="1" colspan="1">Moneda</th>
                                                 <th rowspan="1" colspan="1">Fecha</th>
@@ -61,16 +61,27 @@
                                             <tr role="row" class="@colorClass">
                                                 <td class="sorting_1">@item.TipoRegistro.Descripcion</td>
                                                 <td>@item.Categoria.Descripcion</td>
-                                                <td>@item.SubCategoria.Descripcion</td>
+
+                                                @if (item.SubCategoria != null)
+                                                {
+                                                    <td>
+                                                        @item.SubCategoria.Descripcion
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td> -</td>
+                                                }
+
                                                 <td>@string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", item.Importe)</td>
                                                 <td>@item.Moneda.Descripcion</td>
                                                 <td>@item.Fecha.ToShortDateString()</td>
                                                 <td class="text-right">
                                                     @Html.NoEncodeActionLink("<i class='material-icons'>dvr</i>", "Detalle", "Detalle", "Registro", routeValues: new { idRegistro = @item.idRegistro }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-warning btn-just-icon edit" })
                                                     @Html.NoEncodeActionLink("<i class='material-icons'>edit</i>", "Modificar", "Edicion", "Registro", routeValues: new { idRegistro = @item.idRegistro }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-info btn-just-icon like" })
-                                                    @Html.NoEncodeActionLink("<i class='material-icons'>close</i>", "Eliminar", "Baja", "Registro", routeValues: new { idRegistro = @item.idRegistro, idCategoria = @item.idCategoria, tipoRegistro = @item.TipoRegistro.Descripcion, importe = @item.Importe  }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-danger btn-just-icon remove" })
+                                                    @Html.NoEncodeActionLink("<i class='material-icons'>close</i>", "Eliminar", "Baja", "Registro", routeValues: new { idRegistro = @item.idRegistro, idCategoria = @item.idCategoria, tipoRegistro = @item.TipoRegistro.Descripcion, importe = @item.Importe }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-danger btn-just-icon remove" })
                                                 </td>
-                                            </tr>
+</tr>
                                                 }
                                             }
                                         </tbody>

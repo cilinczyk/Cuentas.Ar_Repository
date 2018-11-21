@@ -54,10 +54,9 @@
                                                         <td class="sorting_1">@item.Descripcion</td>
                                                         <td>@item.TipoRegistro.Descripcion</td>
                                                         <td class="text-right">
-                                                            @Html.NoEncodeActionLink("<i class='material-icons'>edit</i>", "Modificar", "Edicion", "Categoria", routeValues: new { idCategoria = @item.idCategoria }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-info btn-just-icon like" })
-                                                           
                                                             @if (item.idUsuario.HasValue)
                                                             {
+                                                                @Html.NoEncodeActionLink("<i class='material-icons'>edit</i>", "Modificar", "Edicion", "Categoria", routeValues: new { idCategoria = @item.idCategoria }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-info btn-just-icon like" })
                                                                 @Html.NoEncodeActionLink("<i class='material-icons'>close</i>", "Eliminar", "Baja", "Categoria", routeValues: new { idCategoria = @item.idCategoria, descripcion = @item.Descripcion }, htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-danger btn-just-icon remove" })
                                                             }
                                                         </td>

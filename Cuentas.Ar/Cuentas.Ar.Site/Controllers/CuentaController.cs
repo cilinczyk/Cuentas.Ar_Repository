@@ -76,6 +76,18 @@ namespace Cuentas.Ar.Site.Controllers
                             ObjetivoHelper.ActualizarObjetivos(usuario.idUsuario);
                             #endregion
 
+                            #region [Región: Actualizar Recordatorios]
+                            var recordatorioBusiness = new RecordatorioBusiness();
+                            var listaRecordatorios = recordatorioBusiness.Listar(usuario.idUsuario, DateTime.Now.AddYears(-10), DateTime.Now.AddDays(-1))?.Where(x => x.idEstado != eEstadoRecordatorio.Vencido && x.idEstado != eEstadoRecordatorio.Anulado);
+
+                            foreach (var item in listaRecordatorios)
+                            {
+                                item.idEstado = eEstadoRecordatorio.Vencido;
+
+                                recordatorioBusiness.Modificar(item);
+                            }
+                            #endregion
+
                             return RedirectToLocal(returnUrl);
                             #endregion
                         }
