@@ -9,20 +9,13 @@ namespace Cuentas.Ar.Entities
 {
     public class M_Home
     {
-        public string Usuario { get; set; }
+        public M_Home()
+        {
+            this.FiltroMisCuentas = new M_FiltroMisCuentas();
+            this.MisCuentas = new M_MisCuentas();
+        }
 
-        public string TipoCuenta { get; set; }
-
-        public string SaldoPesos { get; set; }
-
-        public string SaldoDolares { get; set; }
-
-        public string AhorrosPesos { get; set; }
-
-        public string AhorrosDolares { get; set; }
-
-        public DateTime FechaDesde { get; set; }
-
-        public DateTime FechaHasta { get; set; }
+        public M_FiltroMisCuentas FiltroMisCuentas { get; set; }
+        public M_MisCuentas MisCuentas { get; set; }
     }
 }

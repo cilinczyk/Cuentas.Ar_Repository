@@ -1,0 +1,723 @@
+﻿@model Cuentas.Ar.Entities.M_MisCuentas
+
+<div class="content" id="ParcialMisCuentas">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">account_balance</i>
+                        </div>
+                        <h4 class="card-title">Resumen de Cuentas: @Model.FechaDesde.ToShortDateString() - @Model.FechaHasta.ToShortDateString()</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row col-md-12">
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-header card-header-info card-header-icon">
+                                        <div class="card-icon">
+                                            <i class="material-icons">attach_money</i>
+                                        </div>
+                                        <p class="card-category">Saldo</p>
+                                        <h3 class="card-title">@string.Format("ARS {0}", Model.SaldoPesos)</h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <span>¡SALDO EN PESOS!</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-header card-header-warning card-header-icon">
+                                        <div class="card-icon">
+                                            <i class="material-icons">lock</i>
+                                        </div>
+                                        <p class="card-category">Ahorros</p>
+                                        <h3 class="card-title">@string.Format("ARS {0}", Model.AhorrosPesos)</h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <span>¡AHORROS EN PESOS!</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-header card-header-success card-header-icon">
+                                        <div class="card-icon">
+                                            <i class="material-icons">attach_money</i>
+                                        </div>
+                                        <p class="card-category">Saldo</p>
+                                        <h3 class="card-title">@string.Format("USD {0}", Model.SaldoDolares)</h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <span>¡SALDO EN DOLARES!</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="card card-stats">
+                                    <div class="card-header card-header-warning card-header-icon">
+                                        <div class="card-icon">
+                                            <i class="material-icons">lock</i>
+                                        </div>
+                                        <p class="card-category">Ahorros</p>
+                                        <h3 class="card-title">@string.Format("USD {0}", Model.AhorrosDolares)</h3>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <span>¡AHORROS EN DOLARES!</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">insert_chart</i>
+                        </div>
+                        <h4 class="card-title">Flujo de Dinero: @string.Format("{0} - {1}", Model.FechaDesde.ToShortDateString(), Model.FechaHasta.ToShortDateString())</h4>
+                    </div>
+                    <div class="card-body ">
+                        <div id="GraficoFlujoDinero" style="display:none;">
+                            <div class="">
+                                <div class="loadingCenter"></div>
+                                <canvas id="ChartFlujoDinero" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">insert_chart</i>
+                            </div>
+                            <h4 class="card-title">Balance (@string.Format("{0} al {1}", Model.FechaDesde.ToString("dd/MM"), Model.FechaHasta.ToString("dd/MM")))</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="GraficoBalance" style="display:none;">
+                                <div class="">
+                                    <div class="loadingCenter"></div>
+                                    <canvas id="ChartBalance" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+
+        <div class="row">
+            @*<div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-primary card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">insert_chart</i>
+                            </div>
+                            <h4 class="card-title">Gastos por Categoría (@string.Format("{0} al {1}", Model.FechaDesde.ToString("dd/MM"), Model.FechaHasta.ToString("dd/MM")))</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="GraficoGastosCategoria" style="display:none;">
+                                <div class="">
+                                    <div class="loadingCenter"></div>
+                                    <canvas id="ChartGastosCategoria" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            @*<div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-rose">
+                            <div class="card-icon">
+                                <i class="material-icons">assignment</i>
+                            </div>
+                            <h4 class="card-title ">Últimos Registros</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <tr>
+                                            <th>
+                                                ID
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Country
+                                            </th>
+                                            <th>
+                                                City
+                                            </th>
+                                            <th>
+                                                Salary
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                1
+                                            </td>
+                                            <td>
+                                                Dakota Rice
+                                            </td>
+                                            <td>
+                                                Niger
+                                            </td>
+                                            <td>
+                                                Oud-Turnhout
+                                            </td>
+                                            <td>
+                                                $36,738
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                2
+                                            </td>
+                                            <td>
+                                                Minerva Hooper
+                                            </td>
+                                            <td>
+                                                Curaçao
+                                            </td>
+                                            <td>
+                                                Sinaai-Waas
+                                            </td>
+                                            <td>
+                                                $23,789
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                3
+                                            </td>
+                                            <td>
+                                                Sage Rodriguez
+                                            </td>
+                                            <td>
+                                                Netherlands
+                                            </td>
+                                            <td>
+                                                Baileux
+                                            </td>
+                                            <td>
+                                                $56,142
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                4
+                                            </td>
+                                            <td>
+                                                Philip Chaney
+                                            </td>
+                                            <td>
+                                                Korea, South
+                                            </td>
+                                            <td>
+                                                Overland Park
+                                            </td>
+                                            <td>
+                                                $38,735
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                5
+                                            </td>
+                                            <td>
+                                                Doris Greene
+                                            </td>
+                                            <td>
+                                                Malawi
+                                            </td>
+                                            <td>
+                                                Feldkirchen in Kärnten
+                                            </td>
+                                            <td>
+                                                $63,542
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                6
+                                            </td>
+                                            <td>
+                                                Mason Porter
+                                            </td>
+                                            <td>
+                                                Chile
+                                            </td>
+                                            <td>
+                                                Gloucester
+                                            </td>
+                                            <td>
+                                                $78,615
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+        @*<div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-rose">
+                            <div class="card-icon">
+                                <i class="material-icons">assignment</i>
+                            </div>
+                            <h4 class="card-title ">Últimos Objetivos</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <tr>
+                                            <th>
+                                                ID
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Country
+                                            </th>
+                                            <th>
+                                                City
+                                            </th>
+                                            <th>
+                                                Salary
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                1
+                                            </td>
+                                            <td>
+                                                Dakota Rice
+                                            </td>
+                                            <td>
+                                                Niger
+                                            </td>
+                                            <td>
+                                                Oud-Turnhout
+                                            </td>
+                                            <td>
+                                                $36,738
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                2
+                                            </td>
+                                            <td>
+                                                Minerva Hooper
+                                            </td>
+                                            <td>
+                                                Curaçao
+                                            </td>
+                                            <td>
+                                                Sinaai-Waas
+                                            </td>
+                                            <td>
+                                                $23,789
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                3
+                                            </td>
+                                            <td>
+                                                Sage Rodriguez
+                                            </td>
+                                            <td>
+                                                Netherlands
+                                            </td>
+                                            <td>
+                                                Baileux
+                                            </td>
+                                            <td>
+                                                $56,142
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                4
+                                            </td>
+                                            <td>
+                                                Philip Chaney
+                                            </td>
+                                            <td>
+                                                Korea, South
+                                            </td>
+                                            <td>
+                                                Overland Park
+                                            </td>
+                                            <td>
+                                                $38,735
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                5
+                                            </td>
+                                            <td>
+                                                Doris Greene
+                                            </td>
+                                            <td>
+                                                Malawi
+                                            </td>
+                                            <td>
+                                                Feldkirchen in Kärnten
+                                            </td>
+                                            <td>
+                                                $63,542
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                6
+                                            </td>
+                                            <td>
+                                                Mason Porter
+                                            </td>
+                                            <td>
+                                                Chile
+                                            </td>
+                                            <td>
+                                                Gloucester
+                                            </td>
+                                            <td>
+                                                $78,615
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-header-icon card-header-rose">
+                            <div class="card-icon">
+                                <i class="material-icons">assignment</i>
+                            </div>
+                            <h4 class="card-title ">Últimos Recordatorios</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
+                                        <tr>
+                                            <th>
+                                                ID
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Country
+                                            </th>
+                                            <th>
+                                                City
+                                            </th>
+                                            <th>
+                                                Salary
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                1
+                                            </td>
+                                            <td>
+                                                Dakota Rice
+                                            </td>
+                                            <td>
+                                                Niger
+                                            </td>
+                                            <td>
+                                                Oud-Turnhout
+                                            </td>
+                                            <td>
+                                                $36,738
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                2
+                                            </td>
+                                            <td>
+                                                Minerva Hooper
+                                            </td>
+                                            <td>
+                                                Curaçao
+                                            </td>
+                                            <td>
+                                                Sinaai-Waas
+                                            </td>
+                                            <td>
+                                                $23,789
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                3
+                                            </td>
+                                            <td>
+                                                Sage Rodriguez
+                                            </td>
+                                            <td>
+                                                Netherlands
+                                            </td>
+                                            <td>
+                                                Baileux
+                                            </td>
+                                            <td>
+                                                $56,142
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                4
+                                            </td>
+                                            <td>
+                                                Philip Chaney
+                                            </td>
+                                            <td>
+                                                Korea, South
+                                            </td>
+                                            <td>
+                                                Overland Park
+                                            </td>
+                                            <td>
+                                                $38,735
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                5
+                                            </td>
+                                            <td>
+                                                Doris Greene
+                                            </td>
+                                            <td>
+                                                Malawi
+                                            </td>
+                                            <td>
+                                                Feldkirchen in Kärnten
+                                            </td>
+                                            <td>
+                                                $63,542
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                6
+                                            </td>
+                                            <td>
+                                                Mason Porter
+                                            </td>
+                                            <td>
+                                                Chile
+                                            </td>
+                                            <td>
+                                                Gloucester
+                                            </td>
+                                            <td>
+                                                $78,615
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+</div>
+
+<script src="~/Scripts/Chart.min.js"></script>
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Content/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $(function ($) {
+        $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es', useCurrent: true });
+
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
+
+        /* Grafico Flujo de Dinero */
+        $.ajax({
+            url: "/Home/RefrescarGraficoFlujoDinero",
+            type: "POST",
+            success: function (result) {
+                if (result.data.success) {
+                    $("#GraficoFlujoDinero").fadeIn();
+                    $("#GraficoFlujoDinero .loadingCenter").hide();
+                    var ctx1 = document.getElementById("ChartFlujoDinero").getContext('2d');
+                    var myChart1 = new Chart(ctx1, {
+                        type: 'horizontalBar',
+                        options:
+                            {
+                                legend: {
+                                    display: false,
+                                },
+                                "scales":
+                                    {
+                                        "xAxes": [
+                                            {
+                                                gridLines: { display: false },
+                                                "ticks": {
+                                                    "beginAtZero": true
+                                                }
+                                            }],
+                                        "yAxes": [
+                                            {
+                                                gridLines: { display: false }
+                                            }]
+                                    }
+                            },
+                        data:
+                            {
+                                labels: result.data.labels,
+                                datasets: [{
+                                    data: result.data.data,
+                                    backgroundColor: [
+                                        'rgb(40,203,124)',
+                                        'rgb(244, 67, 54)',
+                                        'rgb(255, 167, 38)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            }
+                    });
+                }
+                else {
+                    $("#GraficoFlujoDinero").hide();
+                }
+            }
+        });
+
+        /* Grafico Balance */
+        $.ajax({
+            url: "/Home/RefrescarGraficoBalance",
+            type: "POST",
+            success: function (result) {
+                if (result.data.success) {
+                    $("#GraficoBalance").fadeIn();
+                    $("#GraficoBalance .loadingCenter").hide();
+                    var ctx2 = document.getElementById("ChartBalance").getContext('2d');
+                    var myChart2 = new Chart(ctx2, {
+                        type: 'line',
+                        options:
+                            {
+                                legend: {
+                                    display: false,
+                                },
+                            },
+                        data:
+                            {
+                                labels: result.data.labels,
+                                datasets: [{
+                                    data: result.data.data,
+                                    backgroundColor: [
+                                        'rgb(40,203,124)',
+                                        'rgb(244, 67, 54)',
+                                        'rgb(255, 167, 38)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            }
+                    });
+                }
+                else {
+                    $("#GraficoBalance").hide();
+                }
+            }
+        });
+
+        /* Grafico Gastos por Categoria */
+        $.ajax({
+            url: "/Home/RefrescarGraficoGastosCategoria",
+            type: "POST",
+            success: function (result) {
+                if (result.data.success) {
+                    $("#GraficoGastosCategoria").fadeIn();
+                    $("#GraficoGastosCategoria .loadingCenter").hide();
+                    var ctx3 = document.getElementById("ChartGastosCategoria").getContext('2d');
+                    var myChart3 = new Chart(ctx3, {
+                        type: 'doughnut',
+                        options:
+                            {
+                                legend: {
+                                    display: false,
+                                },
+                            },
+                        data:
+                            {
+                                labels: result.data.labels,
+                                datasets: [{
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132)',
+                                        'rgba(54, 162, 235)',
+                                        'rgba(255, 206, 86)',
+                                        'rgba(75, 192, 192)',
+                                        'rgba(153, 102, 255)',
+                                        'rgba(255, 159, 64)',
+                                        'rgba(0,255,0)',
+                                        'rgba(0, 0, 255)',
+                                        'rgba(125, 39, 248)',
+                                        'rgba(212, 208, 204)',
+                                        'rgba(254, 209, 79)',
+                                        'rgba(172, 148, 64)'
+                                    ],
+                                    data: result.data.data,
+                                    borderWidth: 1
+                                }]
+                            }
+                    });
+                }
+                else {
+                    $("#GraficoGastosCategoria").hide();
+                }
+            }
+        });
+
+        function dynamicColors() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        }
+    });
+</script>

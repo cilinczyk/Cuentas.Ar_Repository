@@ -1,0 +1,63 @@
+﻿@model Cuentas.Ar.Entities.M_FiltroMisCuentas
+
+@using (Ajax.BeginForm("Buscar", "MisCuentas", null, new AjaxOptions
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "ParcialMisCuentas"
+}, new { @id = "formActualizar" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.idUsuario)
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="fa fa-child fa-2x"></i>
+                    </div>
+                    <div class="card-title">
+                        <h4>MisCuentas.com</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-horizontal">
+                        <div class="row">
+                            <label class="col-md-2 col-form-label">Fecha Desde:</label>
+                            <div class="col-md-2">
+                                <div class="form-group bmd-form-group">
+                                    @Html.TextBoxFor(model => model.FechaDesde, new { @id = "FechaDesde", @class = "form-control datepicker", @maxlength = "10" })
+
+                                </div>
+                            </div>
+
+                            <label class="col-md-2 col-form-label">Fecha Hasta:</label>
+                            <div class="col-md-2">
+                                <div class="form-group has-default bmd-form-group">
+                                    @Html.TextBoxFor(model => model.FechaHasta, new { @id = "FechaHasta", @class = "form-control datepicker", @maxlength = "10" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right">Actualizar</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function ($) {
+        $('.datepicker').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es' });
+        $(".maskMoney").inputmask("currency", { prefix: "", groupSeparator: "", radixPoint: "," });
+    });
+
+    $.validator.methods.date = function (value, element) {
+        return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+    }
+</script>

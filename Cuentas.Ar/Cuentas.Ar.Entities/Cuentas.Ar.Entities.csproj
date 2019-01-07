@@ -83,6 +83,8 @@
     <Compile Include="Entidades\Auxiliares\Excel\M_Excel.cs" />
     <Compile Include="Entidades\Auxiliares\Excel\M_ObjetivoExcel.cs" />
     <Compile Include="Entidades\Auxiliares\Excel\M_RecordatorioExcel.cs" />
+    <Compile Include="Entidades\Auxiliares\Home\M_FiltroMisCuentas.cs" />
+    <Compile Include="Entidades\Auxiliares\Home\M_MisCuentas.cs" />
     <Compile Include="Entidades\Auxiliares\Objetivo\M_FiltroObjetivo.cs" />
     <Compile Include="Entidades\Auxiliares\Objetivo\M_ListadoRegistro.cs" />
     <Compile Include="Entidades\Auxiliares\Excel\M_RegistroExcel.cs" />

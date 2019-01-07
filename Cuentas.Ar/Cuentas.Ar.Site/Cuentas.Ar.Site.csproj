@@ -1135,6 +1135,8 @@
     <Content Include="Views\Reporte\_ReporteRegistro.cshtml" />
     <Content Include="Views\Reporte\_ReporteRecordatorio.cshtml" />
     <Content Include="Views\Reporte\_ReporteObjetivo.cshtml" />
+    <Content Include="Views\Home\_FiltrosMisCuentas.cshtml" />
+    <Content Include="Views\Home\_MisCuentas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

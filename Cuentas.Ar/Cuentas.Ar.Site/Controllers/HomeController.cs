@@ -40,13 +40,16 @@ namespace Cuentas.Ar.Site.Controllers
             ahorrosDolares = ingresos - gastos;
 
             M_Home model = new M_Home();
-            model.Usuario = usuario.Nombre;
-            model.FechaDesde = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            model.FechaHasta = model.FechaDesde.AddMonths(1).AddDays(-1);
-            model.SaldoPesos = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", netoPesos);
-            model.SaldoDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", netoDolares);
-            model.AhorrosPesos = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosPesos);
-            model.AhorrosDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosDolares);
+            model.FiltroMisCuentas.FechaDesde = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            model.FiltroMisCuentas.FechaHasta = model.FiltroMisCuentas.FechaDesde.AddMonths(1).AddDays(-1);
+
+            model.MisCuentas.Usuario = usuario.Nombre;
+            model.MisCuentas.FechaDesde = model.FiltroMisCuentas.FechaDesde;
+            model.MisCuentas.FechaHasta = model.FiltroMisCuentas.FechaHasta;
+            model.MisCuentas.SaldoPesos = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", netoPesos);
+            model.MisCuentas.SaldoDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", netoDolares);
+            model.MisCuentas.AhorrosPesos = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosPesos);
+            model.MisCuentas.AhorrosDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosDolares);
 
             #region [Región: Actualizar Estados Objetivo
             var objetivoBusiness = new ObjetivoBusiness();
