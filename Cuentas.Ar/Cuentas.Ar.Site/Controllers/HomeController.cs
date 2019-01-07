@@ -14,10 +14,28 @@ namespace Cuentas.Ar.Site.Controllers
         public ActionResult Index()
         {
             int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
-            var usuario = new UsuarioBusiness().Obtener(idUsuario);
+            M_FiltroMisCuentas filtroMisCuentas = new M_FiltroMisCuentas();
+            filtroMisCuentas.FechaDesde = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            filtroMisCuentas.FechaHasta = filtroMisCuentas.FechaDesde.AddMonths(1).AddDays(-1);
+
+            M_Home model = CompletarDatosHome(idUsuario, filtroMisCuentas);
+
+            #region [Región: Actualizar Estados Objetivo
+            var objetivoBusiness = new ObjetivoBusiness();
+            objetivoBusiness.ActualizarEstados(idUsuario);
+            #endregion
+
+            Session["FiltroMisCuentas"] = model.FiltroMisCuentas;
+            return View(model);
+        }
+
+        private static M_Home CompletarDatosHome(int idUsuario, M_FiltroMisCuentas filtroMisCuentas)
+        {
+            Usuario usuario = new UsuarioBusiness().Obtener(idUsuario);
+            M_Home model = new M_Home();
 
             decimal ingresos = 0;
-            decimal gastos = 0; 
+            decimal gastos = 0;
             decimal netoPesos = 0;
             decimal netoDolares = 0;
             decimal ahorrosPesos = 0;
@@ -39,25 +57,37 @@ namespace Cuentas.Ar.Site.Controllers
             gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares && x.idCategoria == eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
             ahorrosDolares = ingresos - gastos;
 
-            M_Home model = new M_Home();
-            model.FiltroMisCuentas.FechaDesde = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            model.FiltroMisCuentas.FechaHasta = model.FiltroMisCuentas.FechaDesde.AddMonths(1).AddDays(-1);
+            model = new M_Home();
+            model.FiltroMisCuentas.FechaDesde = filtroMisCuentas.FechaDesde;
+            model.FiltroMisCuentas.FechaHasta = filtroMisCuentas.FechaHasta;
 
             model.MisCuentas.Usuario = usuario.Nombre;
-            model.MisCuentas.FechaDesde = model.FiltroMisCuentas.FechaDesde;
-            model.MisCuentas.FechaHasta = model.FiltroMisCuentas.FechaHasta;
+            model.MisCuentas.FechaDesde = filtroMisCuentas.FechaDesde;
+            model.MisCuentas.FechaHasta = filtroMisCuentas.FechaHasta;
             model.MisCuentas.SaldoPesos = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", netoPesos);
             model.MisCuentas.SaldoDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", netoDolares);
             model.MisCuentas.AhorrosPesos = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosPesos);
             model.MisCuentas.AhorrosDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosDolares);
 
-            #region [Región: Actualizar Estados Objetivo
-            var objetivoBusiness = new ObjetivoBusiness();
-            objetivoBusiness.ActualizarEstados(idUsuario);
-            #endregion
-
-            return View(model);
+            return model;
         }
+
+        #region [Región: Búsqueda]
+        public ActionResult Buscar(M_FiltroMisCuentas filtroMisCuentas)
+        {
+            Session["FiltroMisCuentas"] = filtroMisCuentas;
+            return RedirectToAction("MisCuentas", "Home");
+        }
+
+        public ActionResult MisCuentas()
+        {
+            int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+            M_FiltroMisCuentas filtroMisCuentas = Session["FiltroMisCuentas"] as M_FiltroMisCuentas;
+            M_Home model = CompletarDatosHome(idUsuario, filtroMisCuentas);
+
+            return PartialView("_MisCuentas", model.MisCuentas);
+        }
+        #endregion
 
         [HttpPost]
         public JsonResult RefrescarGraficoEstadoActual()
