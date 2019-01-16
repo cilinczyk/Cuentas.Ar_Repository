@@ -243,15 +243,12 @@ namespace Cuentas.Ar.Site.Controllers
                 List<string> labels = new List<string>();
                 #endregion
 
-                
                 #region [Región: Data]
-                var fechaDesde = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                var fechaHasta = fechaDesde.AddMonths(1).AddDays(-1);
+                M_FiltroMisCuentas filtroMisCuentas = Session["FiltroMisCuentas"] as M_FiltroMisCuentas;
 
-                var listaRegistros = registroBusiness.Listar(idUsuario, fechaDesde, fechaHasta);
-
+                var listaRegistros = registroBusiness.Listar(idUsuario, filtroMisCuentas.FechaDesde, filtroMisCuentas.FechaHasta);
                 #region [Región: Labels y Date]
-                List<string> listaDias = listaRegistros.Select(x => x.Fecha.ToString("dd/MM")).Distinct().ToList();
+                List<string> listaDias = listaRegistros.Select(x => x.Fecha.ToString("dd/MM")).Distinct().OrderBy(x => x).ToList();
 
                 foreach (var diaMes in listaDias)
                 {
