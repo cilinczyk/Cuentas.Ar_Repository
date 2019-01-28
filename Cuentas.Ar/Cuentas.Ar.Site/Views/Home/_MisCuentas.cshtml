@@ -84,13 +84,14 @@
         </div>
 
         <div class="row">
+            <!--Flujo de Dinero-->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header card-header-primary card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">insert_chart</i>
                         </div>
-                        <h4 class="card-title">Flujo de Dinero: @string.Format("{0} - {1}", Model.FechaDesde.ToShortDateString(), Model.FechaHasta.ToShortDateString())</h4>
+                        <h4 class="card-title">Flujo de Dinero</h4>
                     </div>
                     <div class="card-body ">
                         <div id="GraficoFlujoDinero" style="display:none;">
@@ -102,15 +103,37 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
+
+            <!--Gastos x Categoria-->
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header card-header-primary card-header-icon">
                         <div class="card-icon">
                             <i class="material-icons">insert_chart</i>
                         </div>
-                        <h4 class="card-title">Balance (@string.Format("{0} al {1}", Model.FechaDesde.ToString("dd/MM"), Model.FechaHasta.ToString("dd/MM")))</h4>
+                        <h4 class="card-title">Gastos por Categoría</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="GraficoGastosCategoria" style="display:none;">
+                            <div class="">
+                                <div class="loadingCenter"></div>
+                                <canvas id="ChartGastosCategoria" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--Balance en Pesos-->
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">insert_chart</i>
+                        </div>
+                        <h4 class="card-title">Balance en Pesos</h4>
                     </div>
                     <div class="card-body">
                         <div id="GraficoBalance" style="display:none;">
@@ -125,24 +148,6 @@
         </div>
 
             <div class="row">
-                @*<div class="col-md-6">
-                <div class="card">
-                    <div class="card-header card-header-primary card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">insert_chart</i>
-                        </div>
-                        <h4 class="card-title">Gastos por Categoría (@string.Format("{0} al {1}", Model.FechaDesde.ToString("dd/MM"), Model.FechaHasta.ToString("dd/MM")))</h4>
-                    </div>
-                    <div class="card-body">
-                        <div id="GraficoGastosCategoria" style="display:none;">
-                            <div class="">
-                                <div class="loadingCenter"></div>
-                                <canvas id="ChartGastosCategoria" height="200"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
                 @*<div class="col-md-6">
                 <div class="card">
                     <div class="card-header card-header-icon card-header-rose">
@@ -629,6 +634,53 @@
             }
         });
 
+        /* Grafico Gastos por Categoria */
+        $.ajax({
+            url: "/Home/RefrescarGraficoGastosCategoria",
+            type: "POST",
+            success: function (result) {
+                if (result.data.success) {
+                    $("#GraficoGastosCategoria").fadeIn();
+                    $("#GraficoGastosCategoria .loadingCenter").hide();
+                    var ctx3 = document.getElementById("ChartGastosCategoria").getContext('2d');
+                    var myChart3 = new Chart(ctx3, {
+                        type: 'doughnut',
+                        options:
+                            {
+                                legend: {
+                                    display: false,
+                                },
+                            },
+                        data:
+                            {
+                                labels: result.data.labels,
+                                datasets: [{
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132)',
+                                        'rgba(54, 162, 235)',
+                                        'rgba(255, 206, 86)',
+                                        'rgba(75, 192, 192)',
+                                        'rgba(153, 102, 255)',
+                                        'rgba(255, 159, 64)',
+                                        'rgba(0,255,0)',
+                                        'rgba(0, 0, 255)',
+                                        'rgba(125, 39, 248)',
+                                        'rgba(212, 208, 204)',
+                                        'rgba(254, 209, 79)',
+                                        'rgba(172, 148, 64)'
+                                    ],
+                                    data: result.data.data,
+                                    borderWidth: 1
+                                }]
+                            }
+                    });
+                }
+                else {
+                    $("#GraficoGastosCategoria").hide();
+                }
+            }
+        });
+
         /* Grafico Balance */
         $.ajax({
             url: "/Home/RefrescarGraficoBalance",
@@ -678,59 +730,5 @@
                 }
             }
         });
-
-        /* Grafico Gastos por Categoria */
-        $.ajax({
-            url: "/Home/RefrescarGraficoGastosCategoria",
-            type: "POST",
-            success: function (result) {
-                if (result.data.success) {
-                    $("#GraficoGastosCategoria").fadeIn();
-                    $("#GraficoGastosCategoria .loadingCenter").hide();
-                    var ctx3 = document.getElementById("ChartGastosCategoria").getContext('2d');
-                    var myChart3 = new Chart(ctx3, {
-                        type: 'doughnut',
-                        options:
-                            {
-                                legend: {
-                                    display: false,
-                                },
-                            },
-                        data:
-                            {
-                                labels: result.data.labels,
-                                datasets: [{
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132)',
-                                        'rgba(54, 162, 235)',
-                                        'rgba(255, 206, 86)',
-                                        'rgba(75, 192, 192)',
-                                        'rgba(153, 102, 255)',
-                                        'rgba(255, 159, 64)',
-                                        'rgba(0,255,0)',
-                                        'rgba(0, 0, 255)',
-                                        'rgba(125, 39, 248)',
-                                        'rgba(212, 208, 204)',
-                                        'rgba(254, 209, 79)',
-                                        'rgba(172, 148, 64)'
-                                    ],
-                                    data: result.data.data,
-                                    borderWidth: 1
-                                }]
-                            }
-                    });
-                }
-                else {
-                    $("#GraficoGastosCategoria").hide();
-                }
-            }
-        });
-
-        function dynamicColors() {
-            var r = Math.floor(Math.random() * 255);
-            var g = Math.floor(Math.random() * 255);
-            var b = Math.floor(Math.random() * 255);
-            return "rgb(" + r + "," + g + "," + b + ")";
-        }
     });
 </script>
