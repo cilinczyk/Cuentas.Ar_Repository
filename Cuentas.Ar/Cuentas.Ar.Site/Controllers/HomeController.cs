@@ -245,17 +245,24 @@ namespace Cuentas.Ar.Site.Controllers
 
                 #region [Región: Data]
                 M_FiltroMisCuentas filtroMisCuentas = Session["FiltroMisCuentas"] as M_FiltroMisCuentas;
+                var fechaDesde = filtroMisCuentas.FechaDesde;
 
-                var listaRegistros = registroBusiness.Listar(idUsuario, filtroMisCuentas.FechaDesde, filtroMisCuentas.FechaHasta);
+                var listaRegistros = registroBusiness.Listar(idUsuario, Convert.ToDateTime("01/01/2010"), filtroMisCuentas.FechaHasta).OrderBy(x => x.Fecha).ToList();
                 #region [Región: Labels y Date]
-                List<string> listaDias = listaRegistros.Select(x => x.Fecha.ToString("dd/MM")).Distinct().OrderBy(x => x).ToList();
+                List<DateTime> listaDias = new List<DateTime>();
+
+                while (fechaDesde <= filtroMisCuentas.FechaHasta)
+                {
+                    listaDias.Add(fechaDesde);
+                    fechaDesde = fechaDesde.AddDays(1);
+                }
 
                 foreach (var diaMes in listaDias)
                 {
-                    labels.Add(diaMes);
+                    labels.Add(diaMes.ToString("dd/MM"));
 
-                    ingresos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.Fecha.ToString("dd/MM") == diaMes).Sum(x => x.Importe);
-                    gastos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.Fecha.ToString("dd/MM") == diaMes).Sum(x => x.Importe);
+                    ingresos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.Fecha <= diaMes).Sum(x => x.Importe);
+                    gastos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.Fecha <= diaMes).Sum(x => x.Importe);
                     neto = ingresos - gastos;
 
                     data.Add(neto.ToString().Replace(',', '.'));
