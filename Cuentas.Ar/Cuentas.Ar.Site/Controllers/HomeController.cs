@@ -187,10 +187,9 @@ namespace Cuentas.Ar.Site.Controllers
                 #endregion
 
                 #region [Región: Data]
-                var fechaDesde = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                var fechaHasta = fechaDesde.AddMonths(1).AddDays(-1);
+                M_FiltroMisCuentas filtroMisCuentas = Session["FiltroMisCuentas"] as M_FiltroMisCuentas;
 
-                var listaRegistros = registroBusiness.Listar(idUsuario, fechaDesde, fechaHasta);
+                var listaRegistros = registroBusiness.Listar(idUsuario, filtroMisCuentas.FechaDesde, filtroMisCuentas.FechaHasta);
                 ingresos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idCategoria != eCategoria.Ahorros).Sum(x => x.Importe);
                 gastos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto).Sum(x => x.Importe);
                 ahorros = listaRegistros.Where(x => x.idCategoria == eCategoria.Ahorros).Sum(x => x.Importe);
@@ -314,10 +313,9 @@ namespace Cuentas.Ar.Site.Controllers
 
 
                 #region [Región: Data]
-                var fechaDesde = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-                var fechaHasta = fechaDesde.AddMonths(1).AddDays(-1);
+                M_FiltroMisCuentas filtroMisCuentas = Session["FiltroMisCuentas"] as M_FiltroMisCuentas;
 
-                var listaRegistros = registroBusiness.Listar(idUsuario, fechaDesde, fechaHasta).Where(x => x.idCategoria != eCategoria.Ahorros);
+                var listaRegistros = registroBusiness.Listar(idUsuario, filtroMisCuentas.FechaDesde, filtroMisCuentas.FechaHasta).Where(x => x.idCategoria != eCategoria.Ahorros);
 
                 #region [Región: Labels y Data]
                 Dictionary<int, string> listaCategoriasPesos = new Dictionary<int, string>();

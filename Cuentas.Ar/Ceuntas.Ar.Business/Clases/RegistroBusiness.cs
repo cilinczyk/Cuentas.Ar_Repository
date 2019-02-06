@@ -44,6 +44,11 @@ namespace Cuentas.Ar.Business
             return repositorio.ObtenerCompleto(idRegistro);
         }
 
+        public decimal ObtenerSaldoActual(int idUsuario, int idMoneda, DateTime? fecha = null)
+        {
+            return repositorio.ObtenerSaldoActual(idUsuario, idMoneda, fecha);
+        }
+
         public int Guardar(Registro model)
         {
             return repositorio.Guardar(model);

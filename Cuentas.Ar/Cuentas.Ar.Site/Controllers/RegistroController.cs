@@ -56,12 +56,27 @@ namespace Cuentas.Ar.Site.Controllers
         {
             try
             {
+                int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+
+                #region [Región: Validaciones]
+                if (model.idTipoRegistro == eTipoRegistro.Gasto)
+                {
+                    var registroBusiness = new RegistroBusiness();
+                    var saldoActual = registroBusiness.ObtenerSaldoActual(idUsuario, model.idMoneda, model.Fecha);
+
+                    if(model.Importe > saldoActual)
+                    {
+                        ModelState.AddModelError("AltaRegistro", string.Format("El importe ingresado supera el saldo actual de su cuenta {0} ({1}).", string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:C2}", saldoActual), model.idMoneda == eMoneda.Pesos ? "Pesos" : "Dolares"));
+                    }
+                }
+                #endregion
+
                 if (ModelState.IsValid)
                 {
                     var registroBusiness = new RegistroBusiness();
 
                     #region [Región: Alta de Registro]
-                    model.idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+                    model.idUsuario = idUsuario;
 
                     if (model.idCategoria != eCategoria.Ahorros)
                     {

@@ -59,6 +59,37 @@ namespace Cuentas.Ar.Repository
             }
         }
 
+        public decimal ObtenerSaldoActual(int idUsuario, int idMoneda, DateTime? fecha = null)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                decimal ingresos = 0;
+                decimal gastos = 0;
+
+                if (fecha.HasValue)
+                {
+                    var cantIngresos = context.Registro.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.idTipoRegistro == eTipoRegistro.Ingreso != null && x.Fecha <= fecha.Value).ToList();
+                    if (cantIngresos.Count() > 0)
+                    {
+                        ingresos = cantIngresos?.Sum(x => x.Importe) ?? Convert.ToDecimal(0);
+                    }
+
+                    var cantGastos = context.Registro.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.idTipoRegistro == eTipoRegistro.Gasto != null && x.Fecha <= fecha.Value).ToList();
+                    if (cantGastos.Count() > 0)
+                    {
+                        gastos = cantGastos?.Sum(x => x.Importe) ?? Convert.ToDecimal(0);
+                    }
+                }
+                else
+                {
+                    ingresos = context.Registro.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.idTipoRegistro == eTipoRegistro.Ingreso).Sum(x => x.Importe);
+                    gastos = context.Registro.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.idTipoRegistro == eTipoRegistro.Gasto).Sum(x => x.Importe);
+                }
+
+                return (ingresos - gastos);
+            }
+        }
+
         public int Guardar(Registro model)
         {
             try
