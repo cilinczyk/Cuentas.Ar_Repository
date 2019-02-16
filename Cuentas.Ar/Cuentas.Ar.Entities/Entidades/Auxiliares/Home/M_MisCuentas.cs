@@ -9,6 +9,11 @@ namespace Cuentas.Ar.Entities
 {
     public class M_MisCuentas
     {
+        public M_MisCuentas()
+        {
+            this.ListaUltimosRecordatorios = new List<Recordatorio>();
+        }
+
         public string Usuario { get; set; }
 
         public DateTime FechaDesde { get; set; }
@@ -24,5 +29,7 @@ namespace Cuentas.Ar.Entities
         public string AhorrosPesos { get; set; }
 
         public string AhorrosDolares { get; set; }
+
+        public List<Recordatorio> ListaUltimosRecordatorios { get; set; }
     }
 }

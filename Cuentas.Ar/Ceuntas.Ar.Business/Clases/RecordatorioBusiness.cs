@@ -48,5 +48,10 @@ namespace Cuentas.Ar.Business
         {
             repositorio.Eliminar(idRecordatorio);
         }
+
+        public List<Recordatorio> ListarUltimos(int idUsuario, int cantidad)
+        {
+            return repositorio.ListarUltimos(idUsuario, cantidad);
+        }
     }
 }

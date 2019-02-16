@@ -32,6 +32,7 @@ namespace Cuentas.Ar.Site.Controllers
         private static M_Home CompletarDatosHome(int idUsuario, M_FiltroMisCuentas filtroMisCuentas)
         {
             Usuario usuario = new UsuarioBusiness().Obtener(idUsuario);
+            List<Recordatorio> listaRecordatorios = new RecordatorioBusiness().ListarUltimos(idUsuario, 5);
             M_Home model = new M_Home();
 
             decimal ingresos = 0;
@@ -68,6 +69,7 @@ namespace Cuentas.Ar.Site.Controllers
             model.MisCuentas.SaldoDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", netoDolares);
             model.MisCuentas.AhorrosPesos = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosPesos);
             model.MisCuentas.AhorrosDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosDolares);
+            model.MisCuentas.ListaUltimosRecordatorios = listaRecordatorios;
 
             return model;
         }
@@ -89,79 +91,7 @@ namespace Cuentas.Ar.Site.Controllers
         }
         #endregion
 
-        [HttpPost]
-        public JsonResult RefrescarGraficoEstadoActual()
-        {
-            try
-            {
-                var registroBusiness = new RegistroBusiness();
-                int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
-
-                #region [Región: Declaraciones]
-                decimal ingresos = 0;
-                decimal gastos = 0;
-                decimal saldoPesos = 0;
-                decimal saldoDolares = 0;
-                decimal ahorrosPesos = 0;
-                decimal ahorrosDolares = 0;
-
-                bool estadoGrafico = false;
-                List<string> data = new List<string>();
-                List<string> labels = new List<string>();
-                #endregion
-
-                #region [Región: Labels]
-                labels.Add("Saldo (Pesos)");
-                labels.Add("Saldo (Dolares)");
-                labels.Add("Ahorros (Pesos)");
-                labels.Add("Ahorros (Dolares)");
-                #endregion
-
-                #region [Región: Data]
-                var listaRegistros = registroBusiness.Listar(idUsuario);
-
-                ingresos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos).Sum(x => x.Importe);
-                gastos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos).Sum(x => x.Importe);
-                saldoPesos = ingresos - gastos;
-
-                ingresos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Dolares).Sum(x => x.Importe);
-                gastos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares).Sum(x => x.Importe);
-                saldoDolares = ingresos - gastos;
-
-                ahorrosPesos = listaRegistros.Where(x => x.idCategoria == eCategoria.Ahorros && x.idMoneda == eMoneda.Pesos).Sum(x => x.Importe);
-                ahorrosDolares = listaRegistros.Where(x => x.idCategoria == eCategoria.Ahorros && x.idMoneda == eMoneda.Dolares).Sum(x => x.Importe);
-
-                data.Add(saldoPesos.ToString().Replace(',','.'));
-                data.Add(saldoDolares.ToString().Replace(',', '.'));
-                data.Add(ahorrosPesos.ToString().Replace(',', '.'));
-                data.Add(ahorrosDolares.ToString().Replace(',', '.'));
-
-                estadoGrafico = (saldoPesos + saldoDolares + ahorrosPesos + ahorrosDolares) != 0 ? true : false;
-                #endregion
-
-                return new JsonCamelCaseResult(new AppResponse<object>
-                {
-                    Data = new
-                    {
-                        Success = estadoGrafico,
-                        labels = labels,
-                        data = data
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                return new JsonCamelCaseResult(new AppResponse<object>
-                {
-                    Data = new
-                    {
-                        Success = false,
-                        Message = ex.Message.ToString()
-                    }
-                });
-            }
-        }
-
+        #region [Región: Graficos]
         [HttpPost]
         public JsonResult RefrescarGraficoFlujoDinero()
         {
@@ -383,5 +313,6 @@ namespace Cuentas.Ar.Site.Controllers
                 });
             }
         }
+        #endregion
     }
 }

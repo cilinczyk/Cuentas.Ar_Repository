@@ -24,6 +24,14 @@ namespace Cuentas.Ar.Repository
             }
         }
 
+        public List<Recordatorio> ListarUltimos(int idUsuario, int cantidad)
+        {
+            using (var context = new CuentasArEntities())
+            {
+                return context.Recordatorio.Include("EstadoRecordatorio").Where(x => x.idUsuario == idUsuario).Take(cantidad).OrderByDescending(x => x.FechaVencimiento).ToList();
+            }
+        }
+
         public Recordatorio Obtener(int idRecordatorio)
         {
             using (var context = new CuentasArEntities())

@@ -68,13 +68,13 @@ namespace Cuentas.Ar.Repository
 
                 if (fecha.HasValue)
                 {
-                    var cantIngresos = context.Registro.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.idTipoRegistro == eTipoRegistro.Ingreso != null && x.Fecha <= fecha.Value).ToList();
+                    var cantIngresos = context.Registro.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.idTipoRegistro == eTipoRegistro.Ingreso && x.Fecha <= fecha.Value).ToList();
                     if (cantIngresos.Count() > 0)
                     {
                         ingresos = cantIngresos?.Sum(x => x.Importe) ?? Convert.ToDecimal(0);
                     }
 
-                    var cantGastos = context.Registro.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.idTipoRegistro == eTipoRegistro.Gasto != null && x.Fecha <= fecha.Value).ToList();
+                    var cantGastos = context.Registro.Where(x => x.idUsuario == idUsuario && x.idMoneda == idMoneda && x.idTipoRegistro == eTipoRegistro.Gasto && x.Fecha <= fecha.Value).ToList();
                     if (cantGastos.Count() > 0)
                     {
                         gastos = cantGastos?.Sum(x => x.Importe) ?? Convert.ToDecimal(0);
