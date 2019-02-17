@@ -100,6 +100,12 @@
                                 <canvas id="ChartFlujoDinero" height="200"></canvas>
                             </div>
                         </div>
+                        <div id="SinFlujoDinero" class="mgBottom0" style="display:none; text-align:center">
+                            <img src="~/Content/graficos/SinRegistros.PNG" />
+                            <div class="alert-light mgBottom0" role="alert">
+                                NO SE ENCONTRARON REGISTROS
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -115,9 +121,15 @@
                     </div>
                     <div class="card-body">
                         <div id="GraficoGastosCategoria" style="display:none;">
-                            <div class="">
+                            <div>
                                 <div class="loadingCenter"></div>
                                 <canvas id="ChartGastosCategoria" height="200"></canvas>
+                            </div>
+                        </div>
+                        <div id="SinGastosCategoria" class="mgBottom0" style="display:none; text-align:center">
+                            <img src="~/Content/graficos/SinGastosCategoria.PNG" />
+                            <div class="alert-light mgBottom0" role="alert">
+                                NO SE ENCONTRARON REGISTROS
                             </div>
                         </div>
                     </div>
@@ -137,9 +149,15 @@
                     </div>
                     <div class="card-body">
                         <div id="GraficoBalance" style="display:none;">
-                            <div class="">
+                            <div>
                                 <div class="loadingCenter"></div>
                                 <canvas id="ChartBalance" height="200"></canvas>
+                            </div>
+                        </div>
+                        <div id="SinBalance" class="mgBottom0" style="display:none; text-align:center">
+                            <img src="~/Content/graficos/SinBalance.PNG" />
+                            <div class="alert-light mgBottom0" role="alert">
+                                NO SE ENCONTRARON REGISTROS
                             </div>
                         </div>
                     </div>
@@ -156,45 +174,57 @@
                         <h4 class="card-title ">Últimos Recordatorios</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <tr>
-                                        <th>
-                                            Recordatorio
-                                        </th>
-                                        <th>
-                                            Vencimiento
-                                        </th>
-                                        <th>
-                                            Importe
-                                        </th>
-                                        <th>
-                                            Estado
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in Model.ListaUltimosRecordatorios)
-                                    {
+                        @if (Model.ListaUltimosRecordatorios != null && Model.ListaUltimosRecordatorios.Count > 0)
+                        {
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class=" text-primary">
                                         <tr>
-                                            <td>
-                                                @item.Titulo
-                                            </td>
-                                            <td>
-                                                @item.FechaVencimiento.ToShortDateString()
-                                            </td>
-                                            <td>
-                                                @string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", item.Importe)
-                                            </td>
-                                            <td>
-                                                @item.EstadoRecordatorio.Descripcion
-                                            </td>
+                                            <th>
+                                                Recordatorio
+                                            </th>
+                                            <th>
+                                                Vencimiento
+                                            </th>
+                                            <th>
+                                                Importe
+                                            </th>
+                                            <th>
+                                                Estado
+                                            </th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ListaUltimosRecordatorios)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.Titulo
+                                                </td>
+                                                <td>
+                                                    @item.FechaVencimiento.ToShortDateString()
+                                                </td>
+                                                <td>
+                                                    @string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", item.Importe)
+                                                </td>
+                                                <td>
+                                                    @item.EstadoRecordatorio.Descripcion
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="mgBottom0" style="text-align:center">
+                                <img src="~/Content/graficos/SinRegistros.PNG" />
+                                <div class="alert-light mgBottom0" role="alert">
+                                    NO SE ENCONTRARON REGISTROS
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -218,6 +248,7 @@
             type: "POST",
             success: function (result) {
                 if (result.data.success) {
+                    $("#SinFlujoDinero").hide();
                     $("#GraficoFlujoDinero").fadeIn();
                     $("#GraficoFlujoDinero .loadingCenter").hide();
                     var ctx1 = document.getElementById("ChartFlujoDinero").getContext('2d');
@@ -260,6 +291,7 @@
                 }
                 else {
                     $("#GraficoFlujoDinero").hide();
+                    $("#SinFlujoDinero").show();
                 }
             }
         });
@@ -270,6 +302,7 @@
             type: "POST",
             success: function (result) {
                 if (result.data.success) {
+                    $("#SinGastosCategoria").hide();
                     $("#GraficoGastosCategoria").fadeIn();
                     $("#GraficoGastosCategoria .loadingCenter").hide();
                     var ctx3 = document.getElementById("ChartGastosCategoria").getContext('2d');
@@ -307,6 +340,7 @@
                 }
                 else {
                     $("#GraficoGastosCategoria").hide();
+                    $("#SinGastosCategoria").show();
                 }
             }
         });
@@ -317,6 +351,7 @@
             type: "POST",
             success: function (result) {
                 if (result.data.success) {
+                    $("#SinBalance").hide();
                     $("#GraficoBalance").fadeIn();
                     $("#GraficoBalance .loadingCenter").hide();
 
@@ -362,6 +397,7 @@
                 }
                 else {
                     $("#GraficoBalance").hide();
+                    $("#SinBalance").show();
                 }
             }
         });

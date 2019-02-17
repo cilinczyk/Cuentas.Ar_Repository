@@ -53,5 +53,10 @@ namespace Cuentas.Ar.Business
         {
             return repositorio.ListarUltimos(idUsuario, cantidad);
         }
+
+        public List<Recordatorio> ListarUltimos(int idUsuario, int cantidad, DateTime fechaDesde, DateTime fechaHasta)
+        {
+            return repositorio.ListarUltimos(idUsuario, cantidad, fechaDesde, fechaHasta);
+        }
     }
 }

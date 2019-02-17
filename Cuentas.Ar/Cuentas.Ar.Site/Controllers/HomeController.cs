@@ -32,7 +32,7 @@ namespace Cuentas.Ar.Site.Controllers
         private static M_Home CompletarDatosHome(int idUsuario, M_FiltroMisCuentas filtroMisCuentas)
         {
             Usuario usuario = new UsuarioBusiness().Obtener(idUsuario);
-            List<Recordatorio> listaRecordatorios = new RecordatorioBusiness().ListarUltimos(idUsuario, 5);
+            List<Recordatorio> listaRecordatorios = new RecordatorioBusiness().ListarUltimos(idUsuario, 5, filtroMisCuentas.FechaDesde, filtroMisCuentas.FechaHasta);
             M_Home model = new M_Home();
 
             decimal ingresos = 0;
@@ -42,20 +42,20 @@ namespace Cuentas.Ar.Site.Controllers
             decimal ahorrosPesos = 0;
             decimal ahorrosDolares = 0;
 
-            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
-            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
+            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
             netoPesos = ingresos - gastos;
 
-            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Dolares && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
-            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Dolares && x.idCategoria != eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
+            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares && x.idCategoria != eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
             netoDolares = ingresos - gastos;
 
-            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos && x.idCategoria == eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
-            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos && x.idCategoria == eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos && x.idCategoria == eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
+            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos && x.idCategoria == eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
             ahorrosPesos = ingresos - gastos;
 
-            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Dolares && x.idCategoria == eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
-            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares && x.idCategoria == eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Dolares && x.idCategoria == eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
+            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares && x.idCategoria == eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
             ahorrosDolares = ingresos - gastos;
 
             model = new M_Home();
@@ -190,8 +190,8 @@ namespace Cuentas.Ar.Site.Controllers
                 {
                     labels.Add(diaMes.ToString("dd/MM"));
 
-                    ingresos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.Fecha <= diaMes).Sum(x => x.Importe);
-                    gastos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.Fecha <= diaMes).Sum(x => x.Importe);
+                    ingresos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros && x.Fecha <= diaMes).Sum(x => x.Importe);
+                    gastos = listaRegistros.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros && x.Fecha <= diaMes).Sum(x => x.Importe);
                     neto = ingresos - gastos;
 
                     data.Add(neto.ToString().Replace(',', '.'));
