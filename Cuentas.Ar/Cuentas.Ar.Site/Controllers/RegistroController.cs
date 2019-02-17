@@ -45,8 +45,13 @@ namespace Cuentas.Ar.Site.Controllers
         #region [Región: Alta de Registro]
         public ActionResult Alta()
         {
+            Registro model = new Registro
+            {
+                idMoneda = eMoneda.Pesos
+            };
+
             CargarCombos();
-            return PartialView("_Alta");
+            return PartialView("_Alta", model);
         }
 
         [HttpPost]
@@ -59,7 +64,12 @@ namespace Cuentas.Ar.Site.Controllers
                 int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
 
                 #region [Región: Validaciones]
-                if (model.idTipoRegistro == eTipoRegistro.Gasto)
+                if (ModelState.IsValid && model.Importe <= 0)
+                {
+                    ModelState.AddModelError("AltaRegistro", "El importe debe ser mayor a cero.");
+                }
+
+                if (ModelState.IsValid && model.idTipoRegistro == eTipoRegistro.Gasto)
                 {
                     var registroBusiness = new RegistroBusiness();
                     var saldoActual = registroBusiness.ObtenerSaldoActual(idUsuario, model.idMoneda, model.Fecha);
@@ -129,6 +139,27 @@ namespace Cuentas.Ar.Site.Controllers
         {
             try
             {
+                int idUsuario = Convert.ToInt32(ClaimsPrincipal.Current.FindFirst(ClaimTypes.Sid).Value);
+
+                #region [Región: Validaciones]
+                if (ModelState.IsValid && model.Importe <= 0)
+                {
+                    ModelState.AddModelError("AltaRegistro", "El importe debe ser mayor a cero.");
+                }
+
+                if (ModelState.IsValid && model.idTipoRegistro == eTipoRegistro.Gasto)
+                {
+                    var registroBusiness = new RegistroBusiness();
+                    var saldoActual = registroBusiness.ObtenerSaldoActual(idUsuario, model.idMoneda, model.Fecha);
+                    var importeOriginal = registroBusiness.Obtener(model.idRegistro).Importe;
+
+                    if (model.Importe > (saldoActual + importeOriginal))
+                    {
+                        ModelState.AddModelError("AltaRegistro", string.Format("El importe ingresado supera el saldo actual de su cuenta {0} ({1}).", string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:C2}", saldoActual), model.idMoneda == eMoneda.Pesos ? "Pesos" : "Dolares"));
+                    }
+                }
+                #endregion
+
                 if (ModelState.IsValid)
                 {
                     #region [Región: Edición de Registro]
@@ -227,7 +258,7 @@ namespace Cuentas.Ar.Site.Controllers
 
             if (idCategoria.HasValue)
             {
-                ViewBag.ddl_SubCategoria = new SelectList(new SubCategoriaBusiness().Listar(idCategoria.Value), "idSubCategoria", "Descripcion");
+                ViewBag.ddl_SubCategoria = new SelectList(new SubCategoriaBusiness().Listar(idUsuario, idCategoria.Value), "idSubCategoria", "Descripcion");
             }
             else
             {

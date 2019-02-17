@@ -112,6 +112,7 @@
 
     /*Se cargan las Categorias dependiendo del Tipo de Registro seleccionado*/
     $('#idTipoRegistro').change(function () {
+        console.log("hola");
         var idTipoRegistro = $(this).val();
 
         if (idTipoRegistro != null && idTipoRegistro != "")
@@ -146,6 +147,7 @@
 
     /*Se cargan las Subcategorias dependiendo de la Categoria seleccionada*/
     $('#idCategoria').change(function () {
+        console.log("hola2");
     var idCategoria = $(this).val();
 
     if (idCategoria != null && idCategoria != "")

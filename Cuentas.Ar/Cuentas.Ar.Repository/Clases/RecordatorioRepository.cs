@@ -36,7 +36,7 @@ namespace Cuentas.Ar.Repository
         {
             using (var context = new CuentasArEntities())
             {
-                return context.Recordatorio.Include("EstadoRecordatorio").Where(x => x.idUsuario == idUsuario && x.FechaVencimiento >= desde && x.FechaVencimiento <= hasta).Take(cantidad).OrderByDescending(x => x.FechaVencimiento).ToList();
+                return context.Recordatorio.Include("EstadoRecordatorio").Where(x => x.idUsuario == idUsuario && x.FechaVencimiento >= fechaDesde && x.FechaVencimiento <= fechaHasta).Take(cantidad).OrderByDescending(x => x.FechaVencimiento).ToList();
             }
         }
 
