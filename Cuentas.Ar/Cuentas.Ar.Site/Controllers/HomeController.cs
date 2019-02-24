@@ -41,7 +41,12 @@ namespace Cuentas.Ar.Site.Controllers
             decimal netoDolares = 0;
             decimal ahorrosPesos = 0;
             decimal ahorrosDolares = 0;
+            decimal netoActualPesos = 0;
+            decimal netoActualDolares = 0;
+            decimal ahorrosActualPesos = 0;
+            decimal ahorrosActualDolares = 0;
 
+            #region [Región: Saldos entre fechas]
             ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
             gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
             netoPesos = ingresos - gastos;
@@ -57,6 +62,25 @@ namespace Cuentas.Ar.Site.Controllers
             ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Dolares && x.idCategoria == eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
             gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares && x.idCategoria == eCategoria.Ahorros && x.Fecha >= filtroMisCuentas.FechaDesde && x.Fecha <= filtroMisCuentas.FechaHasta)?.Sum(x => x.Importe) ?? 0;
             ahorrosDolares = ingresos - gastos;
+            #endregion
+
+            #region [Región: Saldos Actuales]
+            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            netoActualPesos = ingresos - gastos;
+
+            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Dolares && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares && x.idCategoria != eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            netoActualDolares = ingresos - gastos;
+            
+            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Pesos && x.idCategoria == eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Pesos && x.idCategoria == eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            ahorrosActualPesos = ingresos - gastos;
+
+            ingresos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Ingreso && x.idMoneda == eMoneda.Dolares && x.idCategoria == eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            gastos = usuario?.Registro.Where(x => x.idTipoRegistro == eTipoRegistro.Gasto && x.idMoneda == eMoneda.Dolares && x.idCategoria == eCategoria.Ahorros)?.Sum(x => x.Importe) ?? 0;
+            ahorrosActualDolares = ingresos - gastos;
+            #endregion
 
             model = new M_Home();
             model.FiltroMisCuentas.FechaDesde = filtroMisCuentas.FechaDesde;
@@ -69,6 +93,11 @@ namespace Cuentas.Ar.Site.Controllers
             model.MisCuentas.SaldoDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", netoDolares);
             model.MisCuentas.AhorrosPesos = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosPesos);
             model.MisCuentas.AhorrosDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosDolares);
+            model.MisCuentas.SaldoActualPesos = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", netoActualPesos);
+            model.MisCuentas.SaldoActualDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", netoActualDolares);
+            model.MisCuentas.AhorrosActualPesos = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosActualPesos);
+            model.MisCuentas.AhorrosActualDolares = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", ahorrosActualDolares);
+
             model.MisCuentas.ListaUltimosRecordatorios = listaRecordatorios;
 
             return model;

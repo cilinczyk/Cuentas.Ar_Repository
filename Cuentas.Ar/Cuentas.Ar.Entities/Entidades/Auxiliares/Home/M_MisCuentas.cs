@@ -30,6 +30,14 @@ namespace Cuentas.Ar.Entities
 
         public string AhorrosDolares { get; set; }
 
+        public string SaldoActualPesos { get; set; }
+
+        public string SaldoActualDolares { get; set; }
+
+        public string AhorrosActualPesos { get; set; }
+
+        public string AhorrosActualDolares { get; set; }
+
         public List<Recordatorio> ListaUltimosRecordatorios { get; set; }
     }
 }
