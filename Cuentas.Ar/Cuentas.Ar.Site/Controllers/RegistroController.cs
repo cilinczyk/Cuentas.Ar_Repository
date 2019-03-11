@@ -47,7 +47,8 @@ namespace Cuentas.Ar.Site.Controllers
         {
             Registro model = new Registro
             {
-                idMoneda = eMoneda.Pesos
+                idMoneda = eMoneda.Pesos,
+                Fecha = DateTime.Now
             };
 
             CargarCombos();
