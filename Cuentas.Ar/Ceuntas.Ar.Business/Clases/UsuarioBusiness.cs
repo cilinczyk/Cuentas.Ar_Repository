@@ -42,10 +42,5 @@ namespace Cuentas.Ar.Business
         {
             repositorio.Modificar(model);
         }
-
-        public void ActualizarCapacidadAhorro(Usuario model)
-        {
-            repositorio.ActualizarCapacidadAhorro(model);
-        }
     }
 }

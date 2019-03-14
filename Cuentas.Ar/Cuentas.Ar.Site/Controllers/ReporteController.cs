@@ -42,10 +42,10 @@ namespace Cuentas.Ar.Site.Controllers
             {
                 M_RegistroExcel registroExcel = new M_RegistroExcel
                 {
-                    TipoRegistro = item.TipoRegistro.Descripcion,
-                    Categoria = item.Categoria.Descripcion,
-                    SubCategoria = item.SubCategoria.Descripcion,
-                    Moneda = item.Moneda.Descripcion,
+                    TipoRegistro = item.TipoRegistro?.Descripcion ?? "-",
+                    Categoria = item.Categoria?.Descripcion ?? "-",
+                    SubCategoria = item.SubCategoria?.Descripcion ?? "-",
+                    Moneda = item.Moneda?.Descripcion ?? "-",
                     Importe = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", item.Importe),
                     Fecha = item.Fecha.ToShortDateString(),
                     Descripcion = !string.IsNullOrEmpty(item.Descripcion) ? item.Descripcion : "-"
@@ -111,8 +111,8 @@ namespace Cuentas.Ar.Site.Controllers
                 M_ObjetivoExcel objetivoExcel = new M_ObjetivoExcel
                 {
                     Motivo = item.Motivo,
-                    EstadoObjetivo = item.EstadoObjetivo.Descripcion,
-                    Moneda = item.Moneda.Descripcion,
+                    EstadoObjetivo = item.EstadoObjetivo?.Descripcion ?? "-",
+                    Moneda = item.Moneda?.Descripcion ?? "-",
                     Importe = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", item.Importe),
                     FechaVencimiento = item.FechaVencimiento.ToShortDateString(),
                     Descripcion = !string.IsNullOrEmpty(item.Descripcion) ? item.Descripcion : "-"
@@ -177,11 +177,11 @@ namespace Cuentas.Ar.Site.Controllers
             {
                 M_RecordatorioExcel recordatorioExcel = new M_RecordatorioExcel
                 {
-                    EstadoRecordatorio = item.EstadoRecordatorio.Descripcion,
-                    Categoria = item.Categoria.Descripcion,
-                    SubCategoria = item.SubCategoria.Descripcion,
+                    EstadoRecordatorio = item.EstadoRecordatorio?.Descripcion ?? "-",
+                    Categoria = item.Categoria?.Descripcion ?? "-",
+                    SubCategoria = item.SubCategoria?.Descripcion ?? "-",
                     Titulo = item.Titulo,
-                    Moneda = item.Moneda.Descripcion,
+                    Moneda = item.Moneda?.Descripcion ?? "-",
                     Importe = string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", item.Importe),
                     FechaVencimiento = item.FechaVencimiento.ToShortDateString(),
                     Descripcion = !string.IsNullOrEmpty(item.Descripcion) ? item.Descripcion : "-"
