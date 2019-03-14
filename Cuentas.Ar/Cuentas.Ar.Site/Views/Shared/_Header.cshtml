@@ -1,8 +1,27 @@
-﻿<!-- Navbar -->
+﻿@using System.Security.Claims;
+
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
         <div class="navbar-wrapper">
-            <a class="navbar-brand" href="">MisCuentas</a>
+            @{
+                int hora = DateTime.Now.TimeOfDay.Hours;
+                string saludo = string.Empty;
+
+                if (hora < 13)
+                {
+                    saludo = string.Format("¡Buenos Días {0}!", ClaimsPrincipal.Current.FindFirst(ClaimTypes.GivenName).Value);
+                }
+                else if (hora >= 13 && hora < 19)
+                {
+                    saludo = string.Format("¡Buenas Tardes {0}!", ClaimsPrincipal.Current.FindFirst(ClaimTypes.GivenName).Value);
+                }
+                else
+                {
+                    saludo = string.Format("¡Buenas Noches {0}!", ClaimsPrincipal.Current.FindFirst(ClaimTypes.GivenName).Value);
+                }
+            }
+            <a class="navbar-brand" href="">@saludo</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>

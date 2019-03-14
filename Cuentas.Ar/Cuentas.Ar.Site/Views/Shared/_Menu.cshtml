@@ -1,11 +1,13 @@
-﻿@{
+﻿@using System.Security.Claims;
+@{
+
     var Controlador = ViewContext.RouteData.Values["controller"].ToString();
     var Accion = ViewContext.RouteData.Values["action"].ToString();
 }
 
 <div class="sidebar" data-color="purple" data-background-color="black" data-image="../../Content/assets/img/sidebar-1.jpg">
     <div class="logo">
-        <a class="simple-text logo-normal" style="text-align:center">
+        <a class="logo-normal" style="text-align:center; color:ghostwhite">
             MisCuentas.com
         </a>
     </div>
@@ -20,7 +22,10 @@
 
             @Html.MenuActionLinkMenu("Recordatorios", "Listado", "Recordatorio", "clock-o")
 
-            @Html.MenuActionLinkMenu("Reportes", "Listado", "Reporte", "table")
+            @if (Convert.ToInt32(ClaimsPrincipal.Current.FindFirst("idTipoCuenta").Value) != eTipoCuenta.Premium)
+            {
+                @Html.MenuActionLinkMenu("Reportes", "Listado", "Reporte", "table")
+            }
 
             @Html.MenuActionLinkMenu("Perfil", "MisDatos", "Usuario", "user")
 

@@ -142,7 +142,7 @@ namespace Cuentas.Ar.Site.Controllers
                 #region [Región: Labels]
                 labels.Add("Ingresos");
                 labels.Add("Gastos");
-                labels.Add("Ahorros");
+                //labels.Add("Ahorros");
                 #endregion
 
                 #region [Región: Data]
@@ -155,7 +155,7 @@ namespace Cuentas.Ar.Site.Controllers
 
                 data.Add(ingresos.ToString().Replace(',', '.'));
                 data.Add(gastos.ToString().Replace(',', '.'));
-                data.Add(ahorros.ToString().Replace(',', '.'));
+                //data.Add(ahorros.ToString().Replace(',', '.'));
 
                 estadoGrafico = (ingresos + gastos + ahorros) != 0 ? true : false;
                 #endregion

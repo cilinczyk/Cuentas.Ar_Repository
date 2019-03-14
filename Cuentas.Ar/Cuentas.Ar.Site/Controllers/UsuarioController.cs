@@ -212,7 +212,10 @@ namespace Cuentas.Ar.Site.Controllers
             }
             else
             {
-                ViewBag.ddl_Localidad = new SelectListItem() { Text = "", Value = "" };
+                List<SelectListItem> listaVacia = new List<SelectListItem>();
+                listaVacia.Add(new SelectListItem() { Text = "", Value = "" });
+
+                ViewBag.ddl_Localidad = new SelectList(listaVacia);
             }
         }
         #endregion
